@@ -59,17 +59,15 @@ export const routes: Routes = [
         loadChildren: () => import('./views/crear-silabo/crear-silabo.module').then(m => m.CrearSilaboModule)
       },
       {
-<<<<<<< HEAD
         path: 'resultado-aprendizaje-asignatura',
         loadChildren: () => import('./views/resultado-aprendizaje-asignatura/resultado-aprendizaje-asignatura.module').then(m => m.ResultadoAprendizajeAsignaturaModule)
-=======
-        path: 'contenido-asignatura',
+      },
+      {  path: 'contenido-asignatura',
         loadChildren: () => import('./views/contenido-asignatura/contenido-asignatura.module').then(m => m.ContenidoAsignaturaModule)
       },
       {
         path: 'descripcion-objetivos',
         loadChildren: () => import('./views/descripcion-objetivos/descripcion-objetivos.module').then(m => m.DescripcionObjetivosModule)
->>>>>>> 9c4bbdf7abd7ba792c4d5f9eb4fb760028cccc22
       },
       {
         path: 'buttons',
