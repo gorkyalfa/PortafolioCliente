@@ -59,6 +59,14 @@ export const routes: Routes = [
         loadChildren: () => import('./views/crear-silabo/crear-silabo.module').then(m => m.CrearSilaboModule)
       },
       {
+        path: 'contenido-asignatura',
+        loadChildren: () => import('./views/contenido-asignatura/contenido-asignatura.module').then(m => m.ContenidoAsignaturaModule)
+      },
+      {
+        path: 'descripcion-objetivos',
+        loadChildren: () => import('./views/descripcion-objetivos/descripcion-objetivos.module').then(m => m.DescripcionObjetivosModule)
+      },
+      {
         path: 'buttons',
         loadChildren: () => import('./views/buttons/buttons.module').then(m => m.ButtonsModule)
       },
