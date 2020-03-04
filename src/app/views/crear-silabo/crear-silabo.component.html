@@ -1,8 +1,7 @@
 <div class="app-body">
-  <main class="main d-flex align-items-center">
     <div class="container">
       <div class="row">
-        <div class="col-md-8 mx-auto">
+        <div class="col-md-6 mx-auto">
           <div class="card border-info">
             <div class="card p-4">
               <div class="card-body">
@@ -18,7 +17,8 @@
                     </div>
                   </div>
                   <div class="row">
-                    <div class="col-6">
+                    <div class="col-md-3"></div>
+                    <div class="col-md-6">
                       <button type="button" class="btn btn-primary px-4">Crear vacio</button>
                     </div>
                   </div>
@@ -27,16 +27,14 @@
             </div>
           </div>
         </div>
-      </div>
-      <div class="row">
-        <div class="col-md-8 mx-auto">
+        <div class="col-md-6 mx-auto">
           <div class="card border-info">
             <div class="card p-4">
               <div class="card-body">
                 <form [formGroup]="allAsignaturasForm" (ngSubmit)="onSubmit()">
                   <h1>Clonar Sílabo</h1>
                   <div class="form-group row">
-                    <label class="col-md-3 col-form-label" for="anteriores">Anteriores periodos lectivos</label>
+                    <label class="col-md-3 col-form-label" for="anteriores">Anteriores</label>
                     <div class="col-md-9">
                       <select formControlName="allAsignatura">
                         <option>Seleccione Asignatura</option>
@@ -45,6 +43,7 @@
                     </div>
                   </div>
                   <div class="row">
+                    <div class="col-md-3"></div>
                     <div class="col-6">
                       <button type="button" class="btn btn-primary px-4">Clonar Silabo</button>
                     </div>
@@ -56,7 +55,6 @@
         </div>
       </div>
     </div>
-  </main>
 </div>
 
 <br>
@@ -90,7 +88,7 @@
   <div class="col-sm-6">
     <div class="card border-success">
       <div class="card-header">
-        <strong>Correquisitos de la asignatura</strong>
+        <strong>Correquisitos</strong>
       </div>
       <div class="card-body">
         <table datatable class="row-border hover">
