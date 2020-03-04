@@ -1,0 +1,115 @@
+<div class="app-body">
+  <main class="main d-flex align-items-center">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-8 mx-auto">
+          <div class="card border-info">
+            <div class="card p-4">
+              <div class="card-body">
+                <form [formGroup]="asignaturasForm" (ngSubmit)="onSubmit()">
+                  <h1>Crear Sílabo</h1>
+                  <div class="form-group row">
+                    <label class="col-md-3 col-form-label" for="name">Asignatura</label>
+                    <div class="col-md-9">
+                      <select formControlName="asignaturas">
+                        <option>Seleccione Asignatura</option>
+                        <option *ngFor="let asignatura of asignaturas">{{asignatura.nombre}}</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-6">
+                      <button type="button" class="btn btn-primary px-4">Crear vacio</button>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-8 mx-auto">
+          <div class="card border-info">
+            <div class="card p-4">
+              <div class="card-body">
+                <form [formGroup]="allAsignaturasForm" (ngSubmit)="onSubmit()">
+                  <h1>Clonar Sílabo</h1>
+                  <div class="form-group row">
+                    <label class="col-md-3 col-form-label" for="anteriores">Anteriores periodos lectivos</label>
+                    <div class="col-md-9">
+                      <select formControlName="allAsignatura">
+                        <option>Seleccione Asignatura</option>
+                        <option *ngFor="let allAsignatura of allAsignaturas">{{allAsignatura.nombre}}</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-6">
+                      <button type="button" class="btn btn-primary px-4">Clonar Silabo</button>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>
+
+<br>
+<div class="row">
+  <div class="col-sm-6">
+    <div class="card border-success">
+      <div class="card-header">
+        <strong>Prerrequisitos de la asignatura</strong>
+      </div>
+      <div class="card-body">
+        <table datatable class="row-border hover">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Nombre</th>
+              <th>Codigo</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let prerrequisito of prerrequisitosAsignatura">
+              <td>{{ prerrequisito.id }}</td>
+              <td>{{ prerrequisito.nombre }}</td>
+              <td>{{ prerrequisito.codigo }}</td>
+            </tr>
+          </tbody>
+        </table>           
+      </div>
+    </div>
+  </div>
+  <!--/.col-->
+  <div class="col-sm-6">
+    <div class="card border-success">
+      <div class="card-header">
+        <strong>Correquisitos de la asignatura</strong>
+      </div>
+      <div class="card-body">
+        <table datatable class="row-border hover">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Nombre</th>
+              <th>Codigo</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let correquisito of correquisitosAsignatura">
+              <td>{{ correquisito.id }}</td>
+              <td>{{ correquisito.nombre }}</td>
+              <td>{{ correquisito.codigo }}</td>
+            </tr>
+          </tbody>
+        </table>      
+      </div>
+    </div>
+  </div>
+</div>
