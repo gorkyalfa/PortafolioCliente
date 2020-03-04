@@ -129,9 +129,20 @@ export const navItems: INavData[] = [
     icon: 'icon-speedometer',
   },
   {
+<<<<<<< HEAD
     name: 'Resultados de Aprendizaje de Asignatura',
     url: '/resultado-aprendizaje-asignatura',
     icon: 'icon-user',
+=======
+    name: 'Contenido Asignatura',
+    url: '/contenido-asignatura',
+    icon: 'icon-speedometer',
+  },
+  {
+    name: 'Descripcion Objetivos',
+    url: '/descripcion-objetivos',
+    icon: 'icon-speedometer',
+>>>>>>> 9c4bbdf7abd7ba792c4d5f9eb4fb760028cccc22
   },
   {
     name: 'Icons',
