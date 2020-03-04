@@ -129,6 +129,11 @@ export const navItems: INavData[] = [
     icon: 'icon-speedometer',
   },
   {
+    name: 'Resultados de Aprendizaje de Asignatura',
+    url: '/resultado-aprendizaje-asignatura',
+    icon: 'icon-user',
+  },
+  {
     name: 'Icons',
     url: '/icons',
     icon: 'icon-star',
@@ -215,6 +220,11 @@ export const navItems: INavData[] = [
         name: 'Crear Sílabo',
         url: '/crear-silabo',
         icon: 'icon-speedometer',
+      },
+      {
+        name: 'Resultados de Aprendizaje de Asignatura',
+        url: '/resultado-aprendizaje-asignatura',
+        icon: 'icon-user',
       },
       {
         name: 'Register',
