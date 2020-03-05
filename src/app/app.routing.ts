@@ -59,7 +59,10 @@ export const routes: Routes = [
         loadChildren: () => import('./views/crear-silabo/crear-silabo.module').then(m => m.CrearSilaboModule)
       },
       {
-        path: 'contenido-asignatura',
+        path: 'resultado-aprendizaje-asignatura',
+        loadChildren: () => import('./views/resultado-aprendizaje-asignatura/resultado-aprendizaje-asignatura.module').then(m => m.ResultadoAprendizajeAsignaturaModule)
+      },
+      {  path: 'contenido-asignatura',
         loadChildren: () => import('./views/contenido-asignatura/contenido-asignatura.module').then(m => m.ContenidoAsignaturaModule)
       },
       {
