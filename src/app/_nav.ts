@@ -139,6 +139,11 @@ export const navItems: INavData[] = [
     icon: 'icon-speedometer',
   },
   {
+    name: 'Estrategias Recursos',
+    url: '/estrategias-recursos',
+    icon: 'icon-speedometer',
+  },
+  {
     name: 'Descripcion Objetivos',
     url: '/descripcion-objetivos',
     icon: 'icon-speedometer',

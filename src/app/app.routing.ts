@@ -70,6 +70,10 @@ export const routes: Routes = [
         loadChildren: () => import('./views/descripcion-objetivos/descripcion-objetivos.module').then(m => m.DescripcionObjetivosModule)
       },
       {
+        path: 'estrategias-recursos',
+        loadChildren: () => import('./views/estrategias-recursos/estrategias-recursos.module').then(m => m.EstrategiasRecursosModule)
+      },
+      {
         path: 'buttons',
         loadChildren: () => import('./views/buttons/buttons.module').then(m => m.ButtonsModule)
       },
