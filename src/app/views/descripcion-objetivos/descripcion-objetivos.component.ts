@@ -17,6 +17,7 @@ export class DescripcionObjetivosComponent implements OnInit {
     asignaturas: ['']
   }) 
   
+
   
   ngOnInit() {
     this.getAsignatura(1);
