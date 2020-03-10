@@ -1,46 +1,51 @@
-
-  <div class="card">
-    <div class="card-header">
-      <strong>Descripción De La Asignatura</strong>
-      <small></small>
-    </div>
-    <div class="card-body">
-    <div class="form-group row">
-    <div class="col-md-9">
-    <textarea id="textarea-input" name="textarea-input" rows="9" class="form-control" placeholder="Contenido.."></textarea>
+<div class="card">
+  <div class="card-header">
+    <strong>Descripción De La Asignatura</strong>
+    <small></small>
   </div>
-</div>   
-
-    </div><!--/.row-->
-    </div>
-    <div class="row justify-content-end">
-        <div class="mx-3 mb-xl-0">
-            <button type="button" class="btn btn-block btn-outline-primary">Atras</button>
-        </div>
-            <div class="mx-3 mb-xl-0">
-                <button type="button" class="btn btn-block btn-outline-primary">Siguiente</button>
-          </div>  
-            </div>
-    
-  <div class="card">
-    <div class="card-header">
-      <strong>Objetivos De La Asignatura</strong>
-      <small></small>
-    </div>
-    <div class="card-body">
+  <div class="card-body">
     <div class="form-group row">
-    <div class="col-md-9">
-    <textarea id="textarea-input" name="textarea-input" rows="9" class="form-control" placeholder="Contenido.."></textarea>
-    
+      <div class="col-md-9">
+        <textarea id="textarea-input" name="textarea-input" rows="9" class="form-control" placeholder="Contenido..">
+          {{asignatura.descripcion}}
+        </textarea>
+      </div>
     </div>
+
+  </div>
+  <!--/.row-->
+</div>
+<div class="row justify-content-end">
+  <div class="mx-3 mb-xl-0">
+    <button type="button" class="btn btn-block btn-outline-primary">Atras</button>
+  </div>
+  <div class="mx-3 mb-xl-0">
+    <button type="button" class="btn btn-block btn-outline-primary">Siguiente</button>
+  </div>
+</div>
+
+<div class="card">
+  <div class="card-header">
+    <strong>Objetivos De La Asignatura</strong>
+    <small></small>
+  </div>
+  <div class="card-body">
+    <div class="form-group row">
+      <div class="col-md-9">
+        <textarea id="textarea-input" name="textarea-input" rows="9" class="form-control"
+          placeholder="Contenido..">
+          {{asignatura.objetivo}}
+        </textarea>
+      </div>
     </div>
-    </div><!--/.row-->
-    </div>
-    <div class="row justify-content-end">
-        <div class="mx-3 mb-xl-0">
-            <button type="button" class="btn btn-block btn-outline-primary">Atras</button>
-        </div>
-            <div class="mx-3 mb-xl-0">
-                <button type="button" class="btn btn-block btn-outline-primary">Siguiente</button>
-          </div>  
-            </div>
+  </div>
+  <!--/.row-->
+</div>
+<div class="row justify-content-end">
+  <div class="mx-3 mb-xl-0">
+    <button type="button" class="btn btn-block btn-outline-primary">Atras</button>
+  </div>
+  <div class="mx-3 mb-xl-0">
+    <button type="button" class="btn btn-block btn-outline-primary">Siguiente</button>
+  </div>
+</div>
