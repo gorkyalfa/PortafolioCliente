@@ -1,0 +1,7 @@
+export class Asignatura {
+    id: number;
+    nombre: string;
+    codigo: string;
+    descripcion: string;
+    objetivo: string;
+}
