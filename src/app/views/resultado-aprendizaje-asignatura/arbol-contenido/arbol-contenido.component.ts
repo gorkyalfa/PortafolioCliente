@@ -1,41 +1,31 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, ViewChild } from '@angular/core';
+import { ResultadoAprendizajeAsignaturaService } from '../resultado-aprendizaje-asignatura.service';
+import { TreeComponent } from 'angular-tree-component';
 
 @Component({
   selector: 'app-arbol-contenido',
-  template: '<tree-root (moveNode)="onMoveNode($event)" [nodes]="nodes" [options]="options"></tree-root>'
-})
+  template: '<tree-root #arbol (activate)="seleccionarNodo($event)" (moveNode)="onMoveNode($event)" [nodes]="nodos" [options]="options"></tree-root>'
+})  
 export class ArbolContenidoComponent {
   
-  
-  nodes = [
-    {
-      id: 1,
-      name: 'root1',
-      children: [
-        { id: 2, name: 'child1' },
-        { id: 3, name: 'child2' }
-      ]
-    },
-    {
-      id: 4,
-      name: 'root2',
-      children: [
-        { id: 5, name: 'child2.1' },
-        {
-          id: 6,
-          name: 'child2.2',
-          children: [
-            { id: 7, name: 'subsub' }
-          ]
-        }
-      ]
-    }
-  ];
+  constructor(public servicio: ResultadoAprendizajeAsignaturaService) { }
+
+  @Input() nodos: any;
+
+  @ViewChild(TreeComponent)
+  private arbol: TreeComponent;
 
   options = {
     allowDrag: true,
     allowDrop: true
   };
+
+  seleccionarNodo($event) {
+    this.servicio.setActualNodeId($event.node.id);
+    console.log(this.servicio.actual);
+    this.arbol.treeModel.update();
+    console.log(this.servicio.getNodo(this.servicio.actual));
+  }
 
   onMoveNode($event) {
     console.log(
