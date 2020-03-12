@@ -15,6 +15,6 @@ import { DescripcionObjetivosRoutingModule } from './descripcion-objetivos-routi
     DescripcionObjetivosRoutingModule,
     ButtonsModule.forRoot()
   ],
-  declarations: [ DescripcionObjetivosComponent ]
+  declarations: [DescripcionObjetivosComponent]
 })
 export class DescripcionObjetivosModule { }
