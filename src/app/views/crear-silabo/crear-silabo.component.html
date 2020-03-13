@@ -65,14 +65,14 @@
         <strong>Prerrequisitos de la asignatura</strong>
       </div>
       <div class="card-body">
-        <table datatable class="row-border hover">
+        <table class="table table-sm" class="row-border hover">
           <thead>
             <tr>
               <th>ID</th>
               <th>Nombre</th>
               <th>Codigo</th>
             </tr>
-          </thead>
+          </thead>    
           <tbody>
             <tr *ngFor="let prerrequisito of prerrequisitosAsignatura">
               <td>{{ prerrequisito.id }}</td>
@@ -91,7 +91,7 @@
         <strong>Correquisitos</strong>
       </div>
       <div class="card-body">
-        <table datatable class="row-border hover">
+        <table table class="table table-sm" class="row-border hover">
           <thead>
             <tr>
               <th>ID</th>
