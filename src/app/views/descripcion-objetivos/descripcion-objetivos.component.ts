@@ -8,27 +8,32 @@ import { Asignatura } from '../../entidades/asignatura';
   templateUrl: './descripcion-objetivos.component.html'
 })
 export class DescripcionObjetivosComponent implements OnInit {
-  
-  asignatura: Asignatura;  
 
-  constructor(private formBuilder: FormBuilder, private descripcionObjetivosService: DescripcionObjetivosService) {}
-    
-   asignaturasForm = this.formBuilder.group({
+  asignatura: Asignatura;
+
+  constructor(private formBuilder: FormBuilder, private descripcionObjetivosService: DescripcionObjetivosService) { }
+
+  asignaturasForm = this.formBuilder.group({
     asignaturas: ['']
-  }) 
-  
+  })
 
-  
+
+
   ngOnInit() {
     this.getAsignatura(1);
   }
 
-  getAsignatura (id:number): void {
+  getAsignatura(id: number): void {
     this.descripcionObjetivosService.getAsignatura(id)
-        .subscribe(asignatura => this.asignatura = asignatura);
+      .subscribe(asignatura => this.asignatura = asignatura);
   }
-  
-    submit() {
-      alert(JSON.stringify(this.asignaturasForm.value))
-    }
+
+  submit() {
+    alert(JSON.stringify(this.asignaturasForm.value))
   }
+
+  textAreaAdjust(o) {
+    o.style.height = "1px";
+    o.style.height = (25 + o.scrollHeight) + "px";
+  }
+}

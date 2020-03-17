@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {EstrategiasRecursosService } from "./estrategias-recursos.service"
 
 @Component({
   selector: 'app-estrategias-recursos',
@@ -6,9 +7,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class EstrategiasRecursosComponent implements OnInit {
 
-  constructor() { }
+  datos:any;
+  constructor(private estrategiaservicio: EstrategiasRecursosService) { }
 
   ngOnInit(): void {
+    this.getDatos();
+  }
+  getDatos():void {
+    this.estrategiaservicio.getDatos().subscribe(datos => this.datos=datos);
+    console.log(this.datos);
   }
 
 }

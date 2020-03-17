@@ -38,10 +38,14 @@ export class ResultadoAprendizajeAsignaturaComponent implements OnInit {
     this.setIdAutomatico(nodo, indice+1);
 
   } */
+  idPred = 13;
+  setIdAutomatico() {
+    return this.idPred = this.idPred+1;
+  }
 
   agregarRaiz(): void {
-    this.datos.push({name: 'ejemplo', children: []});
-    //this.setIdAutomatico(this.datos, 0);
+    this.datos.push({id: this.idPred, name: 'ejemplo', children: []});
+    this.setIdAutomatico();
   }
 
   agregarProceso(): void {

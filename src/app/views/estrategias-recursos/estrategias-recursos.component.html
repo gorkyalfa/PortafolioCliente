@@ -1,39 +1,14 @@
 <div class="mb-4">
 
-        <div class="card">
-            <div class="card-header">
-                <strong>Estrategias Metodologicas</strong>
-            </div>
-            <div class="card-body">
-                <div class="">
-                    <div class="">
-                        <div class="form-group row">
-                            <label class="col-md-3" for="name">Estrategia</label>
-                            <div class="col-md-9">
-                                <textarea id="textarea-input" name="textarea-input" rows="3" class="form-control"
-                                    placeholder=""></textarea>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="form-group row">
-                <label class="col-md-3" for="name">Finalidad</label>
-                <div class="col-md-9">
-                    <textarea id="textarea-input" name="textarea-input" rows="3" class="form-control"
-                        placeholder=""></textarea>
-                </div>
-
-                </div>
-            </div>
-
-        </div>
+        
 
         <div class="card">
+            <div class="card text-white bg-success"></div>
 
             <div class="card-header">
                 <strong>Recursos Didacticos</strong>
             </div>
+            <div class="card text-white bg-success"></div>
             <div class="card-body form-horizontal">
 
                 <!--/.row-->
@@ -41,101 +16,217 @@
                     <label class="col-form-label col-md-3" for="select1">Tipo de Material</label>
                     <div>
                         <select id="select1" name="select1" class="form-control">
-                            <option value="0">Please select</option>
-                            <option value="1">Option #1</option>
-                            <option value="2">Option #2</option>
-                            <option value="3">Option #3</option>
+
+                            <option *ngFor="let dato of datos" (value)="dato.id"> {{dato.nombre}} </option>
+                           
                         </select>
                     </div>
                 </div>
                 <div class="form-group row">
                     <label class="col-md-3 col-form-label">Material</label>
                         <textarea id="textarea-input" name="textarea-input" rows="3" class="form-control col-md-9"
-                            placeholder="Content.."></textarea>
+                            placeholder="Contenido"></textarea>
                 </div>
             </div>
-
-
-
-               
-        </div>
-    <div class="row justify-content-end">
-        <div class="mx-3 mb-xl-0">
-            <button type="button" class="btn btn-block btn-primary">Atras</button>
-        </div>
-        <div class="mx-3 mb-xl-0">
-            <button type="button" class="btn btn-block btn-primary">Siguiente</button>
-        </div>
-    </div>
-</div>
-<!--/.col-->
+            <div class="row justify-content-end">
         
-    <div class="card">
-        <div class="card-header">
-            <strong>Estrategias Metodologicas</strong>
-        </div>
-        <div class="card-body">
-            <div class="">
-                <div class="">
+                <div class="mx-5 mb-3">
+                    <button type="button" class="btn-block btn-primary">Crear</button>
+                    
+                </div>
+                
+                
+            </div>
+            <table class="table table-sm">
+                <thead>
+                  <tr>
+                    <th>Tipo de Material</th>
+                    <th>Material</th>
+                    <th>Codigo</th>
+                    <th>Descripcion</th>
+                    <th>Eliminar</th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let dato of datos" >
+                    <td>{{dato.nombre}}</td>
+                    <td></td>
+                    <td></td>
+                    <td>
+                      <span class="badge badge"></span>
+                    </td>
+                    <td></td>
                     <div class="form-group row">
-                        <label class="col-md-3" for="name">Estrategia</label>
-                        <div class="col-md-9">
-                            <textarea id="textarea-input" name="textarea-input" rows="3" class="form-control"
-                                placeholder=""></textarea>
+                        <label class="col-md-3 col-form-label" ></label>
+                        <div class="col-md-9 col-form-label">
+                          <div class="form-check">
+                            <input class="form-check-input" type="radio" name="radios" id="radio1" value="" checked>
+                            <label class="form-check-label" for="radio1">
+                            </label>
+                          </div>
                         </div>
                     </div>
+                  </tr>
+                  
+                </tbody>
+              </table>
+            
+            
+            <div class="card">
+                <div class="card text-white bg-success"></div>
+                <div class="card-header">
+                    
+                   
+                    <strong>Estrategias Metodologicas</strong>
+                    
                 </div>
-            </div>
+                <div class="card text-white bg-success"></div>
+                <div class="card-body">
 
-            <div class="form-group row">
-            <label class="col-md-3" for="name">Finalidad</label>
-            <div class="col-md-9">
-                <textarea id="textarea-input" name="textarea-input" rows="3" class="form-control"
-                    placeholder=""></textarea>
-            </div>
+                    <div class="">
+                        <div class="">
+                            <div class="form-group row">
+                                <label class="col-md-3" for="name">Estrategia</label>
+                                <div class="col-md-9">
+                                    <textarea id="textarea-input" name="textarea-input" rows="3" class="form-control"
+                                        placeholder=""></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+    
+                    <div class="form-group row">
+                    <label class="col-md-3" for="name">Finalidad</label>
+                    <div class="col-md-9">
+                        <textarea id="textarea-input" name="textarea-input" rows="3" class="form-control"
+                            placeholder=""></textarea>
+                    </div>
+    
+                    </div>
 
-            </div>
-        </div>
-
-    </div>
-
-    <div class="card">
-
-        <div class="card-header">
-            <strong>Recursos Didacticos</strong>
-        </div>
-        <div class="card-body form-horizontal">
-
-            <!--/.row-->
-            <div class="form-group row">
-                <label class="col-form-label col-md-3" for="select1">Tipo de Material</label>
-                <div>
-                    <select id="select1" name="select1" class="form-control">
-                        <option value="0">Please select</option>
-                        <option value="1">Option #1</option>
-                        <option value="2">Option #2</option>
-                        <option value="3">Option #3</option>
-                    </select>
-                </div>
-            </div>
-            <div class="form-group row">
-                <label class="col-md-3 col-form-label">Material</label>
-                    <textarea id="textarea-input" name="textarea-input" rows="3" class="form-control col-md-9"
-                        placeholder="Content.."></textarea>
-            </div>
-        </div>
-
-
-
-           
-    </div>
-<div class="row justify-content-end">
-    <div class="mx-3 mb-xl-0">
-        <button type="button" class="btn btn-block btn-primary">Atras</button>
-    </div>
-    <div class="mx-3 mb-xl-0">
-        <button type="button" class="btn btn-block btn-primary">Siguiente</button>
-    </div>
-</div>
-</div>
-<!--/.col-->
+                    <div class="row justify-content-end">
+        
+                        <div class="mx-5 mb-3">
+                            <button type="button" class="block btn-primary">Crear</button>
+                        </div>
+                    </div>
+                    <table class="table table-sm">
+                        <thead>
+                          <tr>
+                            <th>Tipo de Material</th>
+                            <th>Material</th>
+                            <th>Codigo</th>
+                            <th>Descripcion</th>
+                            <th>Eliminar</th>
+                            <th></th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          
+                          <tr>
+                            <td>Materiales</td>
+                            <td>Impresos(textos)</td>
+                            <td>fotocopi</td>
+                            <td>
+                              <span class="badge badge">A8FFG5864</span>
+                            </td>
+                            <td></td>
+                            
+                            <div class="form-group row">
+                                <label class="col-md-3 col-form-label" ></label>
+                                <div class="col-md-9 col-form-label">
+                                  <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="radios" id="radio1" value="" checked>
+                                    <label class="form-check-label" for="radio1">
+                                    
+                                    </label>
+                                  </div>
+                                </div>
+                            </div>
+                          </tr>
+                          <tr>
+                            <td>Materiales</td>
+                            <td>Impresos(textos)</td>
+                            <td>fotocopi</td>
+                            <td>
+                              <span class="badge badge"></span>
+                            </td>
+                            <td></td>
+                            <div class="form-group row">
+                                <label class="col-md-3 col-form-label" ></label>
+                                <div class="col-md-9 col-form-label">
+                                    
+                                  <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="radios" id="radio1" value="" checked>
+                                    <label class="form-check-label" for="radio1">
+                                    
+                                    </label>
+                                  </div>
+                                </div>
+                            </div>
+                            
+                          </tr>
+                          <tr>
+                            <td>Materiales</td>
+                            <td>Impresos(textos)</td>
+                            <td>fotocopi</td>
+                            <td>
+                              <span class="badge badge">A8FFG5864</span>
+                            </td>
+                            <td>zzzzzzzz</td>
+                            <div class="form-group row">
+                                <label class="col-md-3 col-form-label" ></label>
+                                <div class="col-md-9 col-form-label">
+                                  <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="radios" id="radio1" value="" checked>
+                                    <label class="form-check-label" for="radio1">
+                                    
+                                    </label>
+                                  </div>
+                                </div>
+                            </div>
+                          </tr>
+                          <tr>
+                            <td>Materiales</td>
+                            <td>Impresos(textos)</td>
+                            <td>fotocopi</td>
+                            <td>
+                                
+                              <span class="badge badge">A8FFG5864</span>
+                            </td>
+                            <td>zzzzzzzz</td>
+                            <div class="form-group row">
+                                <label class="col-md-3 col-form-label" ></label>
+                                <div class="col-md-9 col-form-label">
+                                  <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="radios" id="radio1" value="" checked>
+                                    <label class="form-check-label" for="radio1">
+                                    </label>
+                                  </div>
+                                </div>
+                            </div>
+                          </tr>
+                          <tr>
+                            <td>Materiales</td>
+                            <td>Impresos(textos)</td>
+                            <td>fotocopi</td>
+                            <td>
+                              <span class="badge badge">A8FFG5864</span>
+                            </td>
+                            <td>zzzzzzzz</td>
+                            <div class="form-group row">
+                                <label class="col-md-3 col-form-label" ></label>
+                                <div class="col-md-9 col-form-label">
+                                  <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="radios" id="radio1" value="" checked>
+                                    <label class="form-check-label" for="radio1">
+                                    
+                                    </label>
+                                  </div>
+                                </div>
+                            </div>
+                        </tr>
+                        </tbody>
+                      </table>
+                    
