@@ -16,11 +16,11 @@ export class CrearSilaboComponent {
 
   allAsignatura: Asignatura[]
 
-  constructor(private formBuilder: FormBuilder, private silaboService: SilaboServiceService) {}
-    
+  constructor(private formBuilder: FormBuilder, private silaboService: SilaboServiceService) { }
+
   asignaturasForm = this.formBuilder.group({
     asignaturas: ['']
-  }) 
+  })
 
   correquisitosForm = this.formBuilder.group({
     correquisitosAsignatura: ['']
@@ -43,27 +43,32 @@ export class CrearSilaboComponent {
 
   getAsignaturas(): void {
     this.silaboService.getAsignaturas()
-        .subscribe(asignaturas => this.asignaturas = asignaturas);
+      .subscribe(asignaturas => {
+        console.log(asignaturas.length);
+        this.asignaturas = asignaturas;
+      }, error => {
+        console.log(error);
+      });
   }
 
   getCorrequisitos(): void {
     this.silaboService.getCorrequisitos()
-        .subscribe(correquisitosAsignatura => this.correquisitosAsignatura = correquisitosAsignatura);
+      .subscribe(correquisitosAsignatura => this.correquisitosAsignatura = correquisitosAsignatura);
   }
 
   getPrerrequisitos(): void {
     this.silaboService.getPrerrequisitos()
-        .subscribe(prerrequisitosAsignatura => this.prerrequisitosAsignatura = prerrequisitosAsignatura);
+      .subscribe(prerrequisitosAsignatura => this.prerrequisitosAsignatura = prerrequisitosAsignatura);
   }
 
   getAllAsignaturas(): void {
     this.silaboService.getAllAsignaturas()
-        .subscribe(allAsignatura => this.allAsignatura = allAsignatura);
+      .subscribe(allAsignatura => this.allAsignatura = allAsignatura);
   }
 
-    submit() {
-      alert(JSON.stringify(this.asignaturasForm.value))
-    }
+  submit() {
+    alert(JSON.stringify(this.asignaturasForm.value))
   }
+}
 
 
