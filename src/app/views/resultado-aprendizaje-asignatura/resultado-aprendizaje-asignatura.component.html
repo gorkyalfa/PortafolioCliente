@@ -1,28 +1,98 @@
 <div class="row">
     <div class="card col-md-7 col-sm-7">
         <div class="card-header">
-          Resultados de Aprendizaje de Asignatura
+            Resultados de Aprendizaje de Asignatura
         </div>
         <div class="card-body">
-            <div >
-                <app-arbol-contenido [nodos]="datos"></app-arbol-contenido>
+            <div>
+                <tree-root #arbol (activate)="seleccionarNodo($event)" (moveNode)="onMoveNode($event)" [nodes]="datos"
+                    [options]="options"></tree-root>
                 <script src="../../../assets/DragDropTouch.js"></script>
             </div>
         </div>
     </div>
+
+    <div bsModal #modal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-primary" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title"> Creación de proceso raíz </h4>
+                    <button type="button" class="close" (click)="modal.hide()" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form (submit)="crearRaiz()">
+
+                        <div class="form-group">
+                            <input type="text" name="name" [(ngModel)]="proceso.nombre" class="form-control"
+                                placeholder="Nombre del Proceso" autofocus>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-block">
+                            Crear
+                        </button>
+
+                    </form>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" (click)="modal.hide()">Cancelar</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+
+
+    <div bsModal #procesoModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-primary" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title"> Creación de sub-proceso </h4>
+                    <button type="button" class="close" (click)="procesoModal.hide()" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form (submit)="crearProceso()">
+                        <h6 class="modal-title" *ngIf="actualProceso"> dentro de proceso: {{ actualProceso.nombre }} </h6>
+                        <br>
+                        <div class="form-group">
+                            <input type="text" name="name" [(ngModel)]="proceso.nombre" class="form-control"
+                                placeholder="Nombre del Sub-Proceso" autofocus>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-block">
+                            Crear
+                        </button>
+
+                    </form>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" (click)="procesoModal.hide()">Cancelar</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+
+
+
     <div class="col-md-1 col-sm-3">
         <div class="mt-2 mb-3 mb-xl-0">
-            <button (click)="agregarRaiz()" type="button" class="btn btn-block btn-primary"><i class="fa fa-plus-square"></i><span><br>Raíz</span></button>
+            <button data-toggle="modal" (click)="modal.show()" type="button" class="btn btn-block btn-primary"><i
+                    class="fa fa-plus-square"></i><span><br>Raíz</span></button>
         </div>
         <div class="mt-2 mb-3 mb-xl-0">
-            <button (click)="agregarProceso()" type="button" class="btn btn-block btn-success align-items-center"><i class="fa fa-plus"></i></button>
+            <button [disabled]="!(_servicio.actual)" data-toggle="modal" (click)="getProceso()" (click)="procesoModal.show()" type="button" class="btn btn-block btn-success align-items-center"><i
+                    class="fa fa-plus"></i></button>
         </div>
         <div class="mt-2 mb-3 mb-xl-0">
-            <button (click)="eliminarNodo()" type="button" class="btn btn-block btn-danger"><i class="fa fa-close"></i><br>Borrar</button>
+            <button type="button" (click)="eliminarProceso()" [disabled]="!(_servicio.actual)" class="btn btn-block btn-danger"><i class="fa fa-close" ></i><br><span>Borrar</span></button>
         </div>
     </div>
 </div>
-<div class="row justify-content-end" >
+<div class="row justify-content-end">
     <div class="mx-2 mt-2 mb-3 mb-xl-0">
         <button type="button" class="btn btn-block btn-dark">Atrás</button>
     </div>
@@ -30,4 +100,3 @@
         <button type="button" class="btn btn-block btn-dark">Siguiente</button>
     </div>
 </div>
-
