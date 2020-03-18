@@ -1,5 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ResultadoAprendizajeAsignaturaService } from './resultado-aprendizaje-asignatura.service';
+import { TreeComponent } from 'angular-tree-component';
+import { ModalDirective } from 'ngx-bootstrap/modal';
+import { Proceso } from '../../entidades/proceso';
 
 @Component({
   selector: 'app-resultado-aprendizaje-asignatura',
@@ -7,55 +10,109 @@ import { ResultadoAprendizajeAsignaturaService } from './resultado-aprendizaje-a
 })
 export class ResultadoAprendizajeAsignaturaComponent implements OnInit {
 
-  datos: any;
+  datos: Proceso[];
+
+  proceso: Proceso = {
+    nombre: ''
+  };
+
+  actualProceso: Proceso;
+  edit: boolean = false;
+
+  @ViewChild('modal') public modal: ModalDirective;
+  @ViewChild('procesoModal') public procesoModal: ModalDirective;
+
+  @ViewChild(TreeComponent)
+  private arbol: TreeComponent;
+
+  options = {
+    allowDrag: true,
+    allowDrop: true,
+    displayField: 'nombre',
+    childrenField: 'procesos'
+  };
 
   constructor(public _servicio: ResultadoAprendizajeAsignaturaService) { }
 
   ngOnInit(): void {
-    this.getDatos();
+    this.getProcesos();
   }
 
-  getDatos(): void {
-    this._servicio.getDatos()
-    .subscribe((datos) => {
-      this.datos = datos;
+  getProcesos() {
+    this._servicio.getProcesos()
+    .subscribe((data) => {
+      this.datos = data;
+      console.log(data);
     });
   }
 
-  /*setIdAutomatico(nodo: any, indice: any): any {
-
-    if(indice === nodo.length){
-      return;
-    }
-    if (nodo.children) {
-      for (let i = 0; i < nodo.children.length; i++) {
-
-        console.log(nodo.children[i].id);
-  
-      }
-    }
-    
-    this.setIdAutomatico(nodo, indice+1);
-
-  } */
-  idPred = 13;
-  setIdAutomatico() {
-    return this.idPred = this.idPred+1;
+  getProceso() {
+    this._servicio.getProceso(this._servicio.actual)
+    .subscribe((data) => {
+      this.actualProceso = data;
+    });
   }
 
-  agregarRaiz(): void {
-    this.datos.push({id: this.idPred, name: 'ejemplo', children: []});
-    this.setIdAutomatico();
+  crearRaiz() {
+    this._servicio.createProceso({...this.proceso, mpath: null})
+      .subscribe(
+        res => {
+          this.getProcesos();
+          this.arbol.treeModel.update();
+        },
+        err => console.log(err)
+      );
   }
 
-  agregarProceso(): void {
-    this.datos
-    .find(dato => dato.id == this._servicio.actual)
-    .children.push({name: 'hijo ejemplo', children: []});
+  crearProceso() {
+    this._servicio.createProceso({...this.proceso, proceso: this.actualProceso.id})
+    .subscribe(
+        res => {
+          console.log({...this.proceso, proceso: this.actualProceso.id});
+          this.getProcesos();
+          this.arbol.treeModel.update();
+        },
+        err => console.log(err)
+      );
   }
 
-  eliminarNodo(): void {
-    this.datos = this.datos.filter(dato => dato.id !== this._servicio.actual);
+  actualizarProceso() {
+    this._servicio.updateProceso(this.proceso.id, this.proceso)
+      .subscribe(
+        res => {
+          console.log(res);
+          this.getProcesos();
+          this.arbol.treeModel.update();
+        },
+        err => console.log(err)
+      );
+  }
+
+  eliminarProceso() {
+    this._servicio.deleteProceso(this._servicio.actual)
+      .subscribe(
+        res => {
+          this.getProcesos();
+          this.arbol.treeModel.update();
+          this._servicio.actual = null;
+        },
+        err => console.log(err)
+      );
+  }
+
+  seleccionarNodo($event) {
+    this._servicio.setActualNodeId($event.node.id);
+    this.arbol.treeModel.update();
+  }
+
+  onMoveNode($event) {
+    console.log(
+      'Moved',
+      $event.node.nombre,
+      'to',
+      $event.to.parent.nombre,
+      'at index',
+      $event.to.index);
   }
 
 }
