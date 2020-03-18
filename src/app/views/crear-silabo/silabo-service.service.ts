@@ -14,10 +14,10 @@ export class SilaboServiceService {
 
   BASE_URL: string = 'http://localhost:3000';
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   getAsignaturas(): Observable<Asignatura[]> {    
-    return this.http.get<Asignatura[]>('${this.BASE_URL}/asignaturas');
+    return this.http.get<Asignatura[]>('http://localhost:3000/asignaturas');
   }
 
   getCorrequisitos(): Observable<Asignatura[]> {

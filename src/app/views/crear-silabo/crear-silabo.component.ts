@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from "@angular/forms";
 import { SilaboServiceService } from './silabo-service.service';
 import { Asignatura } from '../../entidades/asignatura';
 
@@ -7,12 +6,12 @@ import { Asignatura } from '../../entidades/asignatura';
   selector: 'app-crear-silabo',
   templateUrl: 'crear-silabo.component.html'
 })
-export class CrearSilaboComponent implements OnInit {
-  
+export class CrearSilaboComponent implements OnInit { 
 
-  constructor(private formBuilder: FormBuilder, private silaboService: SilaboServiceService) { }
+  asignaturas: Asignatura[] = [];
 
-  
+  constructor(private silaboService: SilaboServiceService) { }
+
   ngOnInit() {
     this.getAsignaturas();
   }
@@ -20,7 +19,9 @@ export class CrearSilaboComponent implements OnInit {
   getAsignaturas(): void {
     this.silaboService.getAsignaturas()
       .subscribe(
-       res => console.log(res),
+       res => {
+         this.asignaturas = res;
+       },
        err => console.log(err)
        )
   }
