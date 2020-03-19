@@ -1,8 +1,7 @@
 export class Proceso {
     id?: number;
     nombre: string;
-    proceso?: number;
+    proceso?: any;
     procesos?: [];
-    orden?: number;
-    mpath?: string;
+    index?: number;
 }
