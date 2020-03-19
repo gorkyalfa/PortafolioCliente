@@ -10,7 +10,7 @@
                   <div class="form-group row">
                     <label class="col-md-3 col-form-label" for="name">Asignatura</label>
                     <div class="col-md-9">
-                      <select formControlName="asignaturas">
+                      <select>
                         <option>Seleccione Asignatura</option>
                         <option *ngFor="let asignatura of asignaturas">{{asignatura.nombre}}</option>
                       </select>
@@ -19,7 +19,7 @@
                   <div class="row">
                     <div class="col-md-3"></div>
                     <div class="col-md-6">
-                      <button type="button" class="btn btn-primary px-4">Crear vacio</button>
+                      <button type="button" class="btn btn-primary px-4">Crear Vacio</button>
                     </div>
                   </div>
                 </form>
@@ -62,7 +62,7 @@
   <div class="col-sm-6">
     <div class="card border-success">
       <div class="card-header">
-        <strong>Prerrequisitos de la asignatura</strong>
+        <strong>Prerrequisitos de la Asignatura</strong>
       </div>
       <div class="card-body">
         <table class="table table-sm" class="row-border hover">
