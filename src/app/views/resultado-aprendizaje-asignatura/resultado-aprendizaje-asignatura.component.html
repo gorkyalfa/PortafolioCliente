@@ -7,6 +7,11 @@
             <div >
                 <app-arbol-contenido [nodos]="datos"></app-arbol-contenido>
                 <script src="../../../assets/DragDropTouch.js"></script>
+                <div class="col-md-12">
+                    <textarea id="textarea-input" name="textarea-input" rows="4" class="form-control"
+                        placeholder="contenido"></textarea>
+                </div>
+                
             </div>
         </div>
     </div>
@@ -17,17 +22,24 @@
         <div class="mt-2 mb-3 mb-xl-0">
             <button (click)="agregarProceso()" type="button" class="btn btn-block btn-success align-items-center"><i class="fa fa-plus"></i></button>
         </div>
+        
         <div class="mt-2 mb-3 mb-xl-0">
             <button (click)="eliminarNodo()" type="button" class="btn btn-block btn-danger"><i class="fa fa-close"></i><br>Borrar</button>
+        
+        
         </div>
+        
     </div>
+    
 </div>
+
 <div class="row justify-content-end" >
+    
     <div class="mx-2 mt-2 mb-3 mb-xl-0">
         <button type="button" class="btn btn-block btn-dark">Atrás</button>
     </div>
+    
     <div class="mx-2 mt-2 mb-3 mb-xl-0 ">
         <button type="button" class="btn btn-block btn-dark">Siguiente</button>
     </div>
 </div>
-
