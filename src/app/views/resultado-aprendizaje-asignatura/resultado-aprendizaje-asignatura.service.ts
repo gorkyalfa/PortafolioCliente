@@ -22,6 +22,10 @@ export class ResultadoAprendizajeAsignaturaService {
     return this.http.get<Proceso>(`${this.BASE_URL}/procesos/${id}`);
   }
 
+  getProcesoAncestro(id: number): Observable<Proceso> {
+    return this.http.get<Proceso>(`${this.BASE_URL}/procesos/hijo/${id}`);
+  }
+
   createProceso(proceso: Proceso): Observable<Proceso> {
     return this.http.post<Proceso>(`${this.BASE_URL}/procesos/`, proceso);
   }
