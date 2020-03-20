@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ResultadoAprendizajeAsignaturaService } from './resultado-aprendizaje-asignatura.service';
-import { TreeComponent } from 'angular-tree-component';
+import { TreeComponent, TreeModel, TreeNode } from 'angular-tree-component';
 import { ModalDirective } from 'ngx-bootstrap/modal';
 import { Proceso } from '../../entidades/proceso';
 
@@ -29,7 +29,15 @@ export class ResultadoAprendizajeAsignaturaComponent implements OnInit {
     allowDrag: true,
     allowDrop: true,
     displayField: 'nombre',
-    childrenField: 'procesos'
+    childrenField: 'procesos',
+    actionMapping: {
+      mouse: {
+        drop: (tree: TreeModel, node: TreeNode, $event: any, {from , to}: {from: any, to: any}) => {
+          // custom action. parameters: from = node, to = {parent, index}
+          this.actualizarProceso(this._servicio.actual, {index: to.index});
+        }
+      }
+    }
   };
 
   constructor(public _servicio: ResultadoAprendizajeAsignaturaService) { }
@@ -54,7 +62,7 @@ export class ResultadoAprendizajeAsignaturaComponent implements OnInit {
   }
 
   crearRaiz() {
-    this._servicio.createProceso({...this.proceso, mpath: null})
+    this._servicio.createProceso(this.proceso)
       .subscribe(
         res => {
           this.getProcesos();
@@ -65,19 +73,31 @@ export class ResultadoAprendizajeAsignaturaComponent implements OnInit {
   }
 
   crearProceso() {
-    this._servicio.createProceso({...this.proceso, proceso: this.actualProceso.id})
-    .subscribe(
-        res => {
-          console.log({...this.proceso, proceso: this.actualProceso.id});
-          this.getProcesos();
-          this.arbol.treeModel.update();
-        },
-        err => console.log(err)
-      );
+    let esSubProceso: any = null;
+
+    this._servicio.getProcesoAncestro(this._servicio.actual)
+      .subscribe(dato => {
+        esSubProceso = dato;
+        if (esSubProceso) {
+          console.log('esSubProceso');
+          return;
+        }
+        else {
+          this._servicio.createProceso({...this.proceso, proceso: this.actualProceso})
+          .subscribe(
+              res => {
+                console.log(res);
+                this.getProcesos();
+                this.arbol.treeModel.update();
+              },
+              err => console.log(err)
+            );
+        }
+      });
   }
 
-  actualizarProceso() {
-    this._servicio.updateProceso(this.proceso.id, this.proceso)
+  actualizarProceso(id: number, dato: any) {
+    this._servicio.updateProceso(id, dato)
       .subscribe(
         res => {
           console.log(res);
