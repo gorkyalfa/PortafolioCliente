@@ -1,28 +1,46 @@
 import { Injectable } from '@angular/core';
-import { PROCESOS } from "../../mocks/mock-procesos";
-import { Observable, of } from "rxjs";
+import { Observable } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
+import { Proceso } from '../../entidades/proceso';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ResultadoAprendizajeAsignaturaService {
 
-  nodos = PROCESOS;
-  actual: any;
-  constructor() { }
+  BASE_URL = 'http://localhost:3000';
 
-  getDatos(): Observable<any> {
-    return of(this.nodos);
+  actual: number;
+
+  constructor(private http: HttpClient) { }
+
+  getProcesos(): Observable<Proceso[]> {
+    return this.http.get<Proceso[]>(`${this.BASE_URL}/procesos/padres`);
   }
 
-  setActualNodeId(nodo: any) {
-    this.actual = nodo;
+  getProceso(id: number): Observable<Proceso> {
+    return this.http.get<Proceso>(`${this.BASE_URL}/procesos/${id}`);
   }
 
-  getNodo(nodoParam: any): any {
+  getProcesoAncestro(id: number): Observable<Proceso> {
+    return this.http.get<Proceso>(`${this.BASE_URL}/procesos/hijo/${id}`);
+  }
 
-    return this.nodos.find(nodo => nodoParam.id == nodo.id);
+  createProceso(proceso: Proceso): Observable<Proceso> {
+    return this.http.post<Proceso>(`${this.BASE_URL}/procesos/`, proceso);
+  }
 
+  deleteProceso(id: number): Observable<Proceso> {
+    console.log(id);
+    return this.http.delete<Proceso>(`${this.BASE_URL}/procesos/${id}`);
+  }
+
+  updateProceso(id: number, proceso: Proceso): Observable<Proceso> {
+    return this.http.put<Proceso>(`${this.BASE_URL}/procesos/${id}`, proceso);
+  }
+
+  setActualNodeId(nodoId: number) {
+    this.actual = nodoId;
   }
 
 }
