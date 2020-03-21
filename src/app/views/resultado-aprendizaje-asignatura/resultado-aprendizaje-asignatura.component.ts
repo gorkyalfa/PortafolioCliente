@@ -11,6 +11,7 @@ import { Proceso } from '../../entidades/proceso';
 export class ResultadoAprendizajeAsignaturaComponent implements OnInit {
 
   datos: Proceso[];
+  datosConResultados: Proceso[];
 
   proceso: Proceso = {
     nombre: ''
@@ -29,12 +30,12 @@ export class ResultadoAprendizajeAsignaturaComponent implements OnInit {
     allowDrag: true,
     allowDrop: true,
     displayField: 'nombre',
-    childrenField: 'procesos',
+    childrenField: 'procesosDescendientes',
     actionMapping: {
       mouse: {
         drop: (tree: TreeModel, node: TreeNode, $event: any, {from , to}: {from: any, to: any}) => {
           // custom action. parameters: from = node, to = {parent, index}
-          this.actualizarProceso(this._servicio.actual, {index: to.index});
+          // this.actualizarProceso(this._servicio.actual, {index: to.index});
         }
       }
     }
@@ -46,19 +47,23 @@ export class ResultadoAprendizajeAsignaturaComponent implements OnInit {
     this.getProcesos();
   }
 
+  // Metodos de proceso
   getProcesos() {
     this._servicio.getProcesos()
-    .subscribe((data) => {
-      this.datos = data;
-      console.log(data);
-    });
+      .subscribe((data) => {
+        this.datos = data;
+        this.datosConResultados = data;
+        this.getResultados();
+        console.log(this.datos);
+        this.arbol.treeModel.update();
+      });
   }
 
   getProceso() {
-    this._servicio.getProceso(this._servicio.actual)
-    .subscribe((data) => {
-      this.actualProceso = data;
-    });
+    this._servicio.getProceso(this._servicio.actualProcesoId)
+      .subscribe((data) => {
+        this.actualProceso = data;
+      });
   }
 
   crearRaiz() {
@@ -67,28 +72,28 @@ export class ResultadoAprendizajeAsignaturaComponent implements OnInit {
         res => {
           this.getProcesos();
           this.arbol.treeModel.update();
+          this.alCrearOCancelar();
         },
         err => console.log(err)
       );
   }
 
   crearProceso() {
-    let esSubProceso: any = null;
+    let  esSubProceso: any = null;
 
-    this._servicio.getProcesoAncestro(this._servicio.actual)
+    this._servicio.getProcesoAncestros(this._servicio.actualProcesoId)
       .subscribe(dato => {
         esSubProceso = dato;
-        if (esSubProceso) {
-          console.log('esSubProceso');
-          return;
-        }
-        else {
-          this._servicio.createProceso({...this.proceso, proceso: this.actualProceso})
-          .subscribe(
+        if (esSubProceso > 1) {
+          // this.createResultado();
+          console.log(esSubProceso);
+        } else {
+          this._servicio.createProceso({...this.proceso, procesoAncestro: this.actualProceso})
+            .subscribe(
               res => {
-                console.log(res);
                 this.getProcesos();
                 this.arbol.treeModel.update();
+                this.alCrearOCancelar();
               },
               err => console.log(err)
             );
@@ -96,32 +101,59 @@ export class ResultadoAprendizajeAsignaturaComponent implements OnInit {
       });
   }
 
-  actualizarProceso(id: number, dato: any) {
+  actualizarProceso(id: number, dato: Proceso) {
     this._servicio.updateProceso(id, dato)
       .subscribe(
         res => {
-          console.log(res);
           this.getProcesos();
-          this.arbol.treeModel.update();
         },
         err => console.log(err)
       );
   }
 
   eliminarProceso() {
-    this._servicio.deleteProceso(this._servicio.actual)
+    this._servicio.deleteProceso(this._servicio.actualProcesoId)
       .subscribe(
         res => {
           this.getProcesos();
-          this.arbol.treeModel.update();
-          this._servicio.actual = null;
+          this._servicio.actualProcesoId = null;
         },
         err => console.log(err)
       );
   }
 
+  // Metodos de resultados
+  getResultados() {
+    this._servicio.getResultados()
+      .subscribe(datos => {
+        this.datosConResultados.forEach(proceso => {
+          proceso.procesosDescendientes.forEach((subProceso: Proceso) => {
+            datos.forEach(resultado => {
+              if (subProceso.id === resultado.id) {
+                subProceso.procesosDescendientes = resultado.resultadosAprendizaje;
+              }
+            });
+          });
+        });
+        this.arbol.treeModel.update();
+      });
+  }
+
+  createResultado() {
+    this._servicio.createResultado({...this.proceso, procesoAncestro: this._servicio.actualProcesoId})
+      .subscribe(
+        res => {
+          console.log(res);
+          this.getProcesos();
+        },
+        error => console.log(error)
+      );
+  }
+
+  // Manejo del arbol
   seleccionarNodo($event) {
     this._servicio.setActualNodeId($event.node.id);
+    console.log($event.node);
     this.arbol.treeModel.update();
   }
 
@@ -133,6 +165,13 @@ export class ResultadoAprendizajeAsignaturaComponent implements OnInit {
       $event.to.parent.nombre,
       'at index',
       $event.to.index);
+  }
+
+  alCrearOCancelar() {
+    this.proceso = {
+      nombre: ''
+    };
+    this.modal.hide();
   }
 
 }
