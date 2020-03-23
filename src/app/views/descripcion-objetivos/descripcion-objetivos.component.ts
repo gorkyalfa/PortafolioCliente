@@ -13,23 +13,13 @@ export class DescripcionObjetivosComponent implements OnInit {
 
   constructor(private formBuilder: FormBuilder, private descripcionObjetivosService: DescripcionObjetivosService) { }
 
-  asignaturasForm = this.formBuilder.group({
-    asignaturas: ['']
-  })
-
-
-
   ngOnInit() {
-    this.getAsignatura(1);
+    this.getAsignatura(4);
   }
 
   getAsignatura(id: number): void {
     this.descripcionObjetivosService.getAsignatura(id)
       .subscribe(asignatura => this.asignatura = asignatura);
-  }
-
-  submit() {
-    alert(JSON.stringify(this.asignaturasForm.value))
   }
 
   textAreaAdjust(o) {
