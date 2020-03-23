@@ -5,9 +5,19 @@
         </div>
         <div class="card-body">
             <div>
-                <tree-root #arbol (activate)="seleccionarNodo($event)" (moveNode)="onMoveNode($event)" [nodes]="datos"
-                    [options]="options"></tree-root>
+                <tree-root #arbol (activate)="seleccionarNodo($event)" (moveNode)="onMoveNode($event)"
+                    [nodes]="datos"
+                    [options]="options">
+                    <ng-template #treeNodeTemplate let-node let-index="index">
+                        <span>{{ node.data.nombre }}</span>
+                    </ng-template>
+                </tree-root>
                 <script src="../../../assets/DragDropTouch.js"></script>
+                <div class="col-md-12">
+                    <textarea id="textarea-input" name="textarea-input" rows="4" class="form-control"
+                        placeholder="contenido"></textarea>
+                </div>
+                
             </div>
         </div>
     </div>
@@ -18,7 +28,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h4 class="modal-title"> Creación de proceso raíz </h4>
-                    <button type="button" class="close" (click)="modal.hide()" aria-label="Close">
+                    <button type="button" class="close" (click)="alCrearOCancelar()" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
@@ -37,7 +47,7 @@
                 </div>
 
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" (click)="modal.hide()">Cancelar</button>
+                    <button type="button" class="btn btn-secondary" (click)="alCrearOCancelar()">Cancelar</button>
                 </div>
             </div><!-- /.modal-content -->
         </div><!-- /.modal-dialog -->
@@ -56,7 +66,7 @@
                 </div>
                 <div class="modal-body">
                     <form (submit)="crearProceso()">
-                        <h6 class="modal-title" *ngIf="actualProceso"> dentro de proceso: {{ actualProceso.nombre }} </h6>
+                        <h6 class="modal-title" *ngIf="actualProceso"> Dentro de proceso: {{ actualProceso.nombre }} </h6>
                         <br>
                         <div class="form-group">
                             <input type="text" name="name" [(ngModel)]="proceso.nombre" class="form-control"
@@ -84,18 +94,22 @@
                     class="fa fa-plus-square"></i><span><br>Raíz</span></button>
         </div>
         <div class="mt-2 mb-3 mb-xl-0">
-            <button [disabled]="!(_servicio.actual)" data-toggle="modal" (click)="getProceso()" (click)="procesoModal.show()" type="button" class="btn btn-block btn-success align-items-center"><i
+            <button [disabled]="!(_servicio.actualProcesoId)" data-toggle="modal" (click)="getProceso()" (click)="procesoModal.show()" type="button" class="btn btn-block btn-success align-items-center"><i
                     class="fa fa-plus"></i></button>
         </div>
+        
         <div class="mt-2 mb-3 mb-xl-0">
-            <button type="button" (click)="eliminarProceso()" [disabled]="!(_servicio.actual)" class="btn btn-block btn-danger"><i class="fa fa-close" ></i><br><span>Borrar</span></button>
+            <button type="button" (click)="eliminarProceso()" [disabled]="!(_servicio.actualProcesoId)" class="btn btn-block btn-danger"><i class="fa fa-close" ></i><br><span>Borrar</span></button>
         </div>
+        
     </div>
+    
 </div>
 <div class="row justify-content-end">
     <div class="mx-2 mt-2 mb-3 mb-xl-0">
         <button type="button" class="btn btn-block btn-primary">Atrás</button>
     </div>
+    
     <div class="mx-2 mt-2 mb-3 mb-xl-0 ">
         <button type="button" class="btn btn-block btn-primary">Siguiente</button>
     </div>
