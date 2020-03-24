@@ -439,7 +439,7 @@
 - update: `karma-jasmine-html-reporter` to `1.3.1`
 
 ###### `v2.0.0-rc.4`
-- fix(forms): validation classes example closes #95  
+- fix(forms): validation classes example closes #95
 - fix(forms): card-header-actions example
 - fix(forms): autocomplete
 - fix(login): form, autocomplete

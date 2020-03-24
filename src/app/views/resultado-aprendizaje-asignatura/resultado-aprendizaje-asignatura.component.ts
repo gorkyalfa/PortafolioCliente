@@ -1,8 +1,5 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ResultadoAprendizajeAsignaturaService } from './resultado-aprendizaje-asignatura.service';
-import { TreeComponent, TreeModel, TreeNode } from 'angular-tree-component';
-import { ModalDirective } from 'ngx-bootstrap/modal';
-import { Proceso } from '../../entidades/proceso';
 
 @Component({
   selector: 'app-resultado-aprendizaje-asignatura',
@@ -10,129 +7,55 @@ import { Proceso } from '../../entidades/proceso';
 })
 export class ResultadoAprendizajeAsignaturaComponent implements OnInit {
 
-  datos: Proceso[];
-
-  proceso: Proceso = {
-    nombre: ''
-  };
-
-  actualProceso: Proceso;
-  edit: boolean = false;
-
-  @ViewChild('modal') public modal: ModalDirective;
-  @ViewChild('procesoModal') public procesoModal: ModalDirective;
-
-  @ViewChild(TreeComponent)
-  private arbol: TreeComponent;
-
-  options = {
-    allowDrag: true,
-    allowDrop: true,
-    displayField: 'nombre',
-    childrenField: 'procesos',
-    actionMapping: {
-      mouse: {
-        drop: (tree: TreeModel, node: TreeNode, $event: any, {from , to}: {from: any, to: any}) => {
-          // custom action. parameters: from = node, to = {parent, index}
-          this.actualizarProceso(this._servicio.actual, {index: to.index});
-        }
-      }
-    }
-  };
+  datos: any;
 
   constructor(public _servicio: ResultadoAprendizajeAsignaturaService) { }
 
   ngOnInit(): void {
-    this.getProcesos();
+    this.getDatos();
   }
 
-  getProcesos() {
-    this._servicio.getProcesos()
-    .subscribe((data) => {
-      this.datos = data;
-      console.log(data);
+  getDatos(): void {
+    this._servicio.getDatos()
+    .subscribe((datos) => {
+      this.datos = datos;
     });
   }
 
-  getProceso() {
-    this._servicio.getProceso(this._servicio.actual)
-    .subscribe((data) => {
-      this.actualProceso = data;
-    });
+  /*setIdAutomatico(nodo: any, indice: any): any {
+
+    if(indice === nodo.length){
+      return;
+    }
+    if (nodo.children) {
+      for (let i = 0; i < nodo.children.length; i++) {
+
+        console.log(nodo.children[i].id);
+  
+      }
+    }
+    
+    this.setIdAutomatico(nodo, indice+1);
+
+  } */
+  idPred = 13;
+  setIdAutomatico() {
+    return this.idPred = this.idPred+1;
   }
 
-  crearRaiz() {
-    this._servicio.createProceso(this.proceso)
-      .subscribe(
-        res => {
-          this.getProcesos();
-          this.arbol.treeModel.update();
-        },
-        err => console.log(err)
-      );
+  agregarRaiz(): void {
+    this.datos.push({id: this.idPred, name: 'ejemplo', children: []});
+    this.setIdAutomatico();
   }
 
-  crearProceso() {
-    let esSubProceso: any = null;
-
-    this._servicio.getProcesoAncestro(this._servicio.actual)
-      .subscribe(dato => {
-        esSubProceso = dato;
-        if (esSubProceso) {
-          console.log('esSubProceso');
-          return;
-        }
-        else {
-          this._servicio.createProceso({...this.proceso, proceso: this.actualProceso})
-          .subscribe(
-              res => {
-                console.log(res);
-                this.getProcesos();
-                this.arbol.treeModel.update();
-              },
-              err => console.log(err)
-            );
-        }
-      });
+  agregarProceso(): void {
+    this.datos
+    .find(dato => dato.id == this._servicio.actual)
+    .children.push({name: 'hijo ejemplo', children: []});
   }
 
-  actualizarProceso(id: number, dato: any) {
-    this._servicio.updateProceso(id, dato)
-      .subscribe(
-        res => {
-          console.log(res);
-          this.getProcesos();
-          this.arbol.treeModel.update();
-        },
-        err => console.log(err)
-      );
-  }
-
-  eliminarProceso() {
-    this._servicio.deleteProceso(this._servicio.actual)
-      .subscribe(
-        res => {
-          this.getProcesos();
-          this.arbol.treeModel.update();
-          this._servicio.actual = null;
-        },
-        err => console.log(err)
-      );
-  }
-
-  seleccionarNodo($event) {
-    this._servicio.setActualNodeId($event.node.id);
-    this.arbol.treeModel.update();
-  }
-
-  onMoveNode($event) {
-    console.log(
-      'Moved',
-      $event.node.nombre,
-      'to',
-      $event.to.parent.nombre,
-      'at index',
-      $event.to.index);
+  eliminarNodo(): void {
+    this.datos = this.datos.filter(dato => dato.id !== this._servicio.actual);
   }
 
 }
