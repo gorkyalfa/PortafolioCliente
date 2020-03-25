@@ -1,7 +1,8 @@
 export class Proceso {
     id?: number;
     nombre: string;
-    proceso?: any;
-    procesos?: [];
+    procesoAncestro?: any;
+    procesosDescendientes?: [];
+    resultadosAprendizaje?: [];
     index?: number;
 }
