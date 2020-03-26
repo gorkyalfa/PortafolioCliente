@@ -1,29 +1,30 @@
 <h1>Contenido de la Asignatura</h1>
 <div class="row">
     <div class="col-12">
-      <div class="card">
-        <div class="card-header">
-          <strong>Unidad 1</strong>
-        </div>
+        <div class="card">
+            <div class="card-header">
+                <strong>Unidad 1</strong> <p *ngIf="unidades[0]">{{unidades[0].nombre}}</p>
+            </div>
             <div class="card-body">
-                
+
+                <div>
                 <div class="row">
-                    <form class="form-inline">
+                    <div class="form-inline">
                         <div class="form-group">
                             <label class="col-md-6 col-sm-4 my-2 col-form-label">Numero De Semana</label>
-                            <input type="text" class="form-control col-sm-3" placeholder="">
+                            <input type="text" [(ngModel)]="semana.semanaNumero" name="semanaNumero" class="form-control col-sm-3" placeholder="">
                         </div>
                         <div class="form-group">
-                          <label class="col-md-3 col-form-label">Contenido</label>
-                          <div class="col-md-2">
-                            <input type="text" class="form-control" placeholder="">
-                          </div>
+                            <label class="col-md-3 col-form-label">Contenido</label>
+                            <div class="col-md-2">
+                                <input type="text" class="form-control" name="contenido" [(ngModel)]="semana.contenido" placeholder="">
+                            </div>
                         </div>
-                    </form>
+                    </div>
                 </div>
-                
-<div class="row">
-                
+
+                <div class="row">
+
                     <div class="card col-md-4 border-primary">
                         <div class="card-header">
                             <strong>Docencia</strong>
@@ -31,17 +32,17 @@
                         <div class="card-body">
                             <div class="row justify-content-between mb-2">
                                 <label class="col-8 my-2">Actividades de Docencia</label>
-                                <input type="text" class="form-control mr-4 col-3" placeholder="Horas">
+                                <input type="text" name="horasActividadDocencia" [(ngModel)]="semana.horasActividadDocencia" class="form-control mr-4 col-3" placeholder="Horas">
 
                             </div>
                             <div class="row">
-                                <textarea id="textarea-input" name="textarea-input" rows="4" class="form-control col-auto" placeholder="Content.."></textarea>
-
+                                <textarea id="textarea-input" name="textarea-input" rows="4"
+                                    class="form-control col-auto" name="actividadDocencia" [(ngModel)]="semana.actividadDocencia" placeholder="Contenido.."></textarea>
                             </div>
-                    
+
                         </div>
                     </div>
-                
+
 
                     <div class="card col-md-3 mx-1 border-primary">
                         <div class="card-header">
@@ -50,17 +51,18 @@
                         <div class="card-body">
                             <div class="row justify-content-between">
                                 <label class="col-6 my-2">Trabajo Practico</label>
-                                <input type="text" class="form-control mr-4 col-4" placeholder="Horas">
+                                <input type="text" [(ngModel)]="semana.horasTrabajoPractico" name="horasTrabajoPractico" class="form-control mr-4 col-4" placeholder="Horas">
 
                             </div>
                             <div class="row">
-                                <textarea id="textarea-input" name="textarea-input" rows="4" class="form-control col-auto" placeholder="Content.."></textarea>
+                                <textarea id="textarea-input" name="textarea-input" rows="4"
+                                    class="form-control col-auto" name="trabajoPractico" [(ngModel)]="semana.trabajoPractico" placeholder="Contenido.."></textarea>
 
                             </div>
-                    
+
                         </div>
                     </div>
-            
+
 
 
                     <div class="card col-md-4 ml-0 border-primary">
@@ -70,30 +72,34 @@
                         <div class="card-body">
                             <div class="row justify-content-between mb-2">
                                 <label class="col-8 my-2">Actividades de Investigación</label>
-                                <input type="text" class="form-control mr-4 col-3" placeholder="Horas">
+                                <input type="text" name="horasTrabajoAutonomo" [(ngModel)]="semana.horasTrabajoAutonomo" class="form-control mr-4 col-3" placeholder="Horas">
 
                             </div>
                             <div class="row">
-                                <textarea id="textarea-input" name="textarea-input" rows="4" class="form-control col-auto" placeholder="Content.."></textarea>
+                                <textarea id="textarea-input" name="textarea-input" rows="4"
+                                    class="form-control col-auto" name="trabajoAutonomo" [(ngModel)]="semana.trabajoAutonomo" placeholder="Contenido.."></textarea>
 
                             </div>
-                    
+
                         </div>
                     </div>
                 </div>
 
-                <div class="text-center"> 
+                <div class="text-center">
                     <form class="form-horizontal">
                         <div class="form-group row">
-                          <label class="col-md-2 col-form-label">Observaciones</label>
-                          <div class="col-md-9">
-                            <input type="text" class="form-control" placeholder="">
-                          </div>
+                            <label class="col-md-2 col-form-label">Observaciones</label>
+                            <div class="col-md-9">
+                                <input type="text" name="observacion" [(ngModel)]="semana.observacion" class="form-control" placeholder="">
+                            </div>
                         </div>
                     </form>
                 </div>
-                
+
+                <button type="button" (click)="crearSemana()">Crear</button>
+
             </div>
-      </div>
+            </div>
+        </div>
     </div>
-    </div>
+</div>

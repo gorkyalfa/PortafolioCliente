@@ -1,12 +1,13 @@
 export class Semana {
-    id: number;
+    id?: number;
     semanaNumero: number;
     contenido: string;
     actividadDocencia: string;
-    horaActividadDocencia: number;
+    horasActividadDocencia: number;
     trabajoPractico: string;
-    horaTrabajoPractico: number;
+    horasTrabajoPractico: number;
     trabajoAutonomo: string;
     horasTrabajoAutonomo: number;
     observacion: string;
+    unidad?: number;
 }
