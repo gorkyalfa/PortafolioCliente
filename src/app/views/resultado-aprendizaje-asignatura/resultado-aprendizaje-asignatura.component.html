@@ -26,17 +26,19 @@
                 </div>
                 
                 <script src="../../../assets/DragDropTouch.js"></script>
-
-                <div> <!-- *ngIf si existe evidencia -->
+              
                     <strong class="col-md-3"><p>Evidencia</p></strong>
+                    <textarea id="textarea-input" name="textarea-input" rows="4" class="form-control"
+                    placeholder="contenido"><!-- Interpolacion de evidencia --></textarea>
+                    <div> <!-- *ngIf si existe evidencia -->
                     <div class="col-md-12">
-                        <textarea id="textarea-input" name="textarea-input" rows="4" class="form-control"
-                            placeholder="contenido"><!-- Interpolacion de evidencia --></textarea>
+                       
                     </div>
-                    <button class="btn btn-primary col-md-3">Listo</button>
+                    
                 </div>
-                
+                <button class="btn btn-success px-4">Listo</button>
             </div>
+            
         </div>
     </div>
 
@@ -130,10 +132,10 @@
 </div>
 <div class="row justify-content-end">
     <div class="mx-2 mt-2 mb-3 mb-xl-0">
-        <button type="button" class="btn btn-block btn-primary">Atrás</button>
+        <button type="button" class="btn btn-success px-4">Atrás</button>
     </div>
     
     <div class="mx-2 mt-2 mb-3 mb-xl-0 ">
-        <button type="button" class="btn btn-block btn-primary">Siguiente</button>
+        <button type="button" class="btn btn-success px-4">Siguiente</button>
     </div>
 </div>
