@@ -19,6 +19,10 @@ export class ContenidoAsignaturaService {
     return this.http.get<Contenido[]>(`${this.BASE_URL}/contenidos`);
   }
 
+  getContenidoByAsignatura(id: number) {
+    return this.http.get<Contenido[]>(`${this.BASE_URL}/contenidos/${id}/contenido/`);
+  }
+
   getContenido(id: number): Observable<Contenido> {
     return this.http.get<Contenido>(`${this.BASE_URL}/contenidos/${id}`);
   }
@@ -38,6 +42,10 @@ export class ContenidoAsignaturaService {
   // Metodos de entidad unidad
   getUnidades(): Observable<Unidad[]> {
     return this.http.get<Unidad[]>(`${this.BASE_URL}/unidades/`);
+  }
+
+  getUnidadesByContenido(id: number) {
+    return this.http.get<Unidad[]>(`${this.BASE_URL}/unidades/${id}/contenido/`);
   }
 
   getUnidad(id: number): Observable<Unidad> {
@@ -60,6 +68,11 @@ export class ContenidoAsignaturaService {
   getSemanas(): Observable<Semana[]> {
     return this.http.get<Semana[]>(`${this.BASE_URL}/semanas/`);
   }
+
+  getSemanasByUnidad(id: number) {
+    return this.http.get<Semana[]>(`${this.BASE_URL}/semanas/${id}/unidad/`);
+  }
+
 
   getSemana(id: number): Observable<Semana> {
     return this.http.get<Semana>(`${this.BASE_URL}/semanas/${id}`);

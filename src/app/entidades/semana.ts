@@ -10,4 +10,5 @@ export class Semana {
     horasTrabajoAutonomo: number;
     observacion: string;
     unidad?: number;
+    unidadId?: number;
 }

@@ -1,105 +1,221 @@
 <h1>Contenido de la Asignatura</h1>
-<div class="row">
+<div class="row mb-4">
     <div class="col-12">
-        <div class="card">
-            <div class="card-header">
-                <strong>Unidad 1</strong> <p *ngIf="unidades[0]">{{unidades[0].nombre}}</p>
-            </div>
-            <div class="card-body">
-
-                <div>
-                <div class="row">
-                    <div class="form-inline">
-                        <div class="form-group">
-                            <label class="col-md-6 col-sm-4 my-2 col-form-label">Numero De Semana</label>
-                            <input type="text" [(ngModel)]="semana.semanaNumero" name="semanaNumero" class="form-control col-sm-3" placeholder="">
-                        </div>
-                        <div class="form-group">
-                            <label class="col-md-3 col-form-label">Contenido</label>
-                            <div class="col-md-2">
-                                <input type="text" class="form-control" name="contenido" [(ngModel)]="semana.contenido" placeholder="">
-                            </div>
-                        </div>
+      
+            <form class="form-horizontal">
+                <div class="form-group row">
+                    <label class="col-md-2 col-form-label">Nombre Unidad</label>
+                    <div class="col-md-9">
+                        <input type="text" [(ngModel)]="unidad.nombre" name="nombre" class="form-control" placeholder="">
                     </div>
                 </div>
-
-                <div class="row">
-
-                    <div class="card col-md-4 border-primary">
-                        <div class="card-header">
-                            <strong>Docencia</strong>
-                        </div>
-                        <div class="card-body">
-                            <div class="row justify-content-between mb-2">
-                                <label class="col-8 my-2">Actividades de Docencia</label>
-                                <input type="text" name="horasActividadDocencia" [(ngModel)]="semana.horasActividadDocencia" class="form-control mr-4 col-3" placeholder="Horas">
-
-                            </div>
-                            <div class="row">
-                                <textarea id="textarea-input" name="textarea-input" rows="4"
-                                    class="form-control col-auto" name="actividadDocencia" [(ngModel)]="semana.actividadDocencia" placeholder="Contenido.."></textarea>
-                            </div>
-
-                        </div>
-                    </div>
-
-
-                    <div class="card col-md-3 mx-1 border-primary">
-                        <div class="card-header">
-                            <strong>Prácticas Experimentales</strong>
-                        </div>
-                        <div class="card-body">
-                            <div class="row justify-content-between">
-                                <label class="col-6 my-2">Trabajo Practico</label>
-                                <input type="text" [(ngModel)]="semana.horasTrabajoPractico" name="horasTrabajoPractico" class="form-control mr-4 col-4" placeholder="Horas">
-
-                            </div>
-                            <div class="row">
-                                <textarea id="textarea-input" name="textarea-input" rows="4"
-                                    class="form-control col-auto" name="trabajoPractico" [(ngModel)]="semana.trabajoPractico" placeholder="Contenido.."></textarea>
-
-                            </div>
-
-                        </div>
-                    </div>
-
-
-
-                    <div class="card col-md-4 ml-0 border-primary">
-                        <div class="card-header">
-                            <strong>Trabajo Autónomo</strong>
-                        </div>
-                        <div class="card-body">
-                            <div class="row justify-content-between mb-2">
-                                <label class="col-8 my-2">Actividades de Investigación</label>
-                                <input type="text" name="horasTrabajoAutonomo" [(ngModel)]="semana.horasTrabajoAutonomo" class="form-control mr-4 col-3" placeholder="Horas">
-
-                            </div>
-                            <div class="row">
-                                <textarea id="textarea-input" name="textarea-input" rows="4"
-                                    class="form-control col-auto" name="trabajoAutonomo" [(ngModel)]="semana.trabajoAutonomo" placeholder="Contenido.."></textarea>
-
-                            </div>
-
-                        </div>
+            </form>
+            <form class="form-horizontal">
+                <div class="form-group row">
+                    <label class="col-md-2 col-form-label"></label>
+                    <div class="col-md-4">
+                        <button class="btn btn-success" (click)="createUnidad(unidad)">Crear Unidad</button>    
                     </div>
                 </div>
+            </form>
 
-                <div class="text-center">
-                    <form class="form-horizontal">
-                        <div class="form-group row">
-                            <label class="col-md-2 col-form-label">Observaciones</label>
-                            <div class="col-md-9">
-                                <input type="text" name="observacion" [(ngModel)]="semana.observacion" class="form-control" placeholder="">
+    </div>
+</div>
+<div *ngIf="unidades">
+    <div class="row" *ngFor="let unidad of unidades">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <strong>Unidad {{ obtenerIndiceUnidad(unidad) }}</strong> <p >{{unidad.nombre}}</p>
+                </div>
+                <div class="card-body">
+    
+                    <div>
+                    <div class="row">
+                        <div class="form-inline">
+                            <div class="form-group">
+                                <label class="col-md-6 col-sm-4 my-2 col-form-label">Numero De Semana</label>
+                                <input type="text" [(ngModel)]="semana.semanaNumero" name="semanaNumero" class="form-control col-sm-3" placeholder="">
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-3 col-form-label">Contenido</label>
+                                <div class="col-md-2">
+                                    <input type="text" class="form-control" name="contenido" [(ngModel)]="semana.contenido" placeholder="">
+                                </div>
                             </div>
                         </div>
-                    </form>
+                    </div>
+    
+                    <div class="row">
+    
+                        <div class="card col-md-4 border-primary">
+                            <div class="card-header">
+                                <strong>Docencia</strong>
+                            </div>
+                            <div class="card-body">
+                                <div class="row justify-content-between mb-2">
+                                    <label class="col-8 my-2">Actividades de Docencia</label>
+                                    <input type="text" name="horasActividadDocencia" [(ngModel)]="semana.horasActividadDocencia" class="form-control mr-4 col-3" placeholder="Horas">
+    
+                                </div>
+                                <div class="row">
+                                    <textarea id="textarea-input" name="textarea-input" rows="4"
+                                        class="form-control col-auto" name="actividadDocencia" [(ngModel)]="semana.actividadDocencia" placeholder="Contenido.."></textarea>
+                                </div>
+    
+                            </div>
+                        </div>
+    
+    
+                        <div class="card col-md-3 mx-1 border-primary">
+                            <div class="card-header">
+                                <strong>Prácticas Experimentales</strong>
+                            </div>
+                            <div class="card-body">
+                                <div class="row justify-content-between">
+                                    <label class="col-6 my-2">Trabajo Practico</label>
+                                    <input type="text" [(ngModel)]="semana.horasTrabajoPractico" name="horasTrabajoPractico" class="form-control mr-4 col-4" placeholder="Horas">
+    
+                                </div>
+                                <div class="row">
+                                    <textarea id="textarea-input" name="textarea-input" rows="4"
+                                        class="form-control col-auto" name="trabajoPractico" [(ngModel)]="semana.trabajoPractico" placeholder="Contenido.."></textarea>
+    
+                                </div>
+    
+                            </div>
+                        </div>
+    
+    
+    
+                        <div class="card col-md-4 ml-0 border-primary">
+                            <div class="card-header">
+                                <strong>Trabajo Autónomo</strong>
+                            </div>
+                            <div class="card-body">
+                                <div class="row justify-content-between mb-2">
+                                    <label class="col-8 my-2">Actividades de Investigación</label>
+                                    <input type="text" name="horasTrabajoAutonomo" [(ngModel)]="semana.horasTrabajoAutonomo" class="form-control mr-4 col-3" placeholder="Horas">
+    
+                                </div>
+                                <div class="row">
+                                    <textarea id="textarea-input" name="textarea-input" rows="4"
+                                        class="form-control col-auto" name="trabajoAutonomo" [(ngModel)]="semana.trabajoAutonomo" placeholder="Contenido.."></textarea>
+    
+                                </div>
+    
+                            </div>
+                        </div>
+                    </div>
+    
+                    <div class="text-center">
+                        <form class="form-horizontal">
+                            <div class="form-group row">
+                                <label class="col-md-2 col-form-label">Observaciones</label>
+                                <div class="col-md-9">
+                                    <input type="text" name="observacion" [(ngModel)]="semana.observacion" class="form-control" placeholder="">
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="text-center">
+                        <form class="form-horizontal">
+                            <div class="form-group row">
+                                <div class="col-md-4">
+                                    <button type="button" class="btn btn-success" (click)="crearSemana(unidad.id)">Crear</button>
+                                </div>
+                                <div class="col-md-4">
+                                    <button type="button" class="btn btn-primary" (click)="this.modal.show()" (click)="getSemanas(unidad.id)">Ver Semanas</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+        
                 </div>
-
-                <button type="button" (click)="crearSemana()">Crear</button>
-
-            </div>
+                </div>
             </div>
         </div>
     </div>
 </div>
+
+
+<div bsModal #modal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-primary" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title"> Semanas </h4>
+                    <button type="button" class="close" (click)="this.modal.hide()" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+
+                    <table *ngIf="semanas" border="1">
+                        <tr>
+                            <th>
+                                # Semana
+                            </th>
+                            <th>
+                                Contenido
+                            </th>
+                            <th>
+                                Actividad Docencia
+                            </th>
+                            <th>
+                                Horas
+                            </th>
+                            <th>
+                                Trabajo Practico
+                            </th>
+                            <th>
+                                Horas
+                            </th>
+                            <th>
+                                Trabajo Autonomo
+                            </th>
+                            <th>
+                                Horas
+                            </th>
+                            <th>
+                                Observaciones
+                            </th>
+                        </tr>
+                        <tr *ngFor="let semana of semanas">
+                            <td>
+                                {{ semana.semanaNumero }}
+                            </td>
+                            <td>
+                                {{ semana.contenido }}
+                            </td>
+                            <td>
+                                {{ semana.actividadDocencia }}
+                            </td>
+                            <td>
+                                {{ semana.horasActividadDocencia }}
+                            </td>
+                            <td>
+                                {{ semana.trabajoPractico }}
+                            </td>
+                            <td>
+                                {{ semana.horasTrabajoPractico }}
+                            </td>
+                            <td>
+                                {{ semana.trabajoAutonomo }}
+                            </td>
+                            <td>
+                                {{ semana.horasTrabajoAutonomo }}
+                            </td>
+                            <td>
+                                {{ semana.observacion }}
+                            </td>
+                        </tr>
+                    </table>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" (click)="this.modal.hide()">Cerrar</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->

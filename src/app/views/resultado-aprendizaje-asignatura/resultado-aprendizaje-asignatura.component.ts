@@ -23,7 +23,10 @@ export class ResultadoAprendizajeAsignaturaComponent implements OnInit {
     nombre: ''
   };
 
-  evidencia: Evidencia;
+  evidencia: Evidencia = {
+    nombre: ''
+  };
+  evidencias: any[];
 
   actualProceso: Proceso;
   edit: boolean = false;
@@ -61,7 +64,7 @@ export class ResultadoAprendizajeAsignaturaComponent implements OnInit {
     this._servicio.getProcesos()
       .subscribe((data) => {
         this.datos = data;
-        console.log(this.datos);
+        // console.log(this.datos);
         this.arbol.treeModel.update();
       });
   }
@@ -91,16 +94,8 @@ export class ResultadoAprendizajeAsignaturaComponent implements OnInit {
       .subscribe(dato => {
         this.esSubProceso = dato;
         if (this.esSubProceso > 1) {
-          // this.createResultado();
+          this.createResultado();
           console.log(this.esSubProceso);
-          this._servicio.createResultado({...this.resultado, proceso: this._servicio.actualProcesoId})
-            .subscribe(
-              res => {
-                this.getResultados();
-                this.alCrearOCancelar();
-              },
-              err => console.log(err)
-            );
         } else {
           this._servicio.createProceso({...this.proceso, procesoAncestro: this.actualProceso})
             .subscribe(
@@ -146,29 +141,38 @@ export class ResultadoAprendizajeAsignaturaComponent implements OnInit {
   }
 
   createResultado() {
-    if (this.resultados && this.resultados[0].evidenciaId) {
+
+    if (this.resultados && this.resultados[0]) {
       this._servicio.createResultado({...this.resultado,
                                       evidenciaId: this.resultados[0].evidenciaId,
                                       proceso: this._servicio.actualProcesoId})
         .subscribe(
           res => {
             console.log(res);
+            console.log('camino con resultado existente ' + this.resultados[0].evidenciaId);
+            this.alCrearOCancelar();
             this.getResultados();
           },
           error => console.log(error)
         );
+
     } else {
       this._servicio.createEvidencia(this.evidencia)
         .subscribe(
           evidencia => {
-            this._servicio.createResultado({...this.resultado, evidenciaId: evidencia.id, proceso: this._servicio.actualProcesoId})
+            this._servicio.createResultado({...this.resultado,
+                                            evidenciaId: evidencia.id,
+                                            proceso: this._servicio.actualProcesoId})
               .subscribe(
                 res => {
                   console.log(res);
+                  console.log('camino con resultado inexistente ' + evidencia.id);
+                  this.alCrearOCancelar();
                   this.getResultados();
                 },
                 error => console.log(error)
               );
+            console.log(evidencia);
             this.evidencia = evidencia;
           },
           err => console.log(err)
@@ -197,6 +201,17 @@ export class ResultadoAprendizajeAsignaturaComponent implements OnInit {
     }
   }
 
+  getEvidencias(id: number) {
+    this._servicio.getEvidencias(id)
+      .subscribe(res => {
+          this.evidencias = res;
+      });
+  }
+
+  actualizarEvidencia() {
+    // TODO
+  }
+
   // Manejo del arbol
   seleccionarNodo($event) {
     this._servicio.setActualNodeId($event.node.id);
@@ -204,13 +219,10 @@ export class ResultadoAprendizajeAsignaturaComponent implements OnInit {
       .subscribe(ancestros => {
         this.esSubProceso = ancestros;
         if (ancestros > 1) {
-          this._servicio.getResultados(this._servicio.actualProcesoId)
-          .subscribe( data => {
-            console.log(data);
-          });
+          this.getResultados();
         }
       });
-    console.log($event.node);
+    // console.log($event.node);
   }
 
   onMoveNode($event) {

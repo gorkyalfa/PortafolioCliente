@@ -17,9 +17,9 @@
                     </div>
                     <div *ngIf="esSubProceso > 1" class="col-4">
                         <strong><p>Resultados:</p></strong>
-                        <ul class="list-group" *ngIf="resultados"> <!-- *ngIf si existen resultados -->
-                            <li *ngFor="let resultado of resultados" class="list-group-item">  {{resultado.nombre}}   <!-- interpolacion y colocar clase "list-group-item" -->  <!-- *ngFor por cada resultado -->
-                                &nbsp;<button class="badge badge-pill badge-danger">&times;</button>
+                        <ul class="list-group" *ngIf="resultados">
+                            <li *ngFor="let resultado of resultados" class="list-group-item">  {{resultado.nombre}}
+                                &nbsp;<button (click)="removeResultado(resultado.id)" class="badge badge-pill badge-danger">&times;</button>
                             </li>
                         </ul>
                     </div>
@@ -111,7 +111,7 @@
 
 
 
-    <div class="col-md-1 col-sm-3">
+    <div class="col-md-2 col-sm-4">
         <div class="mt-2 mb-3 mb-xl-0">
             <button data-toggle="modal" (click)="modal.show()" type="button" class="btn btn-block btn-primary"><i
                     class="fa fa-plus-square"></i><span><br>Raíz</span></button>
