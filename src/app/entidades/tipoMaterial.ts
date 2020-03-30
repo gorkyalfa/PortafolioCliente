@@ -1,4 +1,4 @@
 export class TipoMaterial {
-    id: number;
+    id?: number;
     nombre: string;
 }
