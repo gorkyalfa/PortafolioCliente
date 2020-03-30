@@ -59,8 +59,8 @@ export class ResultadoAprendizajeAsignaturaService {
 
   // Solicitudes de entidad Evidencias.
   // en la siguiente es consulta con relacion desde resultados.
-  getEvidencias(): Observable<any> {
-    return this.http.get<any>(`${this.BASE_URL}/resultados-aprendizaje/evidencia`);
+  getEvidencias(id: number): Observable<any> {
+    return this.http.get<any>(`${this.BASE_URL}/resultados-aprendizaje/${id}/evidencia`);
   }
 
   getEvidencia(id: number): Observable<Evidencia> {

@@ -4,6 +4,7 @@
             Resultados de Aprendizaje de Asignatura
         </div>
         <div class="card-body">
+
             <div>
                 <div class="row">
                     <div class="tree col-8">
@@ -17,9 +18,9 @@
                     </div>
                     <div *ngIf="esSubProceso > 1" class="col-4">
                         <strong><p>Resultados:</p></strong>
-                        <ul class="list-group" *ngIf="resultados"> <!-- *ngIf si existen resultados -->
-                            <li *ngFor="let resultado of resultados" class="list-group-item">  {{resultado.nombre}}   <!-- interpolacion y colocar clase "list-group-item" -->  <!-- *ngFor por cada resultado -->
-                                &nbsp;<button class="badge badge-pill badge-danger">&times;</button>
+                        <ul class="list-group" *ngIf="resultados">
+                            <li *ngFor="let resultado of resultados" class="list-group-item">  {{resultado.nombre}}
+                                &nbsp;<button (click)="removeResultado(resultado.id)" class="badge badge-pill badge-danger">&times;</button>
                             </li>
                         </ul>
                     </div>
@@ -27,16 +28,17 @@
                 
                 <script src="../../../assets/DragDropTouch.js"></script>
               
-                    <strong class="col-md-3"><p>Evidencia</p></strong>
-                    <textarea id="textarea-input" name="textarea-input" rows="4" class="form-control"
-                    placeholder="contenido"><!-- Interpolacion de evidencia --></textarea>
-                    <div> <!-- *ngIf si existe evidencia -->
+                <div>
+                    <div *ngIf="evidencia"></div>
                     <div class="col-md-12">
-                       
+                        
+                        <strong class="col-md-3"><p>Evidencia</p></strong>
+                        <textarea [(ngModel)]="evidencia.nombre" id="textarea-input" name="textarea-input" rows="4" class="form-control"
+                        placeholder="contenido">{{evidencia.nombre}}</textarea>
+                        <button class="btn btn-success px-4">Listo</button>
+
                     </div>
-                    
                 </div>
-                <button class="btn btn-success px-4">Listo</button>
             </div>
             
         </div>
@@ -113,7 +115,7 @@
 
 
 
-    <div class="col-md-1 col-sm-3">
+    <div class="col-md-2 col-sm-4">
         <div class="mt-2 mb-3 mb-xl-0">
             <button data-toggle="modal" (click)="modal.show()" type="button" class="btn btn-block btn-primary"><i
                     class="fa fa-plus-square"></i><span><br>Raíz</span></button>
@@ -130,7 +132,7 @@
     </div>
     
 </div>
-<div class="row justify-content-end">
+<div class="row justify-content-end mb-2">
     <div class="mx-2 mt-2 mb-3 mb-xl-0">
         <button type="button" class="btn btn-success px-4">Atrás</button> 
     </div>
