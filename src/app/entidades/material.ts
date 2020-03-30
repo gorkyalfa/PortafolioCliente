@@ -1,9 +1,8 @@
 import {TipoMaterial} from '../entidades/tipoMaterial'
 
-
 export class Material{
-    id:number;
-    codigo:string;
-    nombre:String;
-    tipo:TipoMaterial;
+    id?: number;
+    descripcion: string;
+    nombre: string;
+    tipo: TipoMaterial;
 }
