@@ -7,7 +7,7 @@ const routes: Routes = [
     path: '',
     component: CrearSilaboComponent,
     data: {
-      title: 'CrearSilabo'
+      title: 'Crear Sílabo'
     }
   }
 ];
