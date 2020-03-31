@@ -6,6 +6,7 @@ import { PRERREQUISITOASIGNATURAS } from '../../mocks/mock-prerrequisitosAsignat
 import { ALLASIGNATURAS } from "../../mocks/mock-allAsignaturas";
 import { Observable, of } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
+import { Silabo } from '../../entidades/silabo';
 
 @Injectable({
   providedIn: 'root'
@@ -20,8 +21,8 @@ export class SilaboServiceService {
     return this.http.get<Asignatura[]>('http://localhost:3000/asignaturas');
   }
 
-  getCorrequisitos(): Observable<Asignatura[]> {
-    return of(COORREQUISITOASIGNATURAS);
+  getSilaboCorrequisitos(id: number): Observable<Silabo> {
+    return this.http.get<Silabo>(`${this.BASE_URL}/silabos/${id}/correquisitos`);
   }
 
   getPrerrequisitos(): Observable<Asignatura[]> {
