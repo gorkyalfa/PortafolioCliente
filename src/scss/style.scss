@@ -6,3 +6,15 @@
 
 // If you want to add something do it here
 @import "custom";
+
+  .tree .tree-node {
+    cursor: pointer;
+    background-color: #EEE;
+    border-radius: 4px;
+    margin-bottom: 5px;
+  }
+  .tree .tree-node-active {
+    background-color: #CFD8DC;
+    color: black;
+  }
+  

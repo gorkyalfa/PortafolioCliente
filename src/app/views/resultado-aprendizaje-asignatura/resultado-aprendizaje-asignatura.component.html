@@ -4,21 +4,43 @@
             Resultados de Aprendizaje de Asignatura
         </div>
         <div class="card-body">
+
             <div>
-                <tree-root #arbol (activate)="seleccionarNodo($event)" (moveNode)="onMoveNode($event)"
-                    [nodes]="datos"
-                    [options]="options">
-                    <ng-template #treeNodeTemplate let-node let-index="index">
-                        <span>{{ node.data.nombre }}</span>
-                    </ng-template>
-                </tree-root>
-                <script src="../../../assets/DragDropTouch.js"></script>
-                <div class="col-md-12">
-                    <textarea id="textarea-input" name="textarea-input" rows="4" class="form-control"
-                        placeholder="contenido"></textarea>
+                <div class="row">
+                    <div class="tree col-8">
+                        <tree-root #arbol (activate)="seleccionarNodo($event)" (moveNode)="onMoveNode($event)"
+                            [nodes]="datos"
+                            [options]="options">
+                            <ng-template #treeNodeTemplate let-node let-index="index">
+                                <span>{{ node.data.nombre }}</span>
+                            </ng-template>
+                        </tree-root>
+                    </div>
+                    <div *ngIf="esSubProceso > 1" class="col-4">
+                        <strong><p>Resultados:</p></strong>
+                        <ul class="list-group" *ngIf="resultados">
+                            <li *ngFor="let resultado of resultados" class="list-group-item">  {{resultado.nombre}}
+                                &nbsp;<button (click)="removeResultado(resultado.id)" class="badge badge-pill badge-danger">&times;</button>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
                 
+                <script src="../../../assets/DragDropTouch.js"></script>
+              
+                <div>
+                    <div *ngIf="evidencia"></div>
+                    <div class="col-md-12">
+                        
+                        <strong class="col-md-3"><p>Evidencia</p></strong>
+                        <textarea [(ngModel)]="evidencia.nombre" id="textarea-input" name="textarea-input" rows="4" class="form-control"
+                        placeholder="contenido">{{evidencia.nombre}}</textarea>
+                        <button class="btn btn-success px-4">Listo</button>
+
+                    </div>
+                </div>
             </div>
+            
         </div>
     </div>
 
@@ -59,8 +81,9 @@
         <div class="modal-dialog modal-primary" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h4 class="modal-title"> Creación de sub-proceso </h4>
-                    <button type="button" class="close" (click)="procesoModal.hide()" aria-label="Close">
+                    <h4 *ngIf="esSubProceso <= 1" class="modal-title"> Creación de sub-proceso </h4>
+                    <h4 *ngIf="esSubProceso > 1" class="modal-title"> Creación de resultado </h4>
+                    <button type="button" class="close" (click)="alCrearOCancelar()" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
@@ -69,8 +92,12 @@
                         <h6 class="modal-title" *ngIf="actualProceso"> Dentro de proceso: {{ actualProceso.nombre }} </h6>
                         <br>
                         <div class="form-group">
-                            <input type="text" name="name" [(ngModel)]="proceso.nombre" class="form-control"
-                                placeholder="Nombre del Sub-Proceso" autofocus>
+                            <input [ngModel]="esSubProceso > 1 ? resultado.nombre : proceso.nombre"
+                            (ngModelChange)="esSubProceso > 1 ? (resultado.nombre = $event) : (proceso.nombre = $event)"
+                                type="text" name="name" 
+                                class="form-control"
+                                [placeholder]="esSubProceso > 1 ? 'Nombre del Resultado' : 'Nombre del Sub-Proceso'" autofocus>
+                            
                         </div>
                         <button type="submit" class="btn btn-primary btn-block">
                             Crear
@@ -80,7 +107,7 @@
                 </div>
 
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" (click)="procesoModal.hide()">Cancelar</button>
+                    <button type="button" class="btn btn-secondary" (click)="alCrearOCancelar()">Cancelar</button>
                 </div>
             </div><!-- /.modal-content -->
         </div><!-- /.modal-dialog -->
@@ -88,7 +115,7 @@
 
 
 
-    <div class="col-md-1 col-sm-3">
+    <div class="col-md-2 col-sm-4">
         <div class="mt-2 mb-3 mb-xl-0">
             <button data-toggle="modal" (click)="modal.show()" type="button" class="btn btn-block btn-primary"><i
                     class="fa fa-plus-square"></i><span><br>Raíz</span></button>
@@ -105,12 +132,12 @@
     </div>
     
 </div>
-<div class="row justify-content-end">
+<div class="row justify-content-end mb-2">
     <div class="mx-2 mt-2 mb-3 mb-xl-0">
-        <button type="button" class="btn btn-block btn-dark">Atrás</button>
+        <button type="button" class="btn btn-success px-4">Atrás</button> 
     </div>
     
     <div class="mx-2 mt-2 mb-3 mb-xl-0 ">
-        <button type="button" class="btn btn-block btn-dark">Siguiente</button>
+        <button type="button" class="btn btn-success px-4">Siguiente</button>
     </div>
 </div>

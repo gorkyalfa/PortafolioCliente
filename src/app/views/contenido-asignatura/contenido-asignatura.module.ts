@@ -4,7 +4,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ButtonsModule } from 'ngx-bootstrap/buttons';
 import { ContenidoAsignaturaComponent } from './contenido-asignatura.component';
 import { ContenidoAsignaturaRoutingModule } from './contenido-asignatura-routing.module';
-
+import { ModalModule } from 'ngx-bootstrap';
 
 
 @NgModule({
@@ -13,7 +13,8 @@ import { ContenidoAsignaturaRoutingModule } from './contenido-asignatura-routing
     ReactiveFormsModule,
     FormsModule,
     ContenidoAsignaturaRoutingModule,
-    ButtonsModule.forRoot()
+    ButtonsModule.forRoot(),
+    ModalModule.forRoot()
   ],
   declarations: [ ContenidoAsignaturaComponent ]
 })

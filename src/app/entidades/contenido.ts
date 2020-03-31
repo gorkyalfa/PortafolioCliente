@@ -1,6 +1,7 @@
-import { Unidad } from './unidad';
 
 export class Contenido {
-    id: number;
-    unidad: Unidad[];
+    id?: number;
+    nombre: string;
+    asignaturaId?: number;
+    asignatura?: any;
 }
