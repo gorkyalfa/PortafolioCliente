@@ -121,108 +121,26 @@
           </thead>
           <tbody>
 
-            <tr>
-              <td>Campo a ingresar por el docente</td>
-              <td></td>
-              <td></td>
-              <td>
-                <span class="badge badge"></span>
-              </td>
-              <td></td>
-
-              <div class="form-group row">
-                <label class="col-md-3 col-form-label"></label>
-                <div class="col-md-9 col-form-label">
-                  <div class="form-check">
-                    <input class="form-check-input" type="radio" name="radios" id="radio1" value="" checked>
-                    <label class="form-check-label" for="radio1">
-
-                    </label>
+              <tr *ngFor="let dato of datos">
+                <td>{{dato.nombre}}</td>
+                <td></td>
+                <td></td>
+                <td>
+                  <span class="badge badge"></span>
+                </td>
+                <td></td>
+                <div class="form-group row">
+                  <label class="col-md-3 col-form-label"></label>
+                  <div class="col-md-9 col-form-label">
+                    <div class="form-check">
+                      <input class="form-check-input" type="radio" name="radios" id="radio1" value="" checked>
+                      <label class="form-check-label" for="radio1">
+                      </label>
+                    </div>
                   </div>
                 </div>
-              </div>
-            </tr>
-            <tr>
-              <td>Seminarios-Talleres</td>
-              <td></td>
-              <td></td>
-              <td>
-                <span class="badge badge"></span>
-              </td>
-              <td></td>
-              <div class="form-group row">
-                <label class="col-md-3 col-form-label"></label>
-                <div class="col-md-9 col-form-label">
-
-                  <div class="form-check">
-                    <input class="form-check-input" type="radio" name="radios" id="radio1" value="" checked>
-                    <label class="form-check-label" for="radio1">
-
-                    </label>
-                  </div>
-                </div>
-              </div>
-
-            </tr>
-            <tr>
-              <td>Clases practicas</td>
-              <td></td>
-              <td></td>
-              <td>
-                <span class="badge badge"></span>
-              </td>
-              <td></td>
-              <div class="form-group row">
-                <label class="col-md-3 col-form-label"></label>
-                <div class="col-md-9 col-form-label">
-                  <div class="form-check">
-                    <input class="form-check-input" type="radio" name="radios" id="radio1" value="" checked>
-                    <label class="form-check-label" for="radio1">
-
-                    </label>
-                  </div>
-                </div>
-              </div>
-            </tr>
-            <tr>
-              <td>Tutorias-Lecturas Dirigidas</td>
-              <td></td>
-              <td></td>
-              <td>
-
-                <span class="badge badge"></span>
-              </td>
-              <td></td>
-              <div class="form-group row">
-                <label class="col-md-3 col-form-label"></label>
-                <div class="col-md-9 col-form-label">
-                  <div class="form-check">
-                    <input class="form-check-input" type="radio" name="radios" id="radio1" value="" checked>
-                    <label class="form-check-label" for="radio1">
-                    </label>
-                  </div>
-                </div>
-              </div>
-            </tr>
-            <tr>
-              <td>Estudio y Trabajo</td>
-              <td></td>
-              <td></td>
-              <td>
-                <span class="badge badge"></span>
-              </td>
-              <td></td>
-              <div class="form-group row">
-                <label class="col-md-3 col-form-label"></label>
-                <div class="col-md-9 col-form-label">
-                  <div class="form-check">
-                    <input class="form-check-input" type="radio" name="radios" id="radio1" value="" checked>
-                    <label class="form-check-label" for="radio1">
-
-                    </label>
-                  </div>
-                </div>
-              </div>
-            </tr>
-          </tbody>
+              </tr>
+      
+            </tbody>
+      
         </table>
