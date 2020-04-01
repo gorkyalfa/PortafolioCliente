@@ -1,11 +1,11 @@
 <div class="row">
-    <div class="card col-md-7 col-sm-7">
+    <div class="card col-md-10 col-sm-10">
         <div class="card-header">
             Resultados de Aprendizaje de Asignatura
         </div>
         <div class="card-body">
 
-            <div>
+            <div class="col-8">
                 <div class="row">
                     <div class="tree col-8">
                         <tree-root #arbol (activate)="seleccionarNodo($event)" (moveNode)="onMoveNode($event)"
@@ -29,17 +29,17 @@
                 <script src="../../../assets/DragDropTouch.js"></script>
               
                 <div>
-                    <div *ngIf="evidencia"></div>
+                    <div *ngIf="evidencia">
                     <div class="col-md-12">
                         
-                        <strong class="col-md-3"><p>Evidencia</p></strong>
+                        <strong class=""><p>Evidencia</p></strong>
                         <textarea [(ngModel)]="evidencia.nombre" id="textarea-input" name="textarea-input" rows="4" class="form-control"
                         placeholder="contenido">{{evidencia.nombre}}</textarea>
-                        <button class="btn btn-success px-4">Listo</button>
+                        <button (click)="actualizarEvidencia(evidencia.id)" class="btn btn-success px-4">Listo</button>
 
                     </div>
                 </div>
-            </div>
+                </div>
             
         </div>
     </div>
@@ -112,26 +112,26 @@
             </div><!-- /.modal-content -->
         </div><!-- /.modal-dialog -->
     </div><!-- /.modal -->
+    
+</div>
 
-
-
-    <div class="col-md-2 col-sm-4">
-        <div class="mt-2 mb-3 mb-xl-0">
-            <button data-toggle="modal" (click)="modal.show()" type="button" class="btn btn-block btn-primary"><i
-                    class="fa fa-plus-square"></i><span><br>Raíz</span></button>
-        </div>
-        <div class="mt-2 mb-3 mb-xl-0">
-            <button [disabled]="!(_servicio.actualProcesoId)" data-toggle="modal" (click)="getProceso()" (click)="procesoModal.show()" type="button" class="btn btn-block btn-success align-items-center"><i
-                    class="fa fa-plus"></i></button>
-        </div>
-        
-        <div class="mt-2 mb-3 mb-xl-0">
-            <button type="button" (click)="eliminarProceso()" [disabled]="!(_servicio.actualProcesoId)" class="btn btn-block btn-danger"><i class="fa fa-close" ></i><br><span>Borrar</span></button>
-        </div>
-        
+<div class="col-md-2 col-sm-4">
+    <div class="mt-2 mb-3 mb-xl-0">
+        <button data-toggle="modal" (click)="modal.show()" type="button" class="btn btn-block btn-primary"><i
+                class="fa fa-plus-square"></i><span><br>Raíz</span></button>
+    </div>
+    <div class="mt-2 mb-3 mb-xl-0">
+        <button [disabled]="!(_servicio.actualProcesoId)" data-toggle="modal" (click)="getProceso()" (click)="procesoModal.show()" type="button" class="btn btn-block btn-success align-items-center"><i
+                class="fa fa-plus"></i></button>
+    </div>
+    
+    <div class="mt-2 mb-3 mb-xl-0">
+        <button type="button" (click)="eliminarProceso()" [disabled]="!(_servicio.actualProcesoId)" class="btn btn-block btn-danger"><i class="fa fa-close" ></i><br><span>Borrar</span></button>
     </div>
     
 </div>
+</div>
+
 <div class="row justify-content-end mb-2">
     <div class="mx-2 mt-2 mb-3 mb-xl-0">
         <button type="button" class="btn btn-success px-4">Atrás</button> 

@@ -71,6 +71,10 @@ export class ResultadoAprendizajeAsignaturaService {
     return this.http.post<Evidencia>(`${this.BASE_URL}/evidencias/`, evidencia);
   }
 
+  updateEvidencia(id: number, evidencia: Evidencia): Observable<Evidencia> {
+    return this.http.put<Evidencia>(`${this.BASE_URL}/evidencias/${id}`, evidencia);
+  }
+
   // Interaccion de arbol
   setActualNodeId(nodoId: number) {
     this.actualProcesoId = nodoId;
