@@ -51,7 +51,7 @@ export class EstrategiasRecursosService {
     return this.http.get<EstrategiaMetodologica[]>(`${this.BASE_URL}/estrategias-metodologicas/`);
   }
 
-  createEstrategiasMetodologicas(estrategiaMetodologica: EstrategiaMetodologica): Observable<EstrategiaMetodologica> {
+  createEstrategiaMetodologica(estrategiaMetodologica: EstrategiaMetodologica): Observable<EstrategiaMetodologica> {
     return this.http.post<EstrategiaMetodologica>(`${this.BASE_URL}/estrategias-metodologicas/`, estrategiaMetodologica);
   }
 

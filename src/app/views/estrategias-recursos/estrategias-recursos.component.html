@@ -87,8 +87,9 @@
             <div class="form-group row">
               <label class="col-md-3" for="name">Estrategia</label>
               <div class="col-md-8">
-                <textarea id="textarea-input" name="textarea-input" rows="3" class="form-control"
-                  placeholder=""></textarea>
+                <textarea id="textarea-input" name="nombre" rows="3" class="form-control"
+                  placeholder=""></textarea> 
+                  <!-- [(ngModel)] de estrategiaMetodologica.nombre -->
               </div>
             </div>
           </div>
@@ -97,7 +98,8 @@
         <div class="form-group row">
           <label class="col-md-3" for="name">Finalidad</label>
           <div class="col-md-8">
-            <textarea id="textarea-input" name="textarea-input" rows="3" class="form-control" placeholder=""></textarea>
+            <textarea id="textarea-input" name="nombre" rows="3" class="form-control" placeholder=""></textarea>
+            <!-- [(ngModel)] de finalidad.nombre -->
           </div>
 
         </div>
@@ -105,7 +107,7 @@
         <div class="row justify-content-end">
 
           <div class="mx-5 mb-3">
-            <button type="button" class="btn btn-success">Crear</button>
+            <button type="button" (click)="crearEstrategia()" class="btn btn-success">Crear</button>
           </div>
         </div>
         <table class="table table-sm">
@@ -118,8 +120,9 @@
           </thead>
           <tbody>
 
-            <tr>
-              <td></td>
+            <tr> 
+              <!-- ngFor="let finalidad of finalidades" -->
+              <td></td> <!-- interpolacion con finalidad.estrategiaMetodologica.nombre -->
               <td></td>
               <td>
               <div class="form-group row">

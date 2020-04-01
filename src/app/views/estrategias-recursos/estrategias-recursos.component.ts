@@ -30,6 +30,7 @@ export class EstrategiasRecursosComponent implements OnInit {
   ngOnInit(): void {
     this.getTiposMaterial();
     this.getMateriales();
+    this.getFinalidades();
   }
 
   getTiposMaterial(): void {
@@ -71,24 +72,27 @@ export class EstrategiasRecursosComponent implements OnInit {
 
   crearFinalidad(): void {
     console.log(this.finalidad);
-    /*this.estrategiaservicio.createMaterial(this.material)
+    this.estrategiaservicio.createFinalidad(this.finalidad)
       .subscribe(
         res => {
           console.log(res);
+          this.getFinalidades();
         },
         err => console.log(err)
-      );*/
+      );
   }
 
   crearEstrategia(): void {
     console.log(this.estrategiaMetodologica);
-    // this.estrategiaservicio.createMaterial(this.material)
-    //   .subscribe(
-    //     res => {
-    //       console.log(res);
-    //     },
-    //     err => console.log(err)
-    //   );
+    this.estrategiaservicio.createEstrategiaMetodologica(this.estrategiaMetodologica)
+      .subscribe(
+        res => {
+          console.log(res);
+          this.finalidad.estrategiaMetodologicaId = res.id;
+          this.crearFinalidad();
+        },
+        err => console.log(err)
+      );
   }
 
 }
