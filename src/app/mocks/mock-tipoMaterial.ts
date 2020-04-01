@@ -8,5 +8,4 @@ export const TIPOMATERIAL: TipoMaterial[] =[
     {nombre: "Materiales de laboratorio",id: 5},
     {nombre: "Imagenes fijas proyectables(fotos)",id: 6},
     {nombre: "Materiales sonoros(audio)",id: 7}
-
 ];
