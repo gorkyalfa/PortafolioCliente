@@ -71,13 +71,15 @@
               <th>ID</th>
               <th>Nombre</th>
               <th>Codigo</th>
+              <th>Horas</th>
             </tr>
           </thead>    
           <tbody>
-            <tr *ngFor="let prerrequisito of prerrequisitosAsignatura">
+            <tr *ngFor="let prerrequisito of prerrequisitos.prerrequisitos">
               <td>{{ prerrequisito.id }}</td>
               <td>{{ prerrequisito.nombre }}</td>
               <td>{{ prerrequisito.codigo }}</td>
+              <td>{{ prerrequisito.totalHoras }}</td>
             </tr>
           </tbody>
         </table>           
@@ -88,7 +90,7 @@
   <div class="col-sm-6">
     <div class="card border-success">
       <div class="card-header">
-        <strong>Correquisitos</strong>
+        <strong>Correquisitos de la Asignatura</strong>
       </div>
       <div class="card-body">
         <table table class="table table-sm" class="row-border hover">
@@ -97,13 +99,15 @@
               <th>ID</th>
               <th>Nombre</th>
               <th>Codigo</th>
+              <th>Horas</th>
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let correquisito of correquisitosAsignatura">
+            <tr *ngFor="let correquisito of correquisitos.correquisitos">
               <td>{{ correquisito.id }}</td>
               <td>{{ correquisito.nombre }}</td>
               <td>{{ correquisito.codigo }}</td>
+              <td>{{ correquisito.totalHoras }}</td>
             </tr>
           </tbody>
         </table>      

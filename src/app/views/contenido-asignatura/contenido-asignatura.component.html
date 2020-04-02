@@ -148,7 +148,7 @@
                 </div>
                 <div class="modal-body">
 
-                    <table *ngIf="semanas" border="1">
+                    <table *ngIf="semanas" class="table table-striped">
                         <tr>
                             <th>
                                 # Semana
@@ -211,7 +211,7 @@
 
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" (click)="this.modal.hide()">Cerrar</button>
+                    <button type="button" class="btn btn-danger" (click)="this.modal.hide()">Cerrar</button>
                 </div>
             </div><!-- /.modal-content -->
         </div><!-- /.modal-dialog -->

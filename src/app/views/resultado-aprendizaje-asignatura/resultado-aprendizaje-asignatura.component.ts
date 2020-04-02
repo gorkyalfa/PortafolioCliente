@@ -23,10 +23,7 @@ export class ResultadoAprendizajeAsignaturaComponent implements OnInit {
     nombre: ''
   };
 
-  evidencia: Evidencia = {
-    nombre: ''
-  };
-  evidencias: any[];
+  evidencia: Evidencia;
 
   actualProceso: Proceso;
   edit: boolean = false;
@@ -95,7 +92,7 @@ export class ResultadoAprendizajeAsignaturaComponent implements OnInit {
         this.esSubProceso = dato;
         if (this.esSubProceso > 1) {
           this.createResultado();
-          console.log(this.esSubProceso);
+          // console.log(this.esSubProceso);
         } else {
           this._servicio.createProceso({...this.proceso, procesoAncestro: this.actualProceso})
             .subscribe(
@@ -137,6 +134,7 @@ export class ResultadoAprendizajeAsignaturaComponent implements OnInit {
       .subscribe( resultados => {
         this.resultados = resultados;
         console.log(resultados);
+        this.getEvidencia();
       });
   }
 
@@ -157,7 +155,7 @@ export class ResultadoAprendizajeAsignaturaComponent implements OnInit {
         );
 
     } else {
-      this._servicio.createEvidencia(this.evidencia)
+      this._servicio.createEvidencia({nombre: ''})
         .subscribe(
           evidencia => {
             this._servicio.createResultado({...this.resultado,
@@ -201,15 +199,11 @@ export class ResultadoAprendizajeAsignaturaComponent implements OnInit {
     }
   }
 
-  getEvidencias(id: number) {
-    this._servicio.getEvidencias(id)
+  actualizarEvidencia(id: number) {
+    this._servicio.updateEvidencia(id, this.evidencia)
       .subscribe(res => {
-          this.evidencias = res;
+        this.getEvidencia();
       });
-  }
-
-  actualizarEvidencia() {
-    // TODO
   }
 
   // Manejo del arbol
@@ -219,7 +213,11 @@ export class ResultadoAprendizajeAsignaturaComponent implements OnInit {
       .subscribe(ancestros => {
         this.esSubProceso = ancestros;
         if (ancestros > 1) {
+          this.resultados = null;
+          this.evidencia = null;
           this.getResultados();
+        } else {
+          this.evidencia = null;
         }
       });
     // console.log($event.node);
