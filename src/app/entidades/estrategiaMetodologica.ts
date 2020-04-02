@@ -1,4 +1,5 @@
-export class TipoMaterial {
+
+export class EstrategiaMetodologica {
     id?: number;
     nombre: string;
 }

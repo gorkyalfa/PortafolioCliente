@@ -5,9 +5,7 @@ import { ButtonsModule } from 'ngx-bootstrap/buttons';
 import { EstrategiasRecursosComponent } from './estrategias-recursos.component';
 import { EstrategiasRecursosRoutingModule } from './estrategias-recursos-routing.module';
 import { TabsModule } from 'ngx-bootstrap/tabs';
-
-
-
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   imports: [
@@ -16,7 +14,8 @@ import { TabsModule } from 'ngx-bootstrap/tabs';
     FormsModule,
     EstrategiasRecursosRoutingModule,
     ButtonsModule.forRoot(),
-    TabsModule
+    TabsModule,
+    HttpClientModule
   ],
   declarations: [ EstrategiasRecursosComponent ]
 })
