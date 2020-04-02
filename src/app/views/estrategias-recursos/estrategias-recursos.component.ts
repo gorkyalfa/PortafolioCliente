@@ -66,6 +66,7 @@ export class EstrategiasRecursosComponent implements OnInit {
       .subscribe(
         res => {
           this.finalidades = res;
+          console.log(res);
         }
       );
   }
