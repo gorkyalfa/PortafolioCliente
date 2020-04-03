@@ -75,6 +75,10 @@ export class ResultadoAprendizajeAsignaturaService {
     return this.http.put<Evidencia>(`${this.BASE_URL}/evidencias/${id}`, evidencia);
   }
 
+  deleteEvidencia(id: number) {
+    return this.http.delete<Evidencia>(`${this.BASE_URL}/evidencias/${id}`);
+  }
+
   // Interaccion de arbol
   setActualNodeId(nodoId: number) {
     this.actualProcesoId = nodoId;

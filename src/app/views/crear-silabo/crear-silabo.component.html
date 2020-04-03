@@ -8,10 +8,10 @@
                 <form [formGroup]="asignaturasForm" (ngSubmit)="onSubmit()">
                   <h1>Crear Sílabo</h1>
                   <div class="form-group row">
-                    <label class="col-md-3 col-form-label" for="name">Asignatura</label>
+                    <label class="col-md-3 col-form-label font-weight-bold" for="name">Asignatura</label>
                     <div class="col-md-9">
                       <select>
-                        <option>Seleccione Asignatura</option>
+                        <option class ="font-weight-bold">Seleccione Asignatura</option>
                         <option *ngFor="let silabo of silabos">{{silabo.asignatura.nombre}}</option>
                       </select>
                     </div>
@@ -34,10 +34,10 @@
                 <form [formGroup]="allAsignaturasForm" (ngSubmit)="onSubmit()">
                   <h1>Clonar Sílabo</h1>
                   <div class="form-group row">
-                    <label class="col-md-3 col-form-label" for="anteriores">Anteriores</label>
+                    <label class="col-md-3 col-form-label font-weight-bold" for="anteriores">Anteriores</label>
                     <div class="col-md-9">
                       <select formControlName="allAsignatura">
-                        <option>Seleccione Asignatura</option>
+                        <option class ="font-weight-bold">Seleccione Asignatura</option>
                         <option *ngFor="let allAsignatura of allAsignaturas">{{allAsignatura.nombre}}</option>
                       </select>
                     </div>
