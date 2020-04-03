@@ -9,7 +9,9 @@ import { Silabo } from '../../entidades/silabo';
   templateUrl: 'crear-silabo.component.html'
 })
 export class CrearSilaboComponent implements OnInit {
-  asignaturas: Asignatura[] = [];
+  descripcion: Silabo;
+  silabos: Silabo[] = [];
+  asignaturas: Silabo[] = [];
   correquisitos: Silabo[] = [];
   prerrequisitos: Silabo[] = [];
   // asignatura: Asignatura;
@@ -17,9 +19,15 @@ export class CrearSilaboComponent implements OnInit {
   constructor(private silaboService: SilaboServiceService) {}
 
   ngOnInit() {
-    this.getAsignaturas();
+    this.getSilaboAsignaturas();
+    this.getSilaboDescripcionObjetivo(2);
     this.getSilaboCorrequisitos(2);
     this.getSilaboPrerrequisitos(2);
+  }
+
+  getSilaboDescripcionObjetivo(id: number): void {
+    this.silaboService.getDescripcionObjetibo(id)
+      .subscribe(descripcion => this.descripcion = descripcion);
   }
 
   crear() {
@@ -31,10 +39,10 @@ export class CrearSilaboComponent implements OnInit {
     // Mas instrucciones incluir grabar a la base
   }
 
-  getAsignaturas(): void {
-    this.silaboService.getAsignaturas().subscribe(
+  getSilaboAsignaturas(): void {
+    this.silaboService.getSilaboAsignaturas().subscribe(
       res => {
-        this.asignaturas = res;
+        this.silabos = res;
       },
       err => console.log(err)
     );

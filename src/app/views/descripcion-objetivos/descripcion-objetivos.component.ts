@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from "@angular/forms";
 import { DescripcionObjetivosService } from './descripcion-objetivos.service';
-import { Asignatura } from '../../entidades/asignatura';
+import { Descripcion } from '../../entidades/descripcion';
 
 @Component({
   selector: 'app-descripcion-objetivos',
@@ -9,17 +8,48 @@ import { Asignatura } from '../../entidades/asignatura';
 })
 export class DescripcionObjetivosComponent implements OnInit {
 
-  asignatura: Asignatura;
+  descripcion: Descripcion;
+  descripcionSilabo: Descripcion;
+  descripciones: Descripcion[];
 
-  constructor(private formBuilder: FormBuilder, private descripcionObjetivosService: DescripcionObjetivosService) { }
+  constructor(private descripcionObjetivosService: DescripcionObjetivosService) { }
 
   ngOnInit() {
-    this.getAsignatura(4);
+    this.getDescripcionSilabo(2);
+    this.getDescripcion(2);
+    this.getDescripciones();
+    
   }
 
-  getAsignatura(id: number): void {
-    this.descripcionObjetivosService.getAsignatura(id)
-      .subscribe(asignatura => this.asignatura = asignatura);
+  getDescripcion(id: number): void {
+    this.descripcionObjetivosService.getDescripcion(id)
+      .subscribe(descripcion => this.descripcion = descripcion);
+  }
+
+  getDescripcionSilabo(id: number): void {
+    this.descripcionObjetivosService.getSilabo(id)
+      .subscribe(descripcionSilabo => this.descripcionSilabo = descripcionSilabo);
+  }
+
+  getDescripciones(): void {
+    this.descripcionObjetivosService.getDescripciones()
+      .subscribe(
+        res => {
+          this.descripciones = res;
+        }
+      );
+  }
+
+
+  crearMaterial(): void {
+    console.log(this.descripcion);
+    this.descripcionObjetivosService.createDescripcion(this.descripcion)
+      .subscribe(
+        res => {
+          console.log(res);
+        },
+        err => console.log(err)
+      );
   }
 
   textAreaAdjust(o) {
@@ -27,3 +57,9 @@ export class DescripcionObjetivosComponent implements OnInit {
     o.style.height = (25 + o.scrollHeight) + "px";
   }
 }
+
+
+
+
+
+
