@@ -1,7 +1,4 @@
 <div class="mb-4">
-
-
-
   <div class="card">
     <div class="card text-white bg-success"></div>
 
@@ -13,23 +10,24 @@
 
       <!--/.row-->
       <div class="form-group row">
-        <label class="col-form-label col-md-3" for="select1">Tipo de Material</label>
+        <label class="col-form-label col-md-3 font-weight-bold" for="select1">Tipo de Material</label>
         <div>
-          <select [(ngModel)]="material.tipoMaterial" name="tipoMaterial" id="select1" name="select1" class="form-control">
+          <select [(ngModel)]="material.tipoMaterial" name="tipoMaterial" id="select1" name="select1"
+            class="form-control">
 
-            <option *ngFor="let tipoMaterial of tiposMaterial" 
-                    [value]="tipoMaterial.id"> {{tipoMaterial.nombre}}</option>
+            <option *ngFor="let tipoMaterial of tiposMaterial" [value]="tipoMaterial.id"> {{tipoMaterial.nombre}}
+            </option>
 
           </select>
         </div>
       </div>
       <div class="form-group row">
-        <label class="col-md-3 col-form-label">Material</label>
-        <textarea id="textarea-input" name="nombre" rows="3" class="form-control col-md-8"
-          [(ngModel)]="material.nombre" placeholder="Contenido"></textarea>
+        <label class="col-md-3 col-form-label font-weight-bold">Material</label>
+        <textarea id="textarea-input" name="nombre" rows="3" class="form-control col-md-8" [(ngModel)]="material.nombre"
+          placeholder="Contenido"></textarea>
       </div>
       <div class="form-group row">
-        <label class="col-md-3 col-form-label">Descripción</label>
+        <label class="col-md-3 col-form-label font-weight-bold">Descripción</label>
         <textarea id="textarea-input" name="descripcion" rows="3" class="form-control col-md-8"
           [(ngModel)]="material.descripcion" placeholder="Contenido"></textarea>
       </div>
@@ -55,9 +53,9 @@
       </thead>
       <tbody>
         <tr *ngFor="let material of materiales">
-          {{material.tipoMaterial.nombre}} <!-- {{material.tipoMaterial.nombre}} -->
-          <td></td>
-          <td></td>
+          <td>{{material.tipoMaterial.nombre}}</td>
+          <td>{{material.nombre}}</td>
+          <td>{{material.descripcion}}</td>
           <td>
             <div class="form-group row">
               <div class="form-check">
@@ -83,44 +81,45 @@
       <div class="card text-white bg-success"></div>
       <div class="card-body">
 
-        <div class="">
-          <div class="">
-            <div class="form-group row">
-              <label class="col-md-3" for="name">Estrategia</label>
-              <div class="col-md-8">
-                <textarea [(ngModel)]="estrategiaMetodologica.nombre" id="textarea-input" name="nombre" rows="3" class="form-control"
-                  placeholder="Contenido"></textarea> 
-                  <!-- [(ngModel)] de estrategiaMetodologica.nombre -->
-                  
-              </div>
-              
-            </div>
-            <div class="form-group row">
-              <label class="col-md-3"></label>
-              <textarea id="textarea-input" name="descripcion" rows="3" class="form-control col-md-8"
-                [(ngModel)]="Estrategias.descripcion" placeholder="Contenido"></textarea>
-            </div>
-            
+        <div class="form-group row">
+          <label class="col-md-3 font-weight-bold" for="name">Estrategia</label>
+          <div class="col-md-8">
+            <textarea [(ngModel)]="estrategiaMetodologica.nombre" id="textarea-input" name="nombre" rows="3"
+              class="form-control" placeholder="Contenido"></textarea>
           </div>
+          
+          
+        </div>
+        <div class="form-group row">
+          <label class="col-md-3 font-weight-bold" for="name"></label>
+          <div class="col-md-8">
+            <textarea [(ngModel)]="estrategiaMetodologica.nombre" id="textarea-input" name="nombre" rows="3"
+              class="form-control" placeholder="Contenido"></textarea>
+          </div>
+          
           
         </div>
         
 
         <div class="form-group row">
-          <label class="col-md-3" for="name">Finalidad</label>
+          <label class="col-md-3 font-weight-bold" for="name">Finalidad</label>
           <div class="col-md-8">
-            <textarea [(ngModel)]="finalidad.nombre" id="textarea-input" name="nombre" rows="3" class="form-control" placeholder="Contenido"></textarea>
-            <!-- [(ngModel)] de finalidad.nombre -->
+            <textarea [(ngModel)]="finalidad.nombre" id="textarea-input" name="nombre" rows="3" class="form-control"
+              placeholder="Contenido"></textarea>
           </div>
   
         </div>
 
-        <div class="row justify-content-end">
+        <div class="form-group row">
+          <label class="col-md-3 col-form-label"></label>
 
-          <div class="mx-5 mb-3">
+          <div class="col-md-3 mb-3">
             <button type="button" (click)="crearEstrategia()" class="btn btn-success">Crear</button>
           </div>
+
         </div>
+
+
         <table class="table table-sm">
           <thead>
             <tr>
@@ -132,18 +131,18 @@
           </thead>
           <tbody>
 
-            <tr *ngFor="let finalidad of finalidades" ></tr>
-                  {{finalidad.estrategiaMetodologica.nombre}}<!-- ngFor="let finalidad of finalidades" -->
-              <td></td> <!-- interpolacion con finalidad.estrategiaMetodologica.nombre -->
-              <td></td>
+            <tr *ngFor="let finalidad of finalidades">
+              <td>{{finalidad.estrategiaMetodologica.nombre}}</td>
+              <td>{{finalidad.nombre}}</td>
               <td>
-              <div class="form-group row">
+                <div class="form-group row">
                   <div class="form-check">
                     <input class="form-check-input" type="checkbox" name="radios" id="radio1" value="">
                     <label class="form-check-label" for="radio1"></label>
                   </div>
-              </div>
-            </td>
+                </div>
+              </td>
+            </tr>
           </tbody>
         </table>
         
