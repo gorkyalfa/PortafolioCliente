@@ -51,6 +51,7 @@ export class ContenidoAsignaturaComponent implements OnInit {
       .subscribe(semanas => {
         this.semanas = semanas;
         console.log(this.semanas);
+        this.actualizarUnidad(unidadId);
       });
   }
 
@@ -63,6 +64,16 @@ export class ContenidoAsignaturaComponent implements OnInit {
           this.getSemanas(unidadID);
         });
     }
+  }
+
+  contarTotalHorasIndividual(): any {
+    const totales = {horasPracticas: 0, horasAutonomas: 0, horasDocente: 0};
+    this.semanas.forEach(semana => {
+      totales.horasDocente += semana.horasActividadDocencia;
+      totales.horasAutonomas += semana.horasTrabajoAutonomo;
+      totales.horasPracticas += semana.horasTrabajoPractico;
+    });
+    return totales;
   }
 
   // Metodos de unidad
@@ -89,6 +100,26 @@ export class ContenidoAsignaturaComponent implements OnInit {
           err => console.log(err)
         );
     }
+  }
+
+  async actualizarUnidad(id: number) {
+    const horas = this.contarHorasTotales();
+    this._servicio.updateUnidad({horasTotales: horas}, id)
+      .subscribe(
+        res => {
+          console.log(res);
+        }
+      );
+  }
+
+  contarHorasTotales(): number {
+    let total = 0;
+    this.semanas.forEach(semana => {
+      total += semana.horasActividadDocencia;
+      total += semana.horasTrabajoAutonomo;
+      total += semana.horasTrabajoPractico;
+    });
+    return total;
   }
 
   obtenerIndiceUnidad(unidad: Unidad) {

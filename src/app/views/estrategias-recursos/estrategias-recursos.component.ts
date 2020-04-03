@@ -47,6 +47,7 @@ export class EstrategiasRecursosComponent implements OnInit {
       .subscribe(
         res => {
           console.log(res);
+          this.getMateriales();
         },
         err => console.log(err)
       );

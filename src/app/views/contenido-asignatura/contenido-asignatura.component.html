@@ -108,17 +108,18 @@
                     <div class="text-center">
                         <form class="form-horizontal">
                             <div class="form-group row">
-                                <label class="col-md-2 col-form-label">Observaciones</label>
+                                <label class="col-md-2 font-weight-bold col-form-label">Observaciones</label>
                                 <div class="col-md-9">
                                     <input type="text" name="observacion" [(ngModel)]="semana.observacion" class="form-control" placeholder="">
                                 </div>
                             </div>
                         </form>
                     </div>
-                    <div class="text-center">
                         <form class="form-horizontal">
                             <div class="form-group row">
-                                <div class="col-md-4">
+                                <label class="col-md-2 col-form-label"></label>
+
+                                <div class="col-md-3">
                                     <button type="button" class="btn btn-success" (click)="crearSemana(unidad.id)">Crear</button>
                                 </div>
                                 <div class="col-md-4">
@@ -126,7 +127,6 @@
                                 </div>
                             </div>
                         </form>
-                    </div>
         
                 </div>
                 </div>
@@ -206,6 +206,17 @@
                             <td>
                                 {{ semana.observacion }}
                             </td>
+                        </tr>
+                        <tr *ngIf="semanas">
+                            <td><strong>Total</strong></td>
+                            <td></td>
+                            <td></td>
+                            <td>{{ this.contarTotalHorasIndividual().horasDocente }}</td>
+                            <td></td>
+                            <td>{{ this.contarTotalHorasIndividual().horasPracticas }}</td>
+                            <td></td>
+                            <td>{{ this.contarTotalHorasIndividual().horasAutonomas }}</td>
+                            <td>{{ this.contarHorasTotales() }}</td>
                         </tr>
                     </table>
 

@@ -24,6 +24,7 @@ export class ResultadoAprendizajeAsignaturaComponent implements OnInit {
   };
 
   evidencia: Evidencia;
+  evidenciaReset: Evidencia;
 
   actualProceso: Proceso;
   edit: boolean = false;
@@ -182,6 +183,9 @@ export class ResultadoAprendizajeAsignaturaComponent implements OnInit {
     this._servicio.removeResultado(idResultado)
       .subscribe(
         res => {
+          if (this.resultados.length === 1) {
+            this.eliminarEvidencia(this.evidencia.id);
+          }
           this.getResultados();
         },
         err => console.log(err)
@@ -190,7 +194,7 @@ export class ResultadoAprendizajeAsignaturaComponent implements OnInit {
 
   // Metodos de evidencia
   getEvidencia() {
-    if (this.resultados) {
+    if (this.resultados.length >= 1) {
       this._servicio.getEvidencia(this.resultados[0].evidenciaId)
         .subscribe(res => {
           this.evidencia = res;
@@ -203,6 +207,14 @@ export class ResultadoAprendizajeAsignaturaComponent implements OnInit {
     this._servicio.updateEvidencia(id, this.evidencia)
       .subscribe(res => {
         this.getEvidencia();
+      });
+  }
+
+  eliminarEvidencia(id: number) {
+    this._servicio.deleteEvidencia(id)
+      .subscribe(res => {
+        this.evidencia = this.evidenciaReset;
+        console.log(res);
       });
   }
 
@@ -220,7 +232,6 @@ export class ResultadoAprendizajeAsignaturaComponent implements OnInit {
           this.evidencia = null;
         }
       });
-    // console.log($event.node);
   }
 
   onMoveNode($event) {
