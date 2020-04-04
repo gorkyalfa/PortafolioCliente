@@ -1,9 +1,7 @@
 import { Injectable } from '@angular/core';
-import { Asignatura } from '../../entidades/asignatura';
-import { ASIGNATURAS } from '../../mocks/mock-asignaturas'
 import { Observable, of } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
-import { catchError, map, tap } from 'rxjs/operators';
+import { Descripcion } from '../../entidades/descripcion';
 
 
 @Injectable({
@@ -13,37 +11,23 @@ export class DescripcionObjetivosService {
 
   constructor(private http: HttpClient) { }
 
-  BASE_URL: string = 'http://localhost:3000/asignaturas';
+  BASE_URL: string = 'http://localhost:3000';
 
-  getAsignatura(id: number): Observable<Asignatura> {
+  getDescripcion(id: number): Observable<Descripcion> {
     const url = `${this.BASE_URL}/${id}`;
-    return this.http.get<Asignatura>(url).pipe(
-      tap(_ => this.log(`fetched hero id=${id}`)),
-      catchError(this.handleError<Asignatura>(`getHero id=${id}`))
-    );
+    return this.http.get<Descripcion>(url)
   }
 
-   getAsignaturas(): Observable<Asignatura[]> {
-    return of(ASIGNATURAS);
+  getDescripciones(): Observable<Descripcion[]> {
+    return this.http.get<Descripcion[]>(`${this.BASE_URL}/descripciones/`);
   }
 
-    private handleError<T> (operation = 'operation', result?: T) {
-    return (error: any): Observable<T> => {
-
-      // TODO: send the error to remote logging infrastructure
-      console.error(error); // log to console instead
-
-      // TODO: better job of transforming error for user consumption
-      this.log(`${operation} failed: ${error.message}`);
-
-      // Let the app keep running by returning an empty result.
-      return of(result as T);
-    };
+  getSilabo(id: number): Observable<Descripcion> {
+    return this.http.get<Descripcion>(`${this.BASE_URL}/descripciones/${id}/silabo`);
   }
 
-  /** Log a HeroService message with the MessageService */
-  private log(message: string) {
-    //todo
-  }
+  createDescripcion(descripcion: Descripcion): Observable<Descripcion> {
+    return this.http.post<Descripcion>(`${this.BASE_URL}/descripciones/`, descripcion);
+  }  
+
 }
-

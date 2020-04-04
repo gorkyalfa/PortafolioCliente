@@ -84,8 +84,9 @@
 
 
         <strong>Estrategias Metodologicas</strong>
-
+        
       </div>
+      
       <div class="card text-white bg-success"></div>
       <div class="card-body">
 
@@ -93,17 +94,28 @@
           <label class="col-md-3 font-weight-bold" for="name">Estrategia</label>
           <div class="col-md-8">
             <textarea [(ngModel)]="estrategiaMetodologica.nombre" id="textarea-input" name="nombre" rows="3"
-              class="form-control" placeholder=""></textarea>
+              class="form-control" placeholder="Contenido"></textarea>
           </div>
+          
+          
         </div>
+        <div class="form-group row">
+          <label class="col-md-3 font-weight-bold" for="name">Descripción</label>
+          <div class="col-md-8">
+            <textarea [(ngModel)]="estrategiaMetodologica.descripcion" id="textarea-input" name="descripcion" rows="3"
+              class="form-control" placeholder="Contenido"></textarea>
+          </div>
+          
+        </div>
+        
 
         <div class="form-group row">
           <label class="col-md-3 font-weight-bold" for="name">Finalidad</label>
           <div class="col-md-8">
             <textarea [(ngModel)]="finalidad.nombre" id="textarea-input" name="nombre" rows="3" class="form-control"
-              placeholder=""></textarea>
+              placeholder="Contenido"></textarea>
           </div>
-
+  
         </div>
 
         <div class="form-group row">
@@ -120,6 +132,7 @@
           <thead>
             <tr>
               <th>Estrategia Metodológica</th>
+
               <th>Finalidad</th>
               <th>Eliminar</th>
             </tr>
