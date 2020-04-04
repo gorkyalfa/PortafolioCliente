@@ -11,6 +11,9 @@ import { Finalidad } from '../../entidades/finalidad';
 })
 export class EstrategiasRecursosComponent implements OnInit {
 
+  idsMateriales: any[] = [];
+  datosFinalidades: any[] = [];
+
   material: Material = {
     nombre: '',
     descripcion: ''
@@ -33,6 +36,7 @@ export class EstrategiasRecursosComponent implements OnInit {
     this.getFinalidades();
   }
 
+  // Metodos de tipos materiales
   getTiposMaterial(): void {
     this.estrategiaservicio.getTiposMaterial()
     .subscribe(datos =>
@@ -41,6 +45,7 @@ export class EstrategiasRecursosComponent implements OnInit {
     console.log(this.tiposMaterial);
   }
 
+  // Metodos de materiales
   crearMaterial(): void {
     console.log(this.material);
     this.estrategiaservicio.createMaterial(this.material)
@@ -62,6 +67,28 @@ export class EstrategiasRecursosComponent implements OnInit {
       );
   }
 
+  eliminarMaterial(id: number): void {
+    this.estrategiaservicio.deleteMaterial(id)
+      .subscribe(res => {
+        this.getMateriales();
+      });
+  }
+
+  eliminarMateriales() {
+    this.idsMateriales.forEach(material => {
+      if (material.value) {
+        this.eliminarMaterial(material.id);
+      }
+    });
+  }
+
+  ingresarIdParaEliminar(id: number, value: boolean): void {
+    this.idsMateriales = this.idsMateriales.filter(material => id !== material.id);
+    this.idsMateriales.push({id, value});
+    console.log(this.idsMateriales);
+  }
+
+  // Metodos de finalidades
   getFinalidades(): void {
     this.estrategiaservicio.getFinalidades()
       .subscribe(
@@ -96,5 +123,34 @@ export class EstrategiasRecursosComponent implements OnInit {
         err => console.log(err)
       );
   }
+
+  eliminarFinalidad(id: number, idEstrategia: number): void {
+    this.estrategiaservicio.deleteFinalidad(id)
+      .subscribe(res => {
+        this.eliminarEstrategia(idEstrategia);
+      });
+  }
+
+  eliminarEstrategia(id: number): void {
+    this.estrategiaservicio.deleteEstrategiaMetodologica(id)
+      .subscribe(res => {  
+        this.getFinalidades();
+      });
+  }
+
+  eliminarFinalidades() {
+    this.datosFinalidades.forEach(finalidad => {
+      if (finalidad.value) {
+        this.eliminarFinalidad(finalidad.datos.id, finalidad.datos.estrategiaMetodologicaId);
+      }
+    });
+  }
+
+  ingresarFinalidadParaEliminar(datos: any, value: boolean): void {
+    this.datosFinalidades = this.datosFinalidades.filter(finalidad => datos.id !== finalidad.datos.id);
+    this.datosFinalidades.push({datos, value});
+    console.log(this.datosFinalidades);
+  }
+
 
 }

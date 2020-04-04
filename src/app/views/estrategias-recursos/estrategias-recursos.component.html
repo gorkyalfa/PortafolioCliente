@@ -59,8 +59,10 @@
           <td>
             <div class="form-group row">
               <div class="form-check">
-                <input class="form-check-input" type="checkbox" name="radios" id="radio1" value="">
-                <label class="form-check-label" for="radio1">
+                <input class="form-check-input"
+                       type="checkbox" name="isChecked" id="check" value=""
+                       (change)="ingresarIdParaEliminar(material.id, $event.target.checked)"/>
+                <label class="form-check-label" for="check">
                 </label>
               </div>
             </div>
@@ -69,6 +71,13 @@
 
       </tbody>
     </table>
+    <div class="form-group row">
+      <label class="col-md-9 col-form-label"></label>
+
+      <div class="col-md-3 mb-3">
+        <button type="button" (click)="eliminarMateriales()" class="btn btn-danger">Borrar</button>
+      </div>
+    </div>
     <div class="card">
       <div class="card text-white bg-success"></div>
       <div class="card-header">
@@ -123,7 +132,7 @@
               <td>
                 <div class="form-group row">
                   <div class="form-check">
-                    <input class="form-check-input" type="checkbox" name="radios" id="radio1" value="">
+                    <input class="form-check-input" type="checkbox" name="radios" id="radio1" (change)="ingresarFinalidadParaEliminar(finalidad, $event.target.checked)" value="">
                     <label class="form-check-label" for="radio1"></label>
                   </div>
                 </div>
@@ -131,3 +140,10 @@
             </tr>
           </tbody>
         </table>
+        <div class="form-group row">
+          <label class="col-md-9 col-form-label"></label>
+    
+          <div class="col-md-3 mb-3">
+            <button type="button" (click)="eliminarFinalidades()" class="btn btn-danger">Borrar</button>
+          </div>
+        </div>
