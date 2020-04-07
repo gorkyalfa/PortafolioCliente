@@ -121,7 +121,7 @@ export class ContenidoAsignaturaComponent implements OnInit {
     });
     return total;
   }
-
+  
   obtenerIndiceUnidad(unidad: Unidad) {
     return this.unidades.indexOf(unidad) + 1;
   }
