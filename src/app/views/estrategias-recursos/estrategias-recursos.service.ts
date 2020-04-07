@@ -25,7 +25,7 @@ export class EstrategiasRecursosService {
   }
 
   deleteMaterial(id: number): Observable<Material> {
-    return this.http.delete<Material>(`${this.BASE_URL}/materiales/`);
+    return this.http.delete<Material>(`${this.BASE_URL}/materiales/${id}`);
   }
 
   // Metodos de tipos material
@@ -43,7 +43,7 @@ export class EstrategiasRecursosService {
   }
 
   deleteFinalidad(id: number): Observable<Finalidad> {
-    return this.http.delete<Finalidad>(`${this.BASE_URL}/finalidades/`);
+    return this.http.delete<Finalidad>(`${this.BASE_URL}/finalidades/${id}`);
   }
 
   // Metodos de recursos didacticos
@@ -53,6 +53,10 @@ export class EstrategiasRecursosService {
 
   createEstrategiaMetodologica(estrategiaMetodologica: EstrategiaMetodologica): Observable<EstrategiaMetodologica> {
     return this.http.post<EstrategiaMetodologica>(`${this.BASE_URL}/estrategias-metodologicas/`, estrategiaMetodologica);
+  }
+
+  deleteEstrategiaMetodologica(id: number): Observable<EstrategiaMetodologica> {
+    return this.http.delete<EstrategiaMetodologica>(`${this.BASE_URL}/estrategias-metodologicas/${id}`);
   }
 
 }

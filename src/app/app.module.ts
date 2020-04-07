@@ -43,6 +43,8 @@ import { TabsModule } from 'ngx-bootstrap/tabs';
 import { ChartsModule } from 'ng2-charts';
 import { AdministracionRecursosDidacticosComponent } from './views/administracion-recursos-didacticos/administracion-recursos-didacticos.component';
 
+import { NgxSpinnerModule } from "ngx-spinner";
+
 @NgModule({
   imports: [
     BrowserModule,
@@ -57,7 +59,8 @@ import { AdministracionRecursosDidacticosComponent } from './views/administracio
     PerfectScrollbarModule,
     BsDropdownModule.forRoot(),
     TabsModule.forRoot(),
-    ChartsModule
+    ChartsModule,
+    NgxSpinnerModule
   ],
   declarations: [
     AppComponent,
@@ -75,3 +78,4 @@ import { AdministracionRecursosDidacticosComponent } from './views/administracio
   bootstrap: [ AppComponent ]
 })
 export class AppModule { }
+
