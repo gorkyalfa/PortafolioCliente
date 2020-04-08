@@ -95,11 +95,9 @@ export class EstrategiasRecursosComponent implements OnInit {
   }
 
   ingresarIdParaEliminar(id: number, value: boolean): void {
-    this.spinner.show();
     this.idsMateriales = this.idsMateriales.filter(material => id !== material.id);
     this.idsMateriales.push({id, value});
     console.log(this.idsMateriales);
-    this.spinner.hide();
   }
 
   // Metodos de finalidades
@@ -163,20 +161,16 @@ export class EstrategiasRecursosComponent implements OnInit {
   }
 
   eliminarFinalidades() {
-    this.spinner.show();
     this.datosFinalidades.forEach(finalidad => {
       if (finalidad.value) {
         this.eliminarFinalidad(finalidad.datos.id, finalidad.datos.estrategiaMetodologicaId);
-        this.spinner.hide();
       }
     });
   }
 
   ingresarFinalidadParaEliminar(datos: any, value: boolean): void {
-    this.spinner.show(); 
     this.datosFinalidades = this.datosFinalidades.filter(finalidad => datos.id !== finalidad.datos.id);
     this.datosFinalidades.push({datos, value});
-    this.spinner.hide();
     console.log(this.datosFinalidades);
   }
 
