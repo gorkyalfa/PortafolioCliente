@@ -45,6 +45,8 @@ export class ContenidoAsignaturaComponent implements OnInit {
     this.getUnidades();
   }
 
+  
+
   // Metodos de semana
   getSemanas(unidadId: number) {
     this._servicio.getSemanasByUnidad(unidadId)
@@ -57,7 +59,7 @@ export class ContenidoAsignaturaComponent implements OnInit {
 
   crearSemana(unidadID: number) {
     if (this.unidades) {
-      this._servicio.createSemana({...this.semana, unidad: unidadID})
+      this._servicio.createSemana({ ...this.semana, unidad: unidadID })
         .subscribe(semana => {
           console.log('semana creada');
           console.log(semana);
@@ -66,8 +68,20 @@ export class ContenidoAsignaturaComponent implements OnInit {
     }
   }
 
+  eliminarSemana(semanaId: number, unidadId: number) {
+
+    this._servicio.deleteSemana(semanaId)
+      .subscribe(semana => {
+        this.getSemanas(unidadId);
+
+        console.log(semana);
+      });
+  }
+
+  
+
   contarTotalHorasIndividual(): any {
-    const totales = {horasPracticas: 0, horasAutonomas: 0, horasDocente: 0};
+    const totales = { horasPracticas: 0, horasAutonomas: 0, horasDocente: 0 };
     this.semanas.forEach(semana => {
       totales.horasDocente += semana.horasActividadDocencia;
       totales.horasAutonomas += semana.horasTrabajoAutonomo;
@@ -90,7 +104,7 @@ export class ContenidoAsignaturaComponent implements OnInit {
 
   createUnidad(unidad: Unidad) {
     if (this.contenido) {
-      this._servicio.createUnidad({...unidad, contenido: this.contenido.id})
+      this._servicio.createUnidad({ ...unidad, contenido: this.contenido.id })
         .subscribe(
           res => {
             console.log('Unidad creada');
@@ -104,7 +118,7 @@ export class ContenidoAsignaturaComponent implements OnInit {
 
   async actualizarUnidad(id: number) {
     const horas = this.contarHorasTotales();
-    this._servicio.updateUnidad({horasTotales: horas}, id)
+    this._servicio.updateUnidad({ horasTotales: horas }, id)
       .subscribe(
         res => {
           console.log(res);
@@ -121,7 +135,7 @@ export class ContenidoAsignaturaComponent implements OnInit {
     });
     return total;
   }
-  
+
   obtenerIndiceUnidad(unidad: Unidad) {
     return this.unidades.indexOf(unidad) + 1;
   }
@@ -133,7 +147,7 @@ export class ContenidoAsignaturaComponent implements OnInit {
       .subscribe(contenido => {
         console.log('llego contenido');
         console.log(contenido);
-        if (contenido.length >= 1 ) {
+        if (contenido.length >= 1) {
 
           this.contenido = contenido[0];
           this.getUnidades();
@@ -148,7 +162,7 @@ export class ContenidoAsignaturaComponent implements OnInit {
   }
 
   createContenido(contenido: Contenido) {
-    this._servicio.createContenido({...contenido, asignaturaId: this.actualAsignaturaId})
+    this._servicio.createContenido({ ...contenido, asignaturaId: this.actualAsignaturaId })
       .subscribe(
         res => {
           console.log('contenido creado');
