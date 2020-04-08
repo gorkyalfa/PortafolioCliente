@@ -132,8 +132,6 @@
                 </div>
             </div>
         </div>
-    </div>
-</div>
 
 
 <div bsModal #modal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
@@ -149,7 +147,7 @@
                 <div class="modal-body">
 
                     <table *ngIf="semanas" class="table table-striped table-responsive">
-                        <tr>
+                        <tr>    
                             <th>
                                 # Semana
                             </th>
@@ -205,6 +203,10 @@
                             </td>
                             <td>
                                 {{ semana.observacion }}
+                               
+                            </td>
+                            <td>
+                                <button (click)="eliminarSemana(semana.id, unidad.id)" >borrar</button> 
                             </td>
                         </tr>
                         <tr *ngIf="semanas">
@@ -227,6 +229,8 @@
             </div><!-- /.modal-content -->
         </div><!-- /.modal-dialog -->
     </div><!-- /.modal -->
+</div>
+</div>
 
     <div class="row justify-content-end">
         <div class="mx-2 mb-xl-6">
