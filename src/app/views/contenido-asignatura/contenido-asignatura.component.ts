@@ -126,6 +126,13 @@ export class ContenidoAsignaturaComponent implements OnInit {
       );
   }
 
+  eliminarUnidad(id: number) {
+    this._servicio.deleteUnidad(id)
+      .subscribe(res => {
+        this.getUnidades();
+      });
+  }
+
   contarHorasTotales(): number {
     let total = 0;
     this.semanas.forEach(semana => {

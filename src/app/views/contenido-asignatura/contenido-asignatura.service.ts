@@ -61,7 +61,7 @@ export class ContenidoAsignaturaService {
   }
 
   deleteUnidad(id: number): Observable<Unidad> {
-    return this.http.delete<Unidad>(`${this.BASE_URL}/unidades/${id}`);
+    return this.http.delete<Unidad>(`${this.BASE_URL}/unidades/${id}/remove`);
   }
 
   // Metodos de entidad semana

@@ -51,7 +51,7 @@
           <th>Eliminar</th>
         </tr>
       </thead>
-      <tbody>
+      <tbody *ngIf="materiales">
         <tr *ngFor="let material of materiales">
           <td>{{material.tipoMaterial.nombre}}</td>
           <td>{{material.nombre}}</td>
