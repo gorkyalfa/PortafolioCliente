@@ -15,7 +15,7 @@
           <select [(ngModel)]="material.tipoMaterial" name="tipoMaterial" id="select1" name="select1"
             class="form-control">
 
-            <option *ngFor="let tipoMaterial of tiposMaterial" [value]="tipoMaterial.id"> {{tipoMaterial.nombre}}
+            <option *ngFor="let tipoMaterial of tiposMaterial" [selected]="tiposMaterial[0]" [value]="tipoMaterial.id"> {{tipoMaterial.nombre}}
             </option>
 
           </select>
