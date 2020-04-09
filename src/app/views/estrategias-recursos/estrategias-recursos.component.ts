@@ -81,6 +81,7 @@ export class EstrategiasRecursosComponent implements OnInit {
     this.estrategiaservicio.deleteMateriales(materiales)
       .subscribe(res => {
         this.getMateriales();
+        this.datosMateriales = [];
         this.spinner.hide();
       });
   }
@@ -149,25 +150,16 @@ export class EstrategiasRecursosComponent implements OnInit {
     this.estrategiaservicio.deleteFinalidadesAndEstrategiaMetodologica(finalidades)
       .subscribe(res => {
         this.getFinalidades();
+        this.datosFinalidades = [];
         this.spinner.hide();
       });
   }
-
-  // eliminarEstrategia(id: number): void {
-  //   this.spinner.show();
-  //   this.estrategiaservicio.deleteEstrategiaMetodologica(id)
-  //     .subscribe(res => {
-  //       this.getFinalidades();
-  //       this.spinner.hide();
-  //     });
-  // }
 
   eliminarFinalidades() {
     const finalidadesParaEliminar = [];
     this.datosFinalidades.forEach(finalidad => {
       if (finalidad.value) {
         finalidadesParaEliminar.push(finalidad.datos);
-        // this.eliminarFinalidad(finalidad.datos.id, finalidad.datos.estrategiaMetodologicaId);
       }
     });
     this.eliminarFinalidad(finalidadesParaEliminar);
