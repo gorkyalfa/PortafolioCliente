@@ -12,7 +12,7 @@ export class DescripcionObjetivosComponent implements OnInit {
   descripcionSilabo: Descripcion;
   descripciones: Descripcion[];
 
-  constructor(private descripcionObjetivosService: DescripcionObjetivosService) { }
+  constructor(private descripcionObjetivosService: DescripcionObjetivosService,) { }
 
   ngOnInit() {
     this.getDescripcionSilabo(2);
@@ -21,7 +21,7 @@ export class DescripcionObjetivosComponent implements OnInit {
     
   }
 
-  getDescripcion(id: number): void {
+  getDescripcion(id: number): void { 
     this.descripcionObjetivosService.getDescripcion(id)
       .subscribe(descripcion => this.descripcion = descripcion);
   }
@@ -32,7 +32,7 @@ export class DescripcionObjetivosComponent implements OnInit {
   }
 
   getDescripciones(): void {
-    this.descripcionObjetivosService.getDescripciones()
+   this.descripcionObjetivosService.getDescripciones()
       .subscribe(
         res => {
           this.descripciones = res;
