@@ -12,7 +12,7 @@ import { NgxSpinnerService } from 'ngx-spinner';
 })
 export class EstrategiasRecursosComponent implements OnInit {
 
-  idsMateriales: any[] = [];
+  datosMateriales: any[] = [];
   datosFinalidades: any[] = [];
 
   material: Material = {
@@ -29,7 +29,7 @@ export class EstrategiasRecursosComponent implements OnInit {
   tiposMaterial: TipoMaterial[];
   finalidades: Finalidad[];
 
-  constructor(private estrategiaservicio: EstrategiasRecursosService,private spinner: NgxSpinnerService) { }
+  constructor(private estrategiaservicio: EstrategiasRecursosService, private spinner: NgxSpinnerService) { }
 
   ngOnInit(): void {
     this.getTiposMaterial();
@@ -75,9 +75,9 @@ export class EstrategiasRecursosComponent implements OnInit {
       );
   }
 
-  eliminarMaterial(id: number): void {
+  eliminarMaterial(materiales: Material[]): void {
     this.spinner.show();
-    this.estrategiaservicio.deleteMaterial(id)
+    this.estrategiaservicio.deleteMateriales(materiales)
       .subscribe(res => {
         this.getMateriales();
         this.spinner.hide();
@@ -85,19 +85,19 @@ export class EstrategiasRecursosComponent implements OnInit {
   }
 
   eliminarMateriales() {
-    this.spinner.show();
-    this.idsMateriales.forEach(material => {
+    const materialesEliminar = [];
+    this.datosMateriales.forEach(material => {
       if (material.value) {
-        this.eliminarMaterial(material.id);
-        this.spinner.hide();
+        materialesEliminar.push(material.material);
       }
     });
+    this.eliminarMaterial(materialesEliminar);
   }
 
-  ingresarIdParaEliminar(id: number, value: boolean): void {
-    this.idsMateriales = this.idsMateriales.filter(material => id !== material.id);
-    this.idsMateriales.push({id, value});
-    console.log(this.idsMateriales);
+  ingresarMaterialParaEliminar(material: Material, value: boolean): void {
+    this.datosMateriales = this.datosMateriales.filter(materiales => materiales.id !== material.id);
+    this.datosMateriales.push({material, value});
+    console.log(this.datosMateriales);
   }
 
   // Metodos de finalidades
@@ -142,30 +142,34 @@ export class EstrategiasRecursosComponent implements OnInit {
       );
   }
 
-  eliminarFinalidad(id: number, idEstrategia: number): void {
+  eliminarFinalidad(finalidades: Finalidad[]): void {
     this.spinner.show();
-    this.estrategiaservicio.deleteFinalidad(id)
+    console.log(finalidades);
+    this.estrategiaservicio.deleteFinalidadesAndEstrategiaMetodologica(finalidades)
       .subscribe(res => {
-        this.eliminarEstrategia(idEstrategia);
-        this.spinner.hide();
-      });
-  }
-
-  eliminarEstrategia(id: number): void {
-    this.spinner.show();
-    this.estrategiaservicio.deleteEstrategiaMetodologica(id)
-      .subscribe(res => {  
         this.getFinalidades();
         this.spinner.hide();
       });
   }
 
+  // eliminarEstrategia(id: number): void {
+  //   this.spinner.show();
+  //   this.estrategiaservicio.deleteEstrategiaMetodologica(id)
+  //     .subscribe(res => {
+  //       this.getFinalidades();
+  //       this.spinner.hide();
+  //     });
+  // }
+
   eliminarFinalidades() {
+    const finalidadesParaEliminar = [];
     this.datosFinalidades.forEach(finalidad => {
       if (finalidad.value) {
-        this.eliminarFinalidad(finalidad.datos.id, finalidad.datos.estrategiaMetodologicaId);
+        finalidadesParaEliminar.push(finalidad.datos);
+        // this.eliminarFinalidad(finalidad.datos.id, finalidad.datos.estrategiaMetodologicaId);
       }
     });
+    this.eliminarFinalidad(finalidadesParaEliminar);
   }
 
   ingresarFinalidadParaEliminar(datos: any, value: boolean): void {

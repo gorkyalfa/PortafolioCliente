@@ -26,7 +26,7 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-header">
-                    <strong>Unidad {{ obtenerIndiceUnidad(unidad) }}</strong> <p >{{unidad.nombre}}</p>
+                    <strong>Unidad {{ obtenerIndiceUnidad(unidad) }}</strong> {{unidad.nombre}}
                     <div class="card-header-actions">
                         <button class="btn btn-sm btn-danger" (click)="eliminarUnidad(unidad.id)"><i class="icon-trash icons"></i></button>
                     </div>
