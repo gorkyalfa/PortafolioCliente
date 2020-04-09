@@ -162,8 +162,8 @@ export class ContenidoAsignaturaComponent implements OnInit {
 
   obtenerIndiceUnidad(unidad: Unidad) {
     this.spinner.show();
-    return this.unidades.indexOf(unidad) + 1;
     this.spinner.hide();
+    return this.unidades.indexOf(unidad) + 1;
   }
 
   // Metodos de contenido
