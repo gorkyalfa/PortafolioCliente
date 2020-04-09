@@ -44,6 +44,7 @@ export class EstrategiasRecursosComponent implements OnInit {
     this.estrategiaservicio.getTiposMaterial()
     .subscribe(datos => {// aqui en el subscribe esperamos antes del final
       this.tiposMaterial = datos;
+      this.material.tipoMaterial = this.tiposMaterial[0];
       this.spinner.hide(); // ocultar spinner
     }); // final
     console.log(this.tiposMaterial);

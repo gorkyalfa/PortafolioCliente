@@ -4,5 +4,5 @@ export class Material{
     id?: number;
     descripcion: string;
     nombre: string;
-    tipoMaterial?: number & TipoMaterial;
+    tipoMaterial?: number | TipoMaterial;
 }
