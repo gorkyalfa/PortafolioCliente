@@ -50,14 +50,20 @@ export class EstrategiasRecursosComponent implements OnInit {
     console.log(this.tiposMaterial);
   }
 
+  mostrarNombreTipoMaterial(tipoMaterial: TipoMaterial | number) {
+    return (tipoMaterial as TipoMaterial).nombre;
+  }
+
   // Metodos de materiales
   crearMaterial(): void {
     this.spinner.show();
-    console.log(this.material);
     this.estrategiaservicio.createMaterial(this.material)
       .subscribe(
         res => {
-          console.log(res);
+          this.material = {
+            nombre: '',
+            descripcion: ''
+          };
           this.getMateriales();
           this.spinner.hide();
         },
@@ -117,27 +123,13 @@ export class EstrategiasRecursosComponent implements OnInit {
 
   crearFinalidad(): void {
     this.spinner.show();
-    console.log(this.finalidad);
     this.estrategiaservicio.createFinalidad(this.finalidad)
       .subscribe(
         res => {
-          console.log(res);
+          this.finalidad = {
+            nombre: ''
+          };
           this.getFinalidades();
-          this.spinner.hide();
-        },
-        err => console.log(err)
-      );
-  }
-
-  crearEstrategia(): void {
-    this.spinner.show();
-    console.log(this.estrategiaMetodologica);
-    this.estrategiaservicio.createEstrategiaMetodologica(this.estrategiaMetodologica)
-      .subscribe(
-        res => {
-          console.log(res);
-          this.finalidad.estrategiaMetodologicaId = res.id;
-          this.crearFinalidad();
           this.spinner.hide();
         },
         err => console.log(err)
@@ -168,8 +160,23 @@ export class EstrategiasRecursosComponent implements OnInit {
   ingresarFinalidadParaEliminar(datos: any, value: boolean): void {
     this.datosFinalidades = this.datosFinalidades.filter(finalidad => datos.id !== finalidad.datos.id);
     this.datosFinalidades.push({datos, value});
-    console.log(this.datosFinalidades);
   }
 
+  // Metodos de Estrategia Metodologica
+  crearEstrategia(): void {
+    this.spinner.show();
+    this.estrategiaservicio.createEstrategiaMetodologica(this.estrategiaMetodologica)
+      .subscribe(
+        res => {
+          this.finalidad.estrategiaMetodologicaId = res.id;
+          this.estrategiaMetodologica = {
+            nombre: ''
+          };
+          this.crearFinalidad();
+          this.spinner.hide();
+        },
+        err => console.log(err)
+      );
+  }
 
 }

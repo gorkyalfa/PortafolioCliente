@@ -45,8 +45,6 @@ export class ContenidoAsignaturaComponent implements OnInit {
     this.getUnidades();
   }
 
-  
-
   // Metodos de semana
   getSemanas(unidadId: number) {
     this._servicio.getSemanasByUnidad(unidadId)
@@ -61,8 +59,17 @@ export class ContenidoAsignaturaComponent implements OnInit {
     if (this.unidades) {
       this._servicio.createSemana({ ...this.semana, unidad: unidadID })
         .subscribe(semana => {
-          console.log('semana creada');
-          console.log(semana);
+          this.semana = {
+            semanaNumero: 0,
+            contenido: '',
+            actividadDocencia: '',
+            horasActividadDocencia: 0,
+            trabajoPractico: '',
+            horasTrabajoPractico: 0,
+            trabajoAutonomo: '',
+            horasTrabajoAutonomo: 0,
+            observacion: ''
+          };
           this.getSemanas(unidadID);
         });
     }
@@ -77,8 +84,6 @@ export class ContenidoAsignaturaComponent implements OnInit {
         console.log(semana);
       });
   }
-
-  
 
   contarTotalHorasIndividual(): any {
     const totales = { horasPracticas: 0, horasAutonomas: 0, horasDocente: 0 };
@@ -97,7 +102,6 @@ export class ContenidoAsignaturaComponent implements OnInit {
       this._servicio.getUnidadesByContenido(this.contenido.id)
         .subscribe(unidades => {
           this.unidades = unidades;
-          console.log(unidades);
         });
     }
   }
@@ -107,8 +111,9 @@ export class ContenidoAsignaturaComponent implements OnInit {
       this._servicio.createUnidad({ ...unidad, contenido: this.contenido.id })
         .subscribe(
           res => {
-            console.log('Unidad creada');
-            console.log(res);
+            this.unidad = {
+              nombre: ''
+            };
             this.getUnidades();
           },
           err => console.log(err)
@@ -116,7 +121,7 @@ export class ContenidoAsignaturaComponent implements OnInit {
     }
   }
 
-  async actualizarUnidad(id: number) {
+  actualizarUnidad(id: number) {
     const horas = this.contarHorasTotales();
     this._servicio.updateUnidad({ horasTotales: horas }, id)
       .subscribe(

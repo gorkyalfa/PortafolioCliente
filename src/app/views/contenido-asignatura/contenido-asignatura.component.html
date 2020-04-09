@@ -178,8 +178,11 @@
                             <th>
                                 Observaciones
                             </th>
+                            <th>
+                                Borrar
+                            </th>
                         </tr>
-                        <tr *ngFor="let semana of semanas">
+                        <tr *ngFor="let semana of semanas; last as esUltimo">
                             <td>
                                 {{ semana.semanaNumero }}
                             </td>
@@ -208,7 +211,7 @@
                                 {{ semana.observacion }}
                                
                             </td>
-                            <td>
+                            <td *ngIf="esUltimo">
                                 <button  type="button" class="btn btn-danger"(click)="eliminarSemana(semana.id, unidad.id)" >borrar</button> 
                             </td>
                         </tr>
