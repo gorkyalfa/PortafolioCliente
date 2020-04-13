@@ -5,6 +5,7 @@ import { Contenido } from '../../entidades/contenido';
 import { Unidad } from '../../entidades/unidad';
 import { ModalDirective } from 'ngx-bootstrap/modal';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-contenido-asignatura',
@@ -60,7 +61,38 @@ export class ContenidoAsignaturaComponent implements OnInit {
 
   crearSemana(unidadID: number) {
     this.spinner.show();
+    if (this.semanas && this.semanas.length > 1) {
+      for (let i = 0; i < this.semanas.length; i++) {
+        // tslint:disable-next-line: radix
+        if (parseInt((this.semana.semanaNumero as string)) === this.semanas[i].semanaNumero) {
+          this.spinner.hide();
+          console.log('repetido1');
+          return;
+        }
+      }
+      this.crearSemanaTrasValidar(unidadID);
+      return;
+    } else {
+      this._servicio.getSemanasByUnidad(unidadID)
+        .subscribe(res => {
+          this.semanas = res;
+          for (let i = 0; i < this.semanas.length; i++) {
+            if (this.semana.semanaNumero === this.semanas[i].semanaNumero) {
+              this.spinner.hide();
+              console.log('repetido2');
+              return;
+            }
+          }
+          this.crearSemanaTrasValidar(unidadID);
+          return;
+        });
+    }
+
+  }
+
+  crearSemanaTrasValidar(unidadID: number) {
     if (this.unidades) {
+      console.log('estoy aca');
       this._servicio.createSemana({ ...this.semana, unidad: unidadID })
         .subscribe(semana => {
           this.semana = {
@@ -108,6 +140,7 @@ export class ContenidoAsignaturaComponent implements OnInit {
       this._servicio.getUnidadesByContenido(this.contenido.id)
         .subscribe(unidades => {
           this.unidades = unidades;
+
           this.spinner.hide();
           console.log(unidades);
         });
