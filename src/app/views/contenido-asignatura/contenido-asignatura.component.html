@@ -123,7 +123,7 @@
                                 <label class="col-md-2 col-form-label"></label>
 
                                 <div class="col-md-3">
-                                    <button type="button" class="btn btn-success" (click)="crearSemana(unidad.id)">Crear</button>
+                                    <button type="button" class="btn btn-success" (click)="editandoSemana ? actualizarSemana() : crearSemana(unidad.id)">{{ editandoSemana ? 'Actualizar' : 'Crear' }}</button>
                                 </div>
                                 <div class="col-md-4">
                                     <button type="button" class="btn btn-primary" (click)="this.modal.show()" (click)="getSemanas(unidad.id)">Ver Semanas</button>
@@ -179,7 +179,7 @@
                                 Observaciones
                             </th>
                             <th>
-                                Borrar
+                                
                             </th>
                         </tr>
                         <tr *ngFor="let semana of semanas; last as esUltimo">
@@ -211,8 +211,11 @@
                                 {{ semana.observacion }}
                                
                             </td>
-                            <td *ngIf="esUltimo">
-                                <button  type="button" class="btn btn-danger"(click)="eliminarSemana(semana.id, unidad.id)" >borrar</button> 
+                            <td >
+                                <button *ngIf="esUltimo" type="button" class="btn btn-danger" (click)="eliminarSemana(semana.id, unidad.id)" > <span><i class="icons icon-trash"></i></span> </button> 
+                                <button  type="button" class="btn btn-primary" 
+                                        (click)="editandoSemana = true; setSemana(semana); this.modal.hide();" 
+                                > <span><i class="icons icon-pencil"></i></span> </button> 
                             </td>
                         </tr>
                         <tr *ngIf="semanas">

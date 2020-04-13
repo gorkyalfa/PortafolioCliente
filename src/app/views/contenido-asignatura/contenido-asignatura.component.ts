@@ -24,6 +24,7 @@ export class ContenidoAsignaturaComponent implements OnInit {
     horasTrabajoAutonomo: 0,
     observacion: ''
   };
+  editandoSemana = false;
 
   unidad: Unidad = {
     nombre: ''
@@ -95,17 +96,7 @@ export class ContenidoAsignaturaComponent implements OnInit {
       console.log('estoy aca');
       this._servicio.createSemana({ ...this.semana, unidad: unidadID })
         .subscribe(semana => {
-          this.semana = {
-            semanaNumero: 0,
-            contenido: '',
-            actividadDocencia: '',
-            horasActividadDocencia: 0,
-            trabajoPractico: '',
-            horasTrabajoPractico: 0,
-            trabajoAutonomo: '',
-            horasTrabajoAutonomo: 0,
-            observacion: ''
-          };
+          this.setSemanaLimpio();
           this.getSemanas(unidadID);
           this.spinner.hide();
         });
@@ -119,6 +110,34 @@ export class ContenidoAsignaturaComponent implements OnInit {
         this.getSemanas(unidadId);
         this.spinner.hide();
         console.log(semana);
+      });
+  }
+
+  setSemanaLimpio() {
+    this.semana = {
+      semanaNumero: 0,
+      contenido: '',
+      actividadDocencia: '',
+      horasActividadDocencia: 0,
+      trabajoPractico: '',
+      horasTrabajoPractico: 0,
+      trabajoAutonomo: '',
+      horasTrabajoAutonomo: 0,
+      observacion: ''
+    };
+  }
+
+  setSemana(semana: Semana) {
+    this.semana = semana;
+  }
+
+  actualizarSemana() {
+    this.spinner.show();
+    this._servicio.updateSemana(this.semana, this.semana.id)
+      .subscribe(res => {
+        this.setSemanaLimpio();
+        this.editandoSemana = false;
+        this.spinner.hide();
       });
   }
 
