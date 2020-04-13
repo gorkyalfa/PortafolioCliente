@@ -14,6 +14,7 @@ export class EstrategiasRecursosComponent implements OnInit {
 
   datosMateriales: any[] = [];
   datosFinalidades: any[] = [];
+  editando = false;
 
   material: Material = {
     nombre: '',
@@ -162,6 +163,22 @@ export class EstrategiasRecursosComponent implements OnInit {
     this.datosFinalidades.push({datos, value});
   }
 
+  actualizarFinalidad(): void {
+    this.spinner.show();
+    this.estrategiaservicio.updateFinalidad(this.finalidad, this.finalidad.id)
+      .subscribe(res => {
+        this.editando = false;
+        this.finalidad = {
+          nombre: ''
+        };
+        this.estrategiaMetodologica = {
+          nombre: ''
+        };
+        this.getFinalidades();
+        this.spinner.hide();
+      });
+  }
+
   // Metodos de Estrategia Metodologica
   crearEstrategia(): void {
     this.spinner.show();
@@ -177,6 +194,21 @@ export class EstrategiasRecursosComponent implements OnInit {
         },
         err => console.log(err)
       );
+  }
+
+  actualizarEstrategia(): void {
+    this.spinner.show();
+    this.estrategiaservicio.updateEstrategiaMetodologica(this.estrategiaMetodologica, this.estrategiaMetodologica.id)
+      .subscribe(res => {
+        console.log(res);
+        this.actualizarFinalidad();
+        this.spinner.hide();
+      });
+  }
+
+  setEstrategiayFinalidad(estrategia: EstrategiaMetodologica, finalidad: Finalidad) {
+    this.estrategiaMetodologica = estrategia;
+    this.finalidad = finalidad;
   }
 
 }

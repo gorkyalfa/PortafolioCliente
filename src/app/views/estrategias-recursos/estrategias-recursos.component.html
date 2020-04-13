@@ -121,7 +121,7 @@
           <label class="col-md-3 col-form-label"></label>
 
           <div class="col-md-3 mb-3">
-            <button type="button" (click)="crearEstrategia()" class="btn btn-success">Crear</button>
+            <button type="button" (click)="editando ? actualizarEstrategia() : crearEstrategia() " class="btn btn-success">{{editando ? 'Actualizar' : 'Crear'}}</button>
           </div>
 
         </div>
@@ -149,6 +149,7 @@
                     <label class="form-check-label" for="radio1"></label>
                   </div>
                 </div>
+                <button class="btn btn-primary" (click)="editando = true; setEstrategiayFinalidad(finalidad.estrategiaMetodologica, finalidad)" ><span><i class="icons icon-pencil"></i></span></button>
               </td>
             </tr>
           </tbody>

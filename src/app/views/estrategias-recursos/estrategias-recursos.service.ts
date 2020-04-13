@@ -54,7 +54,11 @@ export class EstrategiasRecursosService {
     return this.http.request('delete', `${this.BASE_URL}/finalidades/removeMany`, {body: finalidades});
   }
 
-  // Metodos de recursos didacticos
+  updateFinalidad(finalidad: Finalidad, id: number): Observable<Finalidad> {
+    return this.http.put<Finalidad>(`${this.BASE_URL}/finalidades/${id}`, finalidad);
+  }
+
+  // Metodos de estrategias metodologicas
   getEstrategiasMetodologicas(): Observable<EstrategiaMetodologica[]> {
     return this.http.get<EstrategiaMetodologica[]>(`${this.BASE_URL}/estrategias-metodologicas/`);
   }
@@ -65,6 +69,10 @@ export class EstrategiasRecursosService {
 
   deleteEstrategiaMetodologica(id: number): Observable<EstrategiaMetodologica> {
     return this.http.delete<EstrategiaMetodologica>(`${this.BASE_URL}/estrategias-metodologicas/${id}`);
+  }
+
+  updateEstrategiaMetodologica(estrategiaMetodologica: EstrategiaMetodologica, id: number): Observable<EstrategiaMetodologica> {
+    return this.http.put<EstrategiaMetodologica>(`${this.BASE_URL}/estrategias-metodologicas/${id}`, estrategiaMetodologica);
   }
 
 }
