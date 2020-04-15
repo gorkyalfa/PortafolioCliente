@@ -7,6 +7,7 @@ import { EstrategiasRecursosRoutingModule } from './estrategias-recursos-routing
 import { TabsModule } from 'ngx-bootstrap/tabs';
 import { HttpClientModule } from '@angular/common/http';
 import { NgxSpinnerModule } from 'ngx-spinner';
+import { AlertModule } from 'ngx-bootstrap/alert';
 
 @NgModule({
   imports: [
@@ -17,7 +18,8 @@ import { NgxSpinnerModule } from 'ngx-spinner';
     ButtonsModule.forRoot(),
     TabsModule,
     HttpClientModule,
-    NgxSpinnerModule
+    NgxSpinnerModule,
+    AlertModule.forRoot()
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   declarations: [ EstrategiasRecursosComponent ]

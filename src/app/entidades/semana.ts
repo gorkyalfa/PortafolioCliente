@@ -1,6 +1,6 @@
 export class Semana {
     id?: number;
-    semanaNumero: number;
+    semanaNumero: number | string;
     contenido: string;
     actividadDocencia: string;
     horasActividadDocencia: number;

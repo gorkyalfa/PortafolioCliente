@@ -96,6 +96,7 @@
                             <h6 class="modal-title" *ngIf="actualProceso"> Dentro de proceso: {{ actualProceso.nombre }}
                             </h6>
                             <br>
+                            <form>
                             <div class="form-group">
                                 <input [ngModel]="esSubProceso > 1 ? resultado.nombre : proceso.nombre"
                                     (ngModelChange)="esSubProceso > 1 ? (resultado.nombre = $event) : (proceso.nombre = $event)"
@@ -107,6 +108,7 @@
                             <button type="submit" class="btn btn-primary btn-block">
                                 Crear
                             </button>
+                        </form>
 
                         </form>
                     </div>
