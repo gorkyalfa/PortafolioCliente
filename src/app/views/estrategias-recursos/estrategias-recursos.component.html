@@ -23,12 +23,12 @@
       </div>
       <div class="form-group row">
         <label class="col-md-3 col-form-label font-weight-bold">Material</label>
-        <textarea id="textarea-input" name="nombre" rows="3" class="form-control col-md-8" [(ngModel)]="material.nombre"
+        <textarea required id="textarea-input" name="nombre" rows="3" class="form-control col-md-8" [(ngModel)]="material.nombre"
           placeholder="Contenido"></textarea>
       </div>
       <div class="form-group row">
         <label class="col-md-3 col-form-label font-weight-bold">Descripción</label>
-        <textarea id="textarea-input" name="descripcion" rows="3" class="form-control col-md-8"
+        <textarea required id="textarea-input" name="descripcion" rows="3" class="form-control col-md-8"
           [(ngModel)]="material.descripcion" placeholder="Contenido"></textarea>
       </div>
     </div>
@@ -59,7 +59,7 @@
           <td>
             <div class="form-group row">
               <div class="form-check">
-                <input class="form-check-input"
+                <input required class="form-check-input"
                        type="checkbox" name="isChecked" id="check" value=""
                        (change)="ingresarMaterialParaEliminar(material, $event.target.checked)"/>
                 <label class="form-check-label" for="check">
@@ -93,7 +93,7 @@
         <div class="form-group row">
           <label class="col-md-3 font-weight-bold" for="name">Estrategia</label>
           <div class="col-md-8">
-            <textarea [(ngModel)]="estrategiaMetodologica.nombre" id="textarea-input" name="nombre" rows="3"
+            <textarea required [(ngModel)]="estrategiaMetodologica.nombre" id="textarea-input" name="nombre" rows="3"
               class="form-control" placeholder="Contenido"></textarea>
           </div>
           
@@ -102,7 +102,7 @@
         <div class="form-group row">
           <label class="col-md-3 font-weight-bold" for="name">Descripción</label>
           <div class="col-md-8">
-            <textarea [(ngModel)]="estrategiaMetodologica.descripcion" id="textarea-input" name="descripcion" rows="3"
+            <textarea required [(ngModel)]="estrategiaMetodologica.descripcion" id="textarea-input" name="descripcion" rows="3"
               class="form-control" placeholder="Contenido"></textarea>
           </div>
           
@@ -112,7 +112,7 @@
         <div class="form-group row">
           <label class="col-md-3 font-weight-bold" for="name">Finalidad</label>
           <div class="col-md-8">
-            <textarea [(ngModel)]="finalidad.nombre" id="textarea-input" name="nombre" rows="3" class="form-control"
+            <textarea required [(ngModel)]="finalidad.nombre" id="textarea-input" name="nombre" rows="3" class="form-control"
               placeholder="Contenido"></textarea>
           </div>
           </div>
@@ -145,7 +145,7 @@
               <td>
                 <div class="form-group row">
                   <div class="form-check">
-                    <input class="form-check-input" type="checkbox" name="radios" id="radio1" (change)="ingresarFinalidadParaEliminar(finalidad, $event.target.checked)" value="">
+                    <input required class="form-check-input" type="checkbox" name="radios" id="radio1" (change)="ingresarFinalidadParaEliminar(finalidad, $event.target.checked)" value="">
                     <label class="form-check-label" for="radio1"></label>
                   </div>
                 </div>

@@ -37,7 +37,7 @@
                             <strong class="">
                                 <p>Evidencia</p>
                             </strong>
-                            <textarea [(ngModel)]="evidencia.nombre" id="textarea-input" name="textarea-input" rows="4"
+                            <textarea required [(ngModel)]="evidencia.nombre" id="textarea-input" name="textarea-input" rows="4"
                                 class="form-control" placeholder="contenido">{{evidencia.nombre}}</textarea>
                             <button (click)="actualizarEvidencia(evidencia.id)"
                                 class="btn btn-success px-4">Listo</button>
@@ -63,7 +63,7 @@
                         <form (submit)="crearRaiz()">
 
                             <div class="form-group">
-                                <input type="text" name="name" [(ngModel)]="proceso.nombre" class="form-control"
+                                <input required type="text" name="name" [(ngModel)]="proceso.nombre" class="form-control"
                                     placeholder="Nombre del Proceso" autofocus>
                             </div>
                             <button type="submit" class="btn btn-primary btn-block">
@@ -97,7 +97,7 @@
                             </h6>
                             <br>
                             <div class="form-group">
-                                <input [ngModel]="esSubProceso > 1 ? resultado.nombre : proceso.nombre"
+                                <input required [ngModel]="esSubProceso > 1 ? resultado.nombre : proceso.nombre"
                                     (ngModelChange)="esSubProceso > 1 ? (resultado.nombre = $event) : (proceso.nombre = $event)"
                                     type="text" name="name" class="form-control"
                                     [placeholder]="esSubProceso > 1 ? 'Nombre del Resultado' : 'Nombre del Sub-Proceso'"
