@@ -13,7 +13,7 @@
         <label class="col-form-label col-md-3 font-weight-bold" for="select1">Tipo de Material</label>
         <div>
           <select [(ngModel)]="material.tipoMaterial" name="tipoMaterial" id="select1" name="select1"
-            class="form-control" [value]="material.tipoMaterial.nombre">
+            class="form-control">
 
             <option *ngFor="let tipoMaterial of tiposMaterial" [selected]="tiposMaterial[0].id" [value]="tipoMaterial.id"> {{tipoMaterial.nombre}}
             </option>

@@ -23,7 +23,7 @@ import { NgxSpinnerModule } from 'ngx-spinner';
   declarations: [ EstrategiasRecursosComponent ]
 })
 export class EstrategiasRecursosModule { }
-
+                        
 
 
 
