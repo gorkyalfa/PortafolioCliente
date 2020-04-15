@@ -6,7 +6,7 @@
                 <div class="form-group row">
                     <label class="col-md-2 col-form-label font-weight-bold">Nombre Unidad</label>
                     <div class="col-md-9">
-                        <input type="text" [(ngModel)]="unidad.nombre" name="nombre" class="form-control" placeholder="">
+                        <input required type="text" [(ngModel)]="unidad.nombre" name="nombre" class="form-control" placeholder="">
                     </div>
                 </div>
             </form>
@@ -38,12 +38,12 @@
                         <div class="form-inline">
                             <div class="form-group">
                                 <label class="col-md-6 col-sm-4 my-2 col-form-label">Numero De Semana</label>
-                                <input type="text" [(ngModel)]="semana.semanaNumero" name="semanaNumero" class="form-control col-sm-3" placeholder="">
+                                <input required type="text" [(ngModel)]="semana.semanaNumero" name="semanaNumero" class="form-control col-sm-3" placeholder="">
                             </div>
                             <div class="form-group">
                                 <label class="col-md-3 col-form-label">Contenido</label>
                                 <div class="col-md-2">
-                                    <input type="text" class="form-control" name="contenido" [(ngModel)]="semana.contenido" placeholder="">
+                                    <input required type="text" class="form-control" name="contenido" [(ngModel)]="semana.contenido" placeholder="">
                                 </div>
                             </div>
                         </div>
@@ -58,11 +58,11 @@
                             <div class="card-body">
                                 <div class="row justify-content-between mb-2">
                                     <label class="col-8 my-2">Actividades de Docencia</label>
-                                    <input type="text" name="horasActividadDocencia" [(ngModel)]="semana.horasActividadDocencia" class="form-control mr-4 col-3" placeholder="Horas">
+                                    <input required type="text" name="horasActividadDocencia" [(ngModel)]="semana.horasActividadDocencia" class="form-control mr-4 col-3" placeholder="Horas">
     
                                 </div>
                                 <div class="row">
-                                    <textarea id="textarea-input" name="textarea-input" rows="4"
+                                    <textarea required id="textarea-input" name="textarea-input" rows="4"
                                         class="form-control col-auto" name="actividadDocencia" [(ngModel)]="semana.actividadDocencia" placeholder="Contenido.."></textarea>
                                 </div>
     
@@ -77,11 +77,11 @@
                             <div class="card-body">
                                 <div class="row justify-content-between">
                                     <label class="col-6 my-2">Trabajo Practico</label>
-                                    <input type="text" [(ngModel)]="semana.horasTrabajoPractico" name="horasTrabajoPractico" class="form-control mr-4 col-4" placeholder="Horas">
+                                    <input required type="text" [(ngModel)]="semana.horasTrabajoPractico" name="horasTrabajoPractico" class="form-control mr-4 col-4" placeholder="Horas">
     
                                 </div>
                                 <div class="row">
-                                    <textarea id="textarea-input" name="textarea-input" rows="4"
+                                    <textarea required id="textarea-input" name="textarea-input" rows="4"
                                         class="form-control col-auto" name="trabajoPractico" [(ngModel)]="semana.trabajoPractico" placeholder="Contenido.."></textarea>
     
                                 </div>
@@ -95,11 +95,11 @@
                             <div class="card-body">
                                 <div class="row justify-content-between mb-2">
                                     <label class="col-8 my-2">Actividades de Investigación</label>
-                                    <input type="text" name="horasTrabajoAutonomo" [(ngModel)]="semana.horasTrabajoAutonomo" class="form-control mr-4 col-3" placeholder="Horas">
+                                    <input required type="text" name="horasTrabajoAutonomo" [(ngModel)]="semana.horasTrabajoAutonomo" class="form-control mr-4 col-3" placeholder="Horas">
     
                                 </div>
                                 <div class="row">
-                                    <textarea id="textarea-input" name="textarea-input" rows="4"
+                                    <textarea required id="textarea-input" name="textarea-input" rows="4"
                                         class="form-control col-auto" name="trabajoAutonomo" [(ngModel)]="semana.trabajoAutonomo" placeholder="Contenido.."></textarea>
     
                                 </div>
@@ -113,7 +113,7 @@
                             <div class="form-group row">
                                 <label class="col-md-2 font-weight-bold col-form-label">Observaciones</label>
                                 <div class="col-md-9">
-                                    <input type="text" name="observacion" [(ngModel)]="semana.observacion" class="form-control" placeholder="">
+                                    <input required type="text" name="observacion" [(ngModel)]="semana.observacion" class="form-control" placeholder="">
                                 </div>
                             </div>
                         </form>
