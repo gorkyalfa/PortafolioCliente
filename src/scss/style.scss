@@ -17,4 +17,25 @@
     background-color: #CFD8DC;
     color: black;
   }
-  
+
+  .alert-md-color {
+    background-color: #63ce48;
+    border-color: rgb(81, 206, 87);
+    color: #fff;
+    font-weight: bold;
+  }
+  .alert-md-color-error {
+    background-color: #d10000;
+    border-color: #af0606;
+    color: #fff;
+    font-weight: bold;
+  }
+  .posicion {
+    height: 100%;
+    width: 100%;
+    position: fixed;
+    z-index: 2000;
+  }
+  .posicion-wrapper {
+    height: 100%;
+  }
