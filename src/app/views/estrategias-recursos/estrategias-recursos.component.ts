@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
-import {EstrategiasRecursosService } from './estrategias-recursos.service';
+import { EstrategiasRecursosService } from './estrategias-recursos.service';
 import { TipoMaterial } from '../../entidades/tipoMaterial';
 import { Material } from '../../entidades/material';
 import { EstrategiaMetodologica } from '../../entidades/estrategiaMetodologica';
@@ -15,23 +15,9 @@ export function getAlertConfig(): AlertConfig {
   selector: 'app-estrategias-recursos',
   templateUrl: './estrategias-recursos.component.html',
   encapsulation: ViewEncapsulation.None,
-  styles: [
-    `
-  .alert-md-local {
-    background-color: #009688;
-    border-color: #00695C;
-    color: #fff;
-  }
-  `
-  ],
   providers: [{ provide: AlertConfig, useFactory: getAlertConfig }]
 })
 export class EstrategiasRecursosComponent implements OnInit {
-
-  datosMateriales: any[] = [];
-  datosFinalidades: any[] = [];
-  editando = false;
-  editandoMaterial = false;
 
   material: Material = {
     nombre: '',
@@ -43,13 +29,21 @@ export class EstrategiasRecursosComponent implements OnInit {
   estrategiaMetodologica: EstrategiaMetodologica = {
     nombre: ''
   };
+
   materiales: Material[];
   tiposMaterial: TipoMaterial[];
   finalidades: Finalidad[];
-
+  datosMateriales: any[] = [];
+  datosFinalidades: any[] = [];
   alertas: any = [];
 
-  constructor(private estrategiaservicio: EstrategiasRecursosService, private spinner: NgxSpinnerService) { }
+  editando: boolean = false;
+  editandoMaterial: boolean = false;
+
+  constructor(
+    private estrategiaservicio: EstrategiasRecursosService,
+    private spinner: NgxSpinnerService
+  ) { }
 
   ngOnInit(): void {
     this.getTiposMaterial();
@@ -57,28 +51,34 @@ export class EstrategiasRecursosComponent implements OnInit {
     this.getFinalidades();
   }
 
-  mostrarNotif(): void {
+  mostrarNotif(mensaje: string, error: boolean): void {
     this.alertas.push({
       type: 'info',
-      msg: `This alert will be closed in 5 seconds (added: ${new Date().toLocaleTimeString()})`,
-      timeout: 5000
+      msg: `${mensaje}`,
+      timeout: 5000,
+      error: error
     });
   }
 
   // Metodos de tipos materiales
   getTiposMaterial(): void {
-    // comenzamos en el inicio de cada funcion
-    this.spinner.show(); // de esta manera mostramos el spinner
+    this.spinner.show();
     this.estrategiaservicio.getTiposMaterial()
-    .subscribe(datos => {// aqui en el subscribe esperamos antes del final
-      this.tiposMaterial = datos;
-      this.material.tipoMaterial = this.tiposMaterial[0];
-      this.spinner.hide(); // ocultar spinner
-    }); // final
-    console.log(this.tiposMaterial);
+    .subscribe(
+      tiposMaterial => {
+        this.tiposMaterial = tiposMaterial;
+        this.material.tipoMaterial = this.tiposMaterial[0];
+        this.spinner.hide();
+        this.mostrarNotif('Carga exitosa.', false);
+      },
+      err => {
+        this.spinner.hide();
+        this.mostrarNotif('¡Algo pasó!.', true);
+      }
+    );
   }
 
-  mostrarNombreTipoMaterial(tipoMaterial: TipoMaterial | number) {
+  mostrarNombreTipoMaterial(tipoMaterial: TipoMaterial | number): string {
     return (tipoMaterial as TipoMaterial).nombre;
   }
 
@@ -91,9 +91,12 @@ export class EstrategiasRecursosComponent implements OnInit {
           this.limpiarMaterial();
           this.getMateriales();
           this.spinner.hide();
-          this.mostrarNotif();
+          this.mostrarNotif('Material creado exitosamente.', false);
         },
-        err => console.log(err)
+        err => {
+          this.spinner.hide();
+          this.mostrarNotif('Hubo un problema en la creación.', true);
+        }
       );
   }
 
@@ -105,7 +108,7 @@ export class EstrategiasRecursosComponent implements OnInit {
     };
   }
 
-  setMaterial(material: Material) {
+  setMaterial(material: Material): void {
     this.material = material;
   }
 
@@ -113,9 +116,14 @@ export class EstrategiasRecursosComponent implements OnInit {
     this.spinner.show();
     this.estrategiaservicio.getMateriales()
       .subscribe(
-        res => {
-          this.materiales = res;
+        materiales => {
+          this.materiales = materiales;
           this.spinner.hide();
+          this.mostrarNotif('Carga exitosa.', false);
+        },
+        err => {
+          this.spinner.hide();
+          this.mostrarNotif('¡Algo pasó!.', true);
         }
       );
   }
@@ -123,14 +131,21 @@ export class EstrategiasRecursosComponent implements OnInit {
   eliminarMaterial(materiales: Material[]): void {
     this.spinner.show();
     this.estrategiaservicio.deleteMateriales(materiales)
-      .subscribe(res => {
-        this.getMateriales();
-        this.datosMateriales = [];
-        this.spinner.hide();
-      });
+      .subscribe(
+        res => {
+          this.getMateriales();
+          this.datosMateriales = [];
+          this.spinner.hide();
+          this.mostrarNotif('Eliminación exitosa.', false);
+        },
+        err => {
+          this.spinner.hide();
+          this.mostrarNotif('Hubo un problema al eliminar.', true);
+        }
+      );
   }
 
-  eliminarMateriales() {
+  eliminarMateriales(): void {
     const materialesEliminar = [];
     this.datosMateriales.forEach(material => {
       if (material.value) {
@@ -141,20 +156,27 @@ export class EstrategiasRecursosComponent implements OnInit {
   }
 
   ingresarMaterialParaEliminar(material: Material, value: boolean): void {
-    this.datosMateriales = this.datosMateriales.filter(materiales => materiales.id !== material.id);
+    this.datosMateriales = this.datosMateriales
+      .filter(materiales => materiales.id !== material.id);
     this.datosMateriales.push({material, value});
-    console.log(this.datosMateriales);
   }
 
-  actualizarMaterial() {
+  actualizarMaterial(): void {
     this.spinner.show();
     this.estrategiaservicio.updateMaterial(this.material, this.material.id)
-      .subscribe(res => {
-        this.editandoMaterial = false;
-        this.limpiarMaterial();
-        this.getMateriales();
-        this.spinner.hide();
-      });
+      .subscribe(
+        res => {
+          this.editandoMaterial = false;
+          this.limpiarMaterial();
+          this.getMateriales();
+          this.spinner.hide();
+          this.mostrarNotif('Actualizado exitoso.', false);
+        },
+        err => {
+          this.spinner.hide();
+          this.mostrarNotif('Hubo un problema al actualizar.', true);
+        }
+      );
   }
 
   // Metodos de finalidades
@@ -162,10 +184,14 @@ export class EstrategiasRecursosComponent implements OnInit {
     this.spinner.show();
     this.estrategiaservicio.getFinalidades()
       .subscribe(
-        res => {
-          this.finalidades = res;
+        finalidades => {
+          this.finalidades = finalidades;
           this.spinner.hide();
-          console.log(res);
+          this.mostrarNotif('Carga exitosa.', false);
+        },
+        err => {
+          this.spinner.hide();
+          this.mostrarNotif('¡Algo pasó!.', true);
         }
       );
   }
@@ -175,28 +201,36 @@ export class EstrategiasRecursosComponent implements OnInit {
     this.estrategiaservicio.createFinalidad(this.finalidad)
       .subscribe(
         res => {
-          this.finalidad = {
-            nombre: ''
-          };
+          this.limpiarFinalidad();
           this.getFinalidades();
           this.spinner.hide();
+          this.mostrarNotif('Finalidad creada exitosamente.', false);
         },
-        err => console.log(err)
+        err => {
+          this.spinner.hide();
+          this.mostrarNotif('Hubo un problema en la creación.', true);
+        }
       );
   }
 
   eliminarFinalidad(finalidades: Finalidad[]): void {
     this.spinner.show();
-    console.log(finalidades);
     this.estrategiaservicio.deleteFinalidadesAndEstrategiaMetodologica(finalidades)
-      .subscribe(res => {
-        this.getFinalidades();
-        this.datosFinalidades = [];
-        this.spinner.hide();
-      });
+      .subscribe(
+        res => {
+          this.getFinalidades();
+          this.datosFinalidades = [];
+          this.spinner.hide();
+          this.mostrarNotif('Eliminación exitosa.', false);
+        },
+        err => {
+          this.spinner.hide();
+          this.mostrarNotif('Hubo un problema al eliminar.', true);
+        }
+      );
   }
 
-  eliminarFinalidades() {
+  eliminarFinalidades(): void {
     const finalidadesParaEliminar = [];
     this.datosFinalidades.forEach(finalidad => {
       if (finalidad.value) {
@@ -207,24 +241,34 @@ export class EstrategiasRecursosComponent implements OnInit {
   }
 
   ingresarFinalidadParaEliminar(datos: any, value: boolean): void {
-    this.datosFinalidades = this.datosFinalidades.filter(finalidad => datos.id !== finalidad.datos.id);
+    this.datosFinalidades = this.datosFinalidades
+      .filter(finalidad => datos.id !== finalidad.datos.id);
     this.datosFinalidades.push({datos, value});
   }
 
   actualizarFinalidad(): void {
     this.spinner.show();
     this.estrategiaservicio.updateFinalidad(this.finalidad, this.finalidad.id)
-      .subscribe(res => {
-        this.editando = false;
-        this.finalidad = {
-          nombre: ''
-        };
-        this.estrategiaMetodologica = {
-          nombre: ''
-        };
-        this.getFinalidades();
-        this.spinner.hide();
-      });
+      .subscribe(
+        res => {
+          this.editando = false;
+          this.limpiarFinalidad();
+          this.limpiarEstrategia();
+          this.getFinalidades();
+          this.spinner.hide();
+          this.mostrarNotif('Actualizado exitoso.', false);
+        },
+        err => {
+          this.spinner.hide();
+          this.mostrarNotif('Hubo un problema al actualizar.', true);
+        }
+      );
+  }
+
+  limpiarFinalidad(): void {
+    this.finalidad = {
+      nombre: ''
+    };
   }
 
   // Metodos de Estrategia Metodologica
@@ -234,29 +278,46 @@ export class EstrategiasRecursosComponent implements OnInit {
       .subscribe(
         res => {
           this.finalidad.estrategiaMetodologicaId = res.id;
-          this.estrategiaMetodologica = {
-            nombre: ''
-          };
+          this.limpiarEstrategia();
           this.crearFinalidad();
           this.spinner.hide();
+          this.mostrarNotif('Estrategia creada exitosamente.', false);
         },
-        err => console.log(err)
+        err => {
+          this.spinner.hide();
+          this.mostrarNotif('Hubo un problema en la creación.', true);
+        }
       );
   }
 
   actualizarEstrategia(): void {
     this.spinner.show();
     this.estrategiaservicio.updateEstrategiaMetodologica(this.estrategiaMetodologica, this.estrategiaMetodologica.id)
-      .subscribe(res => {
-        console.log(res);
-        this.actualizarFinalidad();
-        this.spinner.hide();
-      });
+      .subscribe(
+        res => {
+          this.actualizarFinalidad();
+          this.spinner.hide();
+          this.mostrarNotif('Estrategia actualizada exitosamente.', false);
+        },
+        err => {
+          this.spinner.hide();
+          this.mostrarNotif('Hubo un problema al actualizar.', true);
+        }
+      );
   }
 
-  setEstrategiayFinalidad(estrategia: EstrategiaMetodologica, finalidad: Finalidad) {
+  setEstrategiayFinalidad(
+    estrategia: EstrategiaMetodologica,
+    finalidad: Finalidad
+  ) {
     this.estrategiaMetodologica = estrategia;
     this.finalidad = finalidad;
+  }
+
+  limpiarEstrategia(): void {
+    this.estrategiaMetodologica = {
+      nombre: ''
+    };
   }
 
 }
