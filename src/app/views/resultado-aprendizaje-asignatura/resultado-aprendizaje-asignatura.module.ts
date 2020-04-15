@@ -6,6 +6,7 @@ import { TreeModule } from 'angular-tree-component';
 import { FormsModule } from '@angular/forms';
 import { ModalModule } from 'ngx-bootstrap';
 import { NgxSpinnerModule } from 'ngx-spinner';
+import { AlertModule } from 'ngx-bootstrap/alert';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import { NgxSpinnerModule } from 'ngx-spinner';
     ModalModule.forRoot(),
     ResultadoAprendizajeAsignaturaRoutingModule,
     TreeModule.forRoot(),
-    NgxSpinnerModule
+    NgxSpinnerModule,
+    AlertModule.forRoot()
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })

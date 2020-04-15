@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { ResultadoAprendizajeAsignaturaService } from './resultado-aprendizaje-asignatura.service';
 import { TreeComponent, TreeModel, TreeNode } from 'angular-tree-component';
 import { ModalDirective } from 'ngx-bootstrap/modal';
@@ -6,11 +6,18 @@ import { Proceso } from '../../entidades/proceso';
 import { ResultadoAprendizaje } from '../../entidades/resultadoAprendizaje';
 import { Evidencia } from '../../entidades/evidencia';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { AlertConfig } from 'ngx-bootstrap/alert';
+
+export function getAlertConfig(): AlertConfig {
+  return Object.assign(new AlertConfig(), { type: 'success' });
+}
 
 
 @Component({
   selector: 'app-resultado-aprendizaje-asignatura',
-  templateUrl: './resultado-aprendizaje-asignatura.component.html'
+  templateUrl: './resultado-aprendizaje-asignatura.component.html',
+  encapsulation: ViewEncapsulation.None,
+  providers: [{ provide: AlertConfig, useFactory: getAlertConfig }]
 })
 export class ResultadoAprendizajeAsignaturaComponent implements OnInit {
 
@@ -24,6 +31,8 @@ export class ResultadoAprendizajeAsignaturaComponent implements OnInit {
   resultado: ResultadoAprendizaje = {
     nombre: ''
   };
+
+  alertas: any = [];
 
   evidencia: Evidencia;
   evidenciaReset: Evidencia;
@@ -59,25 +68,47 @@ export class ResultadoAprendizajeAsignaturaComponent implements OnInit {
     this.getProcesos();
   }
 
+  mostrarNotif(mensaje: string, error: boolean): void {
+    this.alertas.push({
+      type: 'info',
+      msg: `${mensaje}`,
+      timeout: 5000,
+      error: error
+    });
+  }
+
   // Metodos de proceso
   getProcesos() {
     this.spinner.show();
     this._servicio.getProcesos()
-      .subscribe((data) => {
-        this.datos = data;
-        // console.log(this.datos);
-        this.arbol.treeModel.update();
-        this.spinner.hide();
-      });
+      .subscribe(
+        (data) => {
+          this.datos = data;
+          this.arbol.treeModel.update();
+          this.spinner.hide();
+          this.mostrarNotif('Carga exitosa.', false);
+        },
+        err => {
+          this.spinner.hide();
+          this.mostrarNotif('¡Algo pasó!.', true);
+        }
+      );
   }
 
   getProceso() {
     this.spinner.show();
     this._servicio.getProceso(this._servicio.actualProcesoId)
-      .subscribe((data) => {
-        this.actualProceso = data;
-        this.spinner.hide();
-      });
+      .subscribe(
+        (data) => {
+          this.actualProceso = data;
+          this.spinner.hide();
+          this.mostrarNotif('Carga exitosa.', false);
+        },
+        err => {
+          this.spinner.hide();
+          this.mostrarNotif('¡Algo pasó!.', true);
+        }
+      );
   }
 
   crearRaiz() {
@@ -90,7 +121,9 @@ export class ResultadoAprendizajeAsignaturaComponent implements OnInit {
           this.alCrearOCancelar();
           this.spinner.hide();
         },
-        err => console.log(err)
+        err => {
+
+        }
       );
   }
 
@@ -102,7 +135,6 @@ export class ResultadoAprendizajeAsignaturaComponent implements OnInit {
         this.esSubProceso = dato;
         if (this.esSubProceso > 1) {
           this.createResultado();
-          // console.log(this.esSubProceso);
         } else {
           this._servicio.createProceso({...this.proceso, procesoAncestro: this.actualProceso})
             .subscribe(
@@ -112,7 +144,9 @@ export class ResultadoAprendizajeAsignaturaComponent implements OnInit {
                 this.alCrearOCancelar();
                 this.spinner.hide();
               },
-              err => console.log(err)
+              err => {
+
+              }
             );
         }
       });
@@ -126,9 +160,11 @@ export class ResultadoAprendizajeAsignaturaComponent implements OnInit {
           this.getProcesos();
           this.spinner.hide();
         },
-        err => console.log(err)
+        err => {
+
+        }
       );
-  }
+  } //aqui no
 
   eliminarProceso() {
     this.spinner.show();
@@ -139,7 +175,9 @@ export class ResultadoAprendizajeAsignaturaComponent implements OnInit {
           this._servicio.actualProcesoId = null;
           this.spinner.hide();
         },
-        err => console.log(err)
+        err => {
+
+        }
       );
   }
 
@@ -147,12 +185,14 @@ export class ResultadoAprendizajeAsignaturaComponent implements OnInit {
   getResultados() {
     this.spinner.show();
     this._servicio.getResultados(this._servicio.actualProcesoId)
-      .subscribe( resultados => {
-        this.resultados = resultados;
-        console.log(resultados);
-        this.getEvidencia();
-        this.spinner.hide();
-      });
+      .subscribe( 
+        resultados => {
+          this.resultados = resultados;
+          console.log(resultados);
+          this.getEvidencia();
+          this.spinner.hide();
+        }
+      );
   }
 
   createResultado() {
@@ -168,7 +208,9 @@ export class ResultadoAprendizajeAsignaturaComponent implements OnInit {
             this.alCrearOCancelar();
             this.getResultados();
           },
-          error => console.log(error)
+          error => {
+
+          }
         );
 
     } else {
@@ -185,13 +227,17 @@ export class ResultadoAprendizajeAsignaturaComponent implements OnInit {
                   this.alCrearOCancelar();
                   this.getResultados();
                 },
-                error => console.log(error)
+                error => {
+
+                }
               );
             console.log(evidencia);
             this.evidencia = evidencia;
             this.spinner.hide();
           },
-          err => console.log(err)
+          err => {
+
+          }
         );
     }
   }
@@ -207,7 +253,9 @@ export class ResultadoAprendizajeAsignaturaComponent implements OnInit {
           this.getResultados();
           this.spinner.hide();
         },
-        err => console.log(err)
+        err => {
+
+        }
       );
   }
 

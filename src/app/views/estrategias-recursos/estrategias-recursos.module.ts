@@ -25,7 +25,7 @@ import { AlertModule } from 'ngx-bootstrap/alert';
   declarations: [ EstrategiasRecursosComponent ]
 })
 export class EstrategiasRecursosModule { }
-
+                        
 
 
 
