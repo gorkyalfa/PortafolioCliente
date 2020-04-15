@@ -34,7 +34,7 @@ export class ContenidoAsignaturaComponent implements OnInit {
     nombre: 'PRUEBA'
   };
 
-  actualAsignaturaId: number = 1;
+  actualAsignaturaId: number = 2;
   semanas: Semana[];
   contenido: Contenido;
   unidades: Unidad[];

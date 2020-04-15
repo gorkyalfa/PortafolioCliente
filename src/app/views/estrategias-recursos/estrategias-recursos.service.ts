@@ -32,6 +32,10 @@ export class EstrategiasRecursosService {
     return this.http.request('delete', `${this.BASE_URL}/materiales/removeMany`, {body: materiales});
   }
 
+  updateMaterial(material: Material, id: number): Observable<Material> {
+    return this.http.put<Material>(`${this.BASE_URL}/materiales/${id}`, material);
+  }
+
   // Metodos de tipos material
   getTiposMaterial(): Observable<TipoMaterial[]> {
     return this.http.get<TipoMaterial[]>(`${this.BASE_URL}/tipo-materiales`);

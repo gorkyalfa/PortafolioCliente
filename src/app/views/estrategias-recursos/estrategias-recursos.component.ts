@@ -1,20 +1,37 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import {EstrategiasRecursosService } from './estrategias-recursos.service';
 import { TipoMaterial } from '../../entidades/tipoMaterial';
 import { Material } from '../../entidades/material';
 import { EstrategiaMetodologica } from '../../entidades/estrategiaMetodologica';
 import { Finalidad } from '../../entidades/finalidad';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { AlertConfig } from 'ngx-bootstrap/alert';
+
+export function getAlertConfig(): AlertConfig {
+  return Object.assign(new AlertConfig(), { type: 'success' });
+}
 
 @Component({
   selector: 'app-estrategias-recursos',
   templateUrl: './estrategias-recursos.component.html',
+  encapsulation: ViewEncapsulation.None,
+  styles: [
+    `
+  .alert-md-local {
+    background-color: #009688;
+    border-color: #00695C;
+    color: #fff;
+  }
+  `
+  ],
+  providers: [{ provide: AlertConfig, useFactory: getAlertConfig }]
 })
 export class EstrategiasRecursosComponent implements OnInit {
 
   datosMateriales: any[] = [];
   datosFinalidades: any[] = [];
   editando = false;
+  editandoMaterial = false;
 
   material: Material = {
     nombre: '',
@@ -30,12 +47,22 @@ export class EstrategiasRecursosComponent implements OnInit {
   tiposMaterial: TipoMaterial[];
   finalidades: Finalidad[];
 
+  alertas: any = [];
+
   constructor(private estrategiaservicio: EstrategiasRecursosService, private spinner: NgxSpinnerService) { }
 
   ngOnInit(): void {
     this.getTiposMaterial();
     this.getMateriales();
     this.getFinalidades();
+  }
+
+  mostrarNotif(): void {
+    this.alertas.push({
+      type: 'info',
+      msg: `This alert will be closed in 5 seconds (added: ${new Date().toLocaleTimeString()})`,
+      timeout: 5000
+    });
   }
 
   // Metodos de tipos materiales
@@ -61,15 +88,25 @@ export class EstrategiasRecursosComponent implements OnInit {
     this.estrategiaservicio.createMaterial(this.material)
       .subscribe(
         res => {
-          this.material = {
-            nombre: '',
-            descripcion: ''
-          };
+          this.limpiarMaterial();
           this.getMateriales();
           this.spinner.hide();
+          this.mostrarNotif();
         },
         err => console.log(err)
       );
+  }
+
+  limpiarMaterial(): void {
+    this.material = {
+      nombre: '',
+      descripcion: '',
+      tipoMaterial: this.tiposMaterial[0]
+    };
+  }
+
+  setMaterial(material: Material) {
+    this.material = material;
   }
 
   getMateriales(): void {
@@ -107,6 +144,17 @@ export class EstrategiasRecursosComponent implements OnInit {
     this.datosMateriales = this.datosMateriales.filter(materiales => materiales.id !== material.id);
     this.datosMateriales.push({material, value});
     console.log(this.datosMateriales);
+  }
+
+  actualizarMaterial() {
+    this.spinner.show();
+    this.estrategiaservicio.updateMaterial(this.material, this.material.id)
+      .subscribe(res => {
+        this.editandoMaterial = false;
+        this.limpiarMaterial();
+        this.getMateriales();
+        this.spinner.hide();
+      });
   }
 
   // Metodos de finalidades
