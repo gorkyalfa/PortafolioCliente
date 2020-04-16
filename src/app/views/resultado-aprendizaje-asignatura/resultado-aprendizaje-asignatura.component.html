@@ -1,7 +1,9 @@
-<div *ngFor="let alert of alertas" class="row">
-    <alert *ngIf="!alert.error" type="md-color" [dismissOnTimeout]="alert.timeout">{{ alert.msg }}</alert>
-    <alert *ngIf="alert.error" type="md-color-error" [dismissOnTimeout]="alert.timeout">{{ alert.msg }}</alert>
-  </div>
+<div class="posicion">
+    <div *ngFor="let alert of alertas" class="row">
+      <alert class="col text-right" *ngIf="!alert.error" type="success" [dismissOnTimeout]="alert.timeout">{{ alert.msg }}</alert>
+      <alert class="col text-right" *ngIf="alert.error" type="danger" [dismissOnTimeout]="alert.timeout">{{ alert.msg }}</alert>  
+    </div>
+</div>
   <div class="row">
     <div class="card col-md-10 col-sm-10">
         <div class="card-header">
