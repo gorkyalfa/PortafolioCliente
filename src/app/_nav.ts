@@ -149,6 +149,11 @@ export const navItems: INavData[] = [
     icon: 'icon-speedometer',
   },
   {
+    name: 'Resultados Perfil Carrera',
+    url: '/resultado-aprendizaje-perfil-carrera',
+    icon: 'icon-star',
+  },
+  {
     name: 'Icons',
     url: '/icons',
     icon: 'icon-star',

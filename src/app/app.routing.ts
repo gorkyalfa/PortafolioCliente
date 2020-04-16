@@ -74,6 +74,10 @@ export const routes: Routes = [
         loadChildren: () => import('./views/estrategias-recursos/estrategias-recursos.module').then(m => m.EstrategiasRecursosModule)
       },
       {
+        path: 'resultado-aprendizaje-perfil-carrera',
+        loadChildren: () => import('./views/resultado-aprendizaje-perfil-carrera/resultado-aprendizaje-perfil-carrera.module').then(m => m.ResultadoAprendizajePerfilCarreraModule)
+      },
+      {
         path: 'buttons',
         loadChildren: () => import('./views/buttons/buttons.module').then(m => m.ButtonsModule)
       },
