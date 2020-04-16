@@ -1,12 +1,14 @@
-<div *ngFor="let alert of alertas" class="row">
-  <alert *ngIf="!alert.error" type="md-color" [dismissOnTimeout]="alert.timeout">{{ alert.msg }}</alert>
-  <alert *ngIf="alert.error" type="md-color-error" [dismissOnTimeout]="alert.timeout">{{ alert.msg }}</alert>
+<div class="posicion">
+  <div *ngFor="let alert of alertas" class="row">
+    <alert *ngIf="!alert.error" type="md-color" [dismissOnTimeout]="alert.timeout">{{ alert.msg }}</alert>
+    <alert *ngIf="alert.error" type="md-color-error" [dismissOnTimeout]="alert.timeout">{{ alert.msg }}</alert>  
+  </div>
 </div>
 
 <div class="mb-4">
   <div class="card">
     <div class="card text-white bg-success"></div>
-
+<form>
     <div class="card-header">
       <strong>Recursos Didacticos</strong>
     </div>
@@ -77,6 +79,7 @@
 
       </tbody>
     </table>
+</form>
     <div class="form-group row">
       <label class="col-md-9 col-form-label"></label>
 
@@ -94,6 +97,7 @@
 
       <div class="card text-white bg-success"></div>
       <div class="card-body">
+        
 
         <div class="form-group row">
           <label class="col-md-3 font-weight-bold" for="name">Estrategia</label>
@@ -168,3 +172,4 @@
           </div>
         </div>
         <ngx-spinner></ngx-spinner>
+      

@@ -41,10 +41,10 @@
                             <strong class="">
                                 <p>Evidencia</p>
                             </strong>
-                            <textarea required [(ngModel)]="evidencia.nombre" id="textarea-input" name="textarea-input" rows="4"
+                            <textarea [(ngModel)]="evidencia.nombre" id="textarea-input" name="textarea-input" rows="4"
                                 class="form-control" placeholder="contenido">{{evidencia.nombre}}</textarea>
                             <button (click)="actualizarEvidencia(evidencia.id)"
-                                class="btn btn-success px-4 py-2">Listo</button>
+                                class="btn btn-success px-4">Listo</button>
 
                         </div>
                     </div>
@@ -67,7 +67,7 @@
                         <form (submit)="crearRaiz()">
 
                             <div class="form-group">
-                                <input required type="text" name="name" [(ngModel)]="proceso.nombre" class="form-control"
+                                <input type="text" name="name" [(ngModel)]="proceso.nombre" class="form-control"
                                     placeholder="Nombre del Proceso" autofocus>
                             </div>
                             <button type="submit" class="btn btn-primary btn-block">
@@ -100,8 +100,9 @@
                             <h6 class="modal-title" *ngIf="actualProceso"> Dentro de proceso: {{ actualProceso.nombre }}
                             </h6>
                             <br>
+                            <form>
                             <div class="form-group">
-                                <input required [ngModel]="esSubProceso > 1 ? resultado.nombre : proceso.nombre"
+                                <input [ngModel]="esSubProceso > 1 ? resultado.nombre : proceso.nombre"
                                     (ngModelChange)="esSubProceso > 1 ? (resultado.nombre = $event) : (proceso.nombre = $event)"
                                     type="text" name="name" class="form-control"
                                     [placeholder]="esSubProceso > 1 ? 'Nombre del Resultado' : 'Nombre del Sub-Proceso'"
@@ -111,6 +112,7 @@
                             <button type="submit" class="btn btn-primary btn-block">
                                 Crear
                             </button>
+                        </form>
 
                         </form>
                     </div>
@@ -150,6 +152,5 @@
 
     <div class="mx-2 mt-2 mb-3 mb-xl-0 ">
         <button type="button" class="btn btn-success px-4">Siguiente</button>
-    </div>
+    </div>      
 </div>
-<ngx-spinner></ngx-spinner>
