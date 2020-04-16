@@ -7,7 +7,7 @@ const routes: Routes = [
     path: '',
     component: EstrategiasRecursosComponent,
     data: {
-      title: 'DescripcionObjetivos'
+      title: 'Estrategias Recursos'
     }
   }
 ];

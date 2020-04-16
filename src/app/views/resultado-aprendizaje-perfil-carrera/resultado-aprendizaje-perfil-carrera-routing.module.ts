@@ -4,7 +4,7 @@ import { ResultadoAprendizajePerfilCarreraComponent } from './resultado-aprendiz
 
 const routes: Routes = [
   {
-    path: 'resultado-aprendizaje-perfil-carrera',
+    path: '',
     component: ResultadoAprendizajePerfilCarreraComponent,
     data: {
       title: 'Resultados Perfil Carrera'
