@@ -1,7 +1,7 @@
 <div class="posicion">
     <div *ngFor="let alert of alertas" class="row">
-      <alert class="col text-right" *ngIf="!alert.error" type="success" [dismissOnTimeout]="alert.timeout">{{ alert.msg }}</alert>
-      <alert class="col text-right" *ngIf="alert.error" type="danger" [dismissOnTimeout]="alert.timeout">{{ alert.msg }}</alert>  
+      <alert class="col align-self-end" *ngIf="!alert.error" type="success" [dismissOnTimeout]="alert.timeout">{{ alert.msg }}</alert>
+      <alert class="col align-self-end" *ngIf="alert.error" type="danger" [dismissOnTimeout]="alert.timeout">{{ alert.msg }}</alert>  
     </div>
 </div>
   <div class="row">
@@ -69,7 +69,7 @@
                         <form (submit)="crearRaiz()">
 
                             <div class="form-group">
-                                <input type="text" name="name" [(ngModel)]="proceso.nombre" class="form-control"
+                                <input required type="text" name="name" [(ngModel)]="proceso.nombre" class="form-control"
                                     placeholder="Nombre del Proceso" autofocus>
                             </div>
                             <button type="submit" class="btn btn-primary btn-block">
@@ -98,7 +98,7 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                        <form (submit)="crearProceso()">
+                        <form ngSubmit="crearProceso()">
                             <h6 class="modal-title" *ngIf="actualProceso"> Dentro de proceso: {{ actualProceso.nombre }}
                             </h6>
                             <br>
@@ -108,7 +108,7 @@
                                     (ngModelChange)="esSubProceso > 1 ? (resultado.nombre = $event) : (proceso.nombre = $event)"
                                     type="text" name="name" class="form-control"
                                     [placeholder]="esSubProceso > 1 ? 'Nombre del Resultado' : 'Nombre del Sub-Proceso'"
-                                    autofocus>
+                                    autofocus required>
 
                             </div>
                             <button type="submit" class="btn btn-primary btn-block">
