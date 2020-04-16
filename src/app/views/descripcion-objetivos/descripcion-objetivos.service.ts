@@ -30,4 +30,9 @@ export class DescripcionObjetivosService {
     return this.http.post<Descripcion>(`${this.BASE_URL}/descripciones/`, descripcion);
   }  
 
+  updateDescripcionSilabo(descripcion: Descripcion, id: number): Observable<Descripcion> {
+    return this.http.put<Descripcion>(`${this.BASE_URL}/descripciones/${id}`, descripcion);
+  }
+
+
 }

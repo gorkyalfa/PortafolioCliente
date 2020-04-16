@@ -9,6 +9,7 @@ import { Silabo } from '../../entidades/silabo';
   templateUrl: 'crear-silabo.component.html'
 })
 export class CrearSilaboComponent implements OnInit {
+  idSeleccionado: number;
   descripcion: Silabo;
   silabos: Silabo[] = [];
   asignaturas: Silabo[] = [];
@@ -20,14 +21,20 @@ export class CrearSilaboComponent implements OnInit {
 
   ngOnInit() {
     this.getSilaboAsignaturas();
-    this.getSilaboDescripcionObjetivo(2);
-    this.getSilaboCorrequisitos(2);
-    this.getSilaboPrerrequisitos(2);
+    this.getSilaboDescripcionObjetivo(this.idSeleccionado);
+    this.getSilaboCorrequisitos(this.idSeleccionado);
+    this.getSilaboPrerrequisitos(this.idSeleccionado);
   }
 
   getSilaboDescripcionObjetivo(id: number): void {
     this.silaboService.getDescripcionObjetibo(id)
       .subscribe(descripcion => this.descripcion = descripcion);
+  }
+
+  onSelect(silabo: Silabo): void {
+    this.idSeleccionado = silabo.id;
+    this.getSilaboCorrequisitos(this.idSeleccionado);
+    this.getSilaboPrerrequisitos(this.idSeleccionado);
   }
 
   crear() {

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { DescripcionObjetivosService } from './descripcion-objetivos.service';
 import { Descripcion } from '../../entidades/descripcion';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-descripcion-objetivos',
@@ -11,8 +12,10 @@ export class DescripcionObjetivosComponent implements OnInit {
   descripcion: Descripcion;
   descripcionSilabo: Descripcion;
   descripciones: Descripcion[];
+  editandoDescripcion = false;
+  alertas: any = [];
 
-  constructor(private descripcionObjetivosService: DescripcionObjetivosService,) { }
+  constructor(private descripcionObjetivosService: DescripcionObjetivosService, private spinner: NgxSpinnerService) { }
 
   ngOnInit() {
     this.getDescripcionSilabo(2);
@@ -40,21 +43,50 @@ export class DescripcionObjetivosComponent implements OnInit {
       );
   }
 
-
-  crearMaterial(): void {
-    console.log(this.descripcion);
+  crearDescripcion(): void {
+    this.spinner.show();
     this.descripcionObjetivosService.createDescripcion(this.descripcion)
       .subscribe(
         res => {
-          console.log(res);
+          this.limpiarDescripcion();
+          this.getDescripciones();
+          this.spinner.hide();
+          this.mostrarNotif();
         },
         err => console.log(err)
       );
   }
 
+  limpiarDescripcion(): void {
+    this.descripcion = {
+      descripcion: '',
+      objetivo: ''
+    };
+  }
+
+  actualizarDescpripcionSilabo() {
+    this.descripcionObjetivosService.updateDescripcionSilabo(this.descripcionSilabo, this.descripcionSilabo.id)
+      .subscribe(res => {
+        console.log(res);
+      });
+  }
+
+  mostrarNotif(): void {
+    this.alertas.push({
+      type: 'info',
+      msg: `This alert will be closed in 5 seconds (added: ${new Date().toLocaleTimeString()})`,
+      timeout: 5000
+    });
+  }
+ 
+
   textAreaAdjust(o) {
     o.style.height = "1px";
     o.style.height = (25 + o.scrollHeight) + "px";
+  }
+
+  mostrarConsoleLog() {
+    console.log('prueba')
   }
 }
 
