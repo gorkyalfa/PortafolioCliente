@@ -1,22 +1,14 @@
-<style>
-  .alert-md-color {
-    background-color: #7B1FA2;
-    border-color: #4A148C;
-    color: #fff;
-    float: right;
-  }
-  .posicion {
-    position: fixed;
-    z-index: 2000;
-  }
-</style>
-<div class="posicion" *ngFor="let alert of alertas">
-  <alert type="md-color" [dismissOnTimeout]="alert.timeout">{{ alert.msg }}</alert>
+<div class="posicion">
+  <div *ngFor="let alert of alertas" class="row">
+    <alert *ngIf="!alert.error" type="md-color" [dismissOnTimeout]="alert.timeout">{{ alert.msg }}</alert>
+    <alert *ngIf="alert.error" type="md-color-error" [dismissOnTimeout]="alert.timeout">{{ alert.msg }}</alert>  
+  </div>
 </div>
+
 <div class="mb-4">
   <div class="card">
     <div class="card text-white bg-success"></div>
-
+<form>
     <div class="card-header">
       <strong>Recursos Didacticos</strong>
     </div>
@@ -27,10 +19,10 @@
       <div class="form-group row">
         <label class="col-form-label col-md-3 font-weight-bold" for="select1">Tipo de Material</label>
         <div>
-          <select *ngIf="tiposMaterial" [(ngModel)]="material.tipoMaterial" name="tipoMaterial" id="select1" name="select1"
-            class="form-control" [value]="mostrarNombreTipoMaterial(material.tipoMaterial)">
+          <select *ngIf="tiposMaterial" [(ngModel)]="material.tipoMaterial" class="form-control"
+            [value]="mostrarNombreTipoMaterial(material.tipoMaterial)">
 
-            <option *ngFor="let tipoMaterial of tiposMaterial" [selected]="tiposMaterial[0].id" [value]="tipoMaterial.id"> {{tipoMaterial.nombre}}
+            <option *ngFor="let tipoMaterial of tiposMaterial" [value]="tipoMaterial.id"> {{tipoMaterial.nombre}}
             </option>
 
           </select>
@@ -38,8 +30,8 @@
       </div>
       <div class="form-group row">
         <label class="col-md-3 col-form-label font-weight-bold">Material</label>
-        <textarea required id="textarea-input" name="nombre" rows="3" class="form-control col-md-8" [(ngModel)]="material.nombre"
-          placeholder="Contenido"></textarea>
+        <textarea required id="textarea-input" name="nombre" rows="3" class="form-control col-md-8"
+          [(ngModel)]="material.nombre" placeholder="Contenido"></textarea>
       </div>
       <div class="form-group row">
         <label class="col-md-3 col-form-label font-weight-bold">Descripción</label>
@@ -52,7 +44,8 @@
       <label class="col-md-3 col-form-label"></label>
 
       <div class="col-md-3 mb-3">
-        <button type="button" (click)="editandoMaterial ? actualizarMaterial() : crearMaterial() " class="btn btn-success">{{editandoMaterial ? 'Actualizar' : 'Crear'}}</button>
+        <button type="button" (click)="editandoMaterial ? actualizarMaterial() : crearMaterial() "
+          class="btn btn-success">{{editandoMaterial ? 'Actualizar' : 'Crear'}}</button>
       </div>
 
     </div>
@@ -74,18 +67,19 @@
           <td>{{material.descripcion}}</td>
           <td>
             <div class="form-check">
-                <input class="form-check-input"
-                       type="checkbox" name="isChecked" id="check" value=""
-                       (change)="ingresarMaterialParaEliminar(material, $event.target.checked)"/>
+              <input class="form-check-input" type="checkbox" name="isChecked" id="check" value=""
+                (change)="ingresarMaterialParaEliminar(material, $event.target.checked)" />
             </div>
           </td>
           <td>
-            <button class="btn btn-primary" (click)="editandoMaterial = true; setMaterial(material)" ><span><i class="icons icon-pencil"></i></span></button>
+            <button class="btn btn-primary" (click)="editandoMaterial = true; setMaterial(material)"><span><i
+                  class="icons icon-pencil"></i></span></button>
           </td>
         </tr>
 
       </tbody>
     </table>
+</form>
     <div class="form-group row">
       <label class="col-md-9 col-form-label"></label>
 
@@ -97,13 +91,13 @@
       <div class="card text-white bg-success"></div>
       <div class="card-header">
 
-
         <strong>Estrategias Metodologicas</strong>
-        
+
       </div>
-      
+
       <div class="card text-white bg-success"></div>
       <div class="card-body">
+        
 
         <div class="form-group row">
           <label class="col-md-3 font-weight-bold" for="name">Estrategia</label>
@@ -111,36 +105,34 @@
             <textarea required [(ngModel)]="estrategiaMetodologica.nombre" id="textarea-input" name="nombre" rows="3"
               class="form-control" placeholder="Contenido"></textarea>
           </div>
-          
-          
+
         </div>
         <div class="form-group row">
           <label class="col-md-3 font-weight-bold" for="name">Descripción</label>
           <div class="col-md-8">
-            <textarea required [(ngModel)]="estrategiaMetodologica.descripcion" id="textarea-input" name="descripcion" rows="3"
-              class="form-control" placeholder="Contenido"></textarea>
+            <textarea required [(ngModel)]="estrategiaMetodologica.descripcion" id="textarea-input" name="descripcion"
+              rows="3" class="form-control" placeholder="Contenido"></textarea>
           </div>
-          
+
         </div>
-        
 
         <div class="form-group row">
           <label class="col-md-3 font-weight-bold" for="name">Finalidad</label>
           <div class="col-md-8">
-            <textarea required [(ngModel)]="finalidad.nombre" id="textarea-input" name="nombre" rows="3" class="form-control"
-              placeholder="Contenido"></textarea>
+            <textarea required [(ngModel)]="finalidad.nombre" id="textarea-input" name="nombre" rows="3"
+              class="form-control" placeholder="Contenido"></textarea>
           </div>
-          </div>
+        </div>
 
         <div class="form-group row">
           <label class="col-md-3 col-form-label"></label>
 
           <div class="col-md-3 mb-3">
-            <button type="button" (click)="editando ? actualizarEstrategia() : crearEstrategia() " class="btn btn-success">{{editando ? 'Actualizar' : 'Crear'}}</button>
+            <button type="button" (click)="editando ? actualizarEstrategia() : crearEstrategia() "
+              class="btn btn-success">{{editando ? 'Actualizar' : 'Crear'}}</button>
           </div>
 
         </div>
-
 
         <table class="table table-sm">
           <thead>
@@ -160,20 +152,24 @@
               <td>{{finalidad.nombre}}</td>
               <td>
                 <div class="form-check">
-                    <input class="form-check-input" type="checkbox" name="radios" id="radio1" (change)="ingresarFinalidadParaEliminar(finalidad, $event.target.checked)" value="">
+                  <input class="form-check-input" type="checkbox" name="radios" id="radio1"
+                    (change)="ingresarFinalidadParaEliminar(finalidad, $event.target.checked)" value="">
                 </div>
               </td>
               <td>
-                <button class="btn btn-primary" (click)="editando = true; setEstrategiayFinalidad(finalidad.estrategiaMetodologica, finalidad)" ><span><i class="icons icon-pencil"></i></span></button>
+                <button class="btn btn-primary"
+                  (click)="editando = true; setEstrategiayFinalidad(finalidad.estrategiaMetodologica, finalidad)"><span><i
+                      class="icons icon-pencil"></i></span></button>
               </td>
             </tr>
           </tbody>
         </table>
         <div class="form-group row">
           <label class="col-md-9 col-form-label"></label>
-    
+
           <div class="col-md-3 mb-3">
             <button type="button" (click)="eliminarFinalidades()" class="btn btn-danger">Borrar</button>
           </div>
         </div>
         <ngx-spinner></ngx-spinner>
+      

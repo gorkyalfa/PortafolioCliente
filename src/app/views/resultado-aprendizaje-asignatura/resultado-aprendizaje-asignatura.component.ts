@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { ResultadoAprendizajeAsignaturaService } from './resultado-aprendizaje-asignatura.service';
 import { TreeComponent, TreeModel, TreeNode } from 'angular-tree-component';
 import { ModalDirective } from 'ngx-bootstrap/modal';
@@ -6,11 +6,18 @@ import { Proceso } from '../../entidades/proceso';
 import { ResultadoAprendizaje } from '../../entidades/resultadoAprendizaje';
 import { Evidencia } from '../../entidades/evidencia';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { AlertConfig } from 'ngx-bootstrap/alert';
+
+export function getAlertConfig(): AlertConfig {
+  return Object.assign(new AlertConfig(), { type: 'success' });
+}
 
 
 @Component({
   selector: 'app-resultado-aprendizaje-asignatura',
-  templateUrl: './resultado-aprendizaje-asignatura.component.html'
+  templateUrl: './resultado-aprendizaje-asignatura.component.html',
+  encapsulation: ViewEncapsulation.None,
+  providers: [{ provide: AlertConfig, useFactory: getAlertConfig }]
 })
 export class ResultadoAprendizajeAsignaturaComponent implements OnInit {
 
@@ -24,6 +31,8 @@ export class ResultadoAprendizajeAsignaturaComponent implements OnInit {
   resultado: ResultadoAprendizaje = {
     nombre: ''
   };
+
+  alertas: any = [];
 
   evidencia: Evidencia;
   evidenciaReset: Evidencia;
@@ -45,7 +54,7 @@ export class ResultadoAprendizajeAsignaturaComponent implements OnInit {
     childrenField: 'procesosDescendientes',
     actionMapping: {
       mouse: {
-        drop: (tree: TreeModel, node: TreeNode, $event: any, {from , to}: {from: any, to: any}) => {
+        drop: (tree: TreeModel, node: TreeNode, $event: any, { from, to }: { from: any, to: any }) => {
           // custom action. parameters: from = node, to = {parent, index}
           // this.actualizarProceso(this._servicio.actual, {index: to.index});
         }
@@ -53,31 +62,53 @@ export class ResultadoAprendizajeAsignaturaComponent implements OnInit {
     }
   };
 
-  constructor(public _servicio: ResultadoAprendizajeAsignaturaService,private spinner: NgxSpinnerService) { }
+  constructor(public _servicio: ResultadoAprendizajeAsignaturaService, private spinner: NgxSpinnerService) { }
 
   ngOnInit(): void {
     this.getProcesos();
+  }
+
+  mostrarNotif(mensaje: string, error: boolean): void {
+    this.alertas.push({
+      type: 'info',
+      msg: `${mensaje}`,
+      timeout: 5000,
+      error: error
+    });
   }
 
   // Metodos de proceso
   getProcesos() {
     this.spinner.show();
     this._servicio.getProcesos()
-      .subscribe((data) => {
-        this.datos = data;
-        // console.log(this.datos);
-        this.arbol.treeModel.update();
-        this.spinner.hide();
-      });
+      .subscribe(
+        (data) => {
+          this.datos = data;
+          this.arbol.treeModel.update();
+          this.spinner.hide();
+          this.mostrarNotif('Carga exitosa.', false);
+        },
+        err => {
+          this.spinner.hide();
+          this.mostrarNotif('¡Algo pasó!.', true);
+        }
+      );
   }
 
   getProceso() {
     this.spinner.show();
     this._servicio.getProceso(this._servicio.actualProcesoId)
-      .subscribe((data) => {
-        this.actualProceso = data;
-        this.spinner.hide();
-      });
+      .subscribe(
+        (data) => {
+          this.actualProceso = data;
+          this.spinner.hide();
+          this.mostrarNotif('Carga exitosa.', false);
+        },
+        err => {
+          this.spinner.hide();
+          this.mostrarNotif('¡Algo pasó!.', true);
+        }
+      );
   }
 
   crearRaiz() {
@@ -89,8 +120,12 @@ export class ResultadoAprendizajeAsignaturaComponent implements OnInit {
           this.arbol.treeModel.update();
           this.alCrearOCancelar();
           this.spinner.hide();
+          this.mostrarNotif('Material creado exitosamente.', false)
         },
-        err => console.log(err)
+        err => {
+          this.spinner.hide();
+          this.mostrarNotif('Hubo un problema en la creación.', true);
+        }
       );
   }
 
@@ -102,17 +137,21 @@ export class ResultadoAprendizajeAsignaturaComponent implements OnInit {
         this.esSubProceso = dato;
         if (this.esSubProceso > 1) {
           this.createResultado();
-          // console.log(this.esSubProceso);
         } else {
-          this._servicio.createProceso({...this.proceso, procesoAncestro: this.actualProceso})
+          this._servicio.createProceso({ ...this.proceso, procesoAncestro: this.actualProceso })
             .subscribe(
               res => {
                 this.getProcesos();
                 this.arbol.treeModel.update();
                 this.alCrearOCancelar();
                 this.spinner.hide();
+                this.mostrarNotif('Material creado exitosamente.', false)
               },
-              err => console.log(err)
+              err => {
+                this.spinner.hide();
+                this.mostrarNotif('Hubo un problema en la creación.', true);
+
+              }
             );
         }
       });
@@ -126,9 +165,11 @@ export class ResultadoAprendizajeAsignaturaComponent implements OnInit {
           this.getProcesos();
           this.spinner.hide();
         },
-        err => console.log(err)
+        err => {
+
+        }
       );
-  }
+  } //aqui no
 
   eliminarProceso() {
     this.spinner.show();
@@ -138,8 +179,12 @@ export class ResultadoAprendizajeAsignaturaComponent implements OnInit {
           this.getProcesos();
           this._servicio.actualProcesoId = null;
           this.spinner.hide();
+          this.mostrarNotif('Eliminación exitosa.', false);
         },
-        err => console.log(err)
+        err => {
+          this.spinner.hide();
+          this.mostrarNotif('Hubo un problema al eliminar.', true);
+        }
       );
   }
 
@@ -147,51 +192,74 @@ export class ResultadoAprendizajeAsignaturaComponent implements OnInit {
   getResultados() {
     this.spinner.show();
     this._servicio.getResultados(this._servicio.actualProcesoId)
-      .subscribe( resultados => {
-        this.resultados = resultados;
-        console.log(resultados);
-        this.getEvidencia();
-        this.spinner.hide();
-      });
+      .subscribe(
+        resultados => {
+          this.resultados = resultados;
+          console.log(resultados);
+          this.getEvidencia();
+          this.spinner.hide();
+          this.mostrarNotif('Carga exitosa.', false);
+        },
+        err => {
+          this.spinner.hide();
+          this.mostrarNotif('¡Algo pasó!.', true);
+        }
+      );
   }
 
   createResultado() {
     this.spinner.show();
     if (this.resultados && this.resultados[0]) {
-      this._servicio.createResultado({...this.resultado,
-                                      evidenciaId: this.resultados[0].evidenciaId,
-                                      proceso: this._servicio.actualProcesoId})
+      this._servicio.createResultado({
+        ...this.resultado,
+        evidenciaId: this.resultados[0].evidenciaId,
+        proceso: this._servicio.actualProcesoId
+      })
         .subscribe(
           res => {
             console.log(res);
             console.log('camino con resultado existente ' + this.resultados[0].evidenciaId);
             this.alCrearOCancelar();
             this.getResultados();
+            this.mostrarNotif('Material creado exitosamente.', false)
           },
-          error => console.log(error)
+          err => {
+            this.spinner.hide();
+            this.mostrarNotif('Hubo un problema en la creación.', true);
+          }
         );
 
     } else {
-      this._servicio.createEvidencia({nombre: ''})
+      this._servicio.createEvidencia({ nombre: '' })
         .subscribe(
           evidencia => {
-            this._servicio.createResultado({...this.resultado,
-                                            evidenciaId: evidencia.id,
-                                            proceso: this._servicio.actualProcesoId})
+            this._servicio.createResultado({
+              ...this.resultado,
+              evidenciaId: evidencia.id,
+              proceso: this._servicio.actualProcesoId
+            })
               .subscribe(
                 res => {
                   console.log(res);
                   console.log('camino con resultado inexistente ' + evidencia.id);
                   this.alCrearOCancelar();
                   this.getResultados();
+                  this.mostrarNotif('Material creado exitosamente.', false)
                 },
-                error => console.log(error)
+                err => {
+                  this.spinner.hide();
+                  this.mostrarNotif('Hubo un problema en la creación.', true);
+                }
               );
             console.log(evidencia);
             this.evidencia = evidencia;
             this.spinner.hide();
+            this.mostrarNotif('Material creado exitosamente.', false)
           },
-          err => console.log(err)
+          err => {
+            this.spinner.hide();
+            this.mostrarNotif('Hubo un problema en la creación.', true);
+          }
         );
     }
   }
@@ -206,8 +274,13 @@ export class ResultadoAprendizajeAsignaturaComponent implements OnInit {
           }
           this.getResultados();
           this.spinner.hide();
+          this.mostrarNotif('Carga exitosa.', false);
         },
-        err => console.log(err)
+        err => {
+          this.spinner.hide();
+          this.mostrarNotif('¡Algo pasó!.', true);
+
+        }
       );
   }
 
@@ -220,7 +293,13 @@ export class ResultadoAprendizajeAsignaturaComponent implements OnInit {
           this.evidencia = res;
           this.spinner.hide();
           console.log(res);
-        });
+          this.mostrarNotif('Carga exitosa.', false);
+        },
+          err => {
+            this.spinner.hide();
+            this.mostrarNotif('¡Algo pasó!.', true);
+          }
+        );
     }
   }
 
@@ -230,7 +309,8 @@ export class ResultadoAprendizajeAsignaturaComponent implements OnInit {
       .subscribe(res => {
         this.getEvidencia();
         this.spinner.hide();
-      });
+      }
+      );
   }
 
   eliminarEvidencia(id: number) {
@@ -239,8 +319,13 @@ export class ResultadoAprendizajeAsignaturaComponent implements OnInit {
       .subscribe(res => {
         this.evidencia = this.evidenciaReset;
         this.spinner.hide();
-        console.log(res);
-      });
+       this.mostrarNotif('Eliminación exitosa.', false);
+      },
+      err => {
+        this.spinner.hide();
+        this.mostrarNotif('Hubo un problema al eliminar.', true);
+      } 
+      );
   }
 
   // Manejo del arbol
@@ -257,9 +342,16 @@ export class ResultadoAprendizajeAsignaturaComponent implements OnInit {
         } else {
           this.evidencia = null;
           this.spinner.hide();
+          this.mostrarNotif('Carga exitosa.', false);
         }
-      });
+      },
+        err => {
+          this.spinner.hide();
+          this.mostrarNotif('¡Algo pasó!.', true);
+        }
+      );
   }
+
 
   onMoveNode($event) {
     this.spinner.show();
@@ -270,7 +362,7 @@ export class ResultadoAprendizajeAsignaturaComponent implements OnInit {
       $event.to.parent.nombre,
       'at index',
       $event.to.index);
-      this.spinner.hide();
+    this.spinner.hide();
   }
 
   alCrearOCancelar() {
