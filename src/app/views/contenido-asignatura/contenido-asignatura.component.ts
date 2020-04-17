@@ -1,15 +1,22 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { ContenidoAsignaturaService } from './contenido-asignatura.service';
 import { Semana } from '../../entidades/semana';
 import { Contenido } from '../../entidades/contenido';
 import { Unidad } from '../../entidades/unidad';
 import { ModalDirective } from 'ngx-bootstrap/modal';
-import { NgxSpinnerService } from 'ngx-spinner';
-import { Observable } from 'rxjs';
+import { NgxSpinnerService } from 'ngx-spinner'
+import { AlertConfig } from 'ngx-bootstrap/alert';
+
+
+export function getAlertConfig(): AlertConfig {
+  return Object.assign(new AlertConfig(), { type: 'success' });
+}
 
 @Component({
   selector: 'app-contenido-asignatura',
-  templateUrl: './contenido-asignatura.component.html'
+  templateUrl: './contenido-asignatura.component.html',
+  encapsulation: ViewEncapsulation.None,
+  providers: [{ provide: AlertConfig, useFactory: getAlertConfig }]
 })
 export class ContenidoAsignaturaComponent implements OnInit {
 
@@ -38,7 +45,7 @@ export class ContenidoAsignaturaComponent implements OnInit {
   semanas: Semana[];
   contenido: Contenido;
   unidades: Unidad[];
-
+  alertas: any = [];
   @ViewChild('modal') public modal: ModalDirective;
 
   constructor(private _servicio: ContenidoAsignaturaService, private spinner: NgxSpinnerService) { }
@@ -46,6 +53,14 @@ export class ContenidoAsignaturaComponent implements OnInit {
   ngOnInit(): void {
     this.getContenidos();
     this.getUnidades();
+  }
+  mostrarNotif(mensaje: string, error: boolean): void {
+    this.alertas.push({
+      type: 'info',
+      msg: `${mensaje}`,
+      timeout: 5000,
+      error: error
+    });
   }
 
   // Metodos de semana
@@ -57,7 +72,13 @@ export class ContenidoAsignaturaComponent implements OnInit {
         console.log(this.semanas);
         this.actualizarUnidad(unidadId);
         this.spinner.hide();
-      });
+        this.mostrarNotif('Carga exitosa.', false);
+      },
+      err => {
+        this.spinner.hide();
+        this.mostrarNotif('¡Algo pasó!.', true);
+      }
+      );
   }
 
   crearSemana(unidadID: number) {
@@ -85,8 +106,14 @@ export class ContenidoAsignaturaComponent implements OnInit {
             }
           }
           this.crearSemanaTrasValidar(unidadID);
+          this.mostrarNotif('semana creada exitosamente.', false);
           return;
-        });
+        },
+        err => {
+          this.spinner.hide();
+          this.mostrarNotif('Hubo un problema en la creación.', true);
+        }
+        );
     }
 
   }
@@ -99,7 +126,13 @@ export class ContenidoAsignaturaComponent implements OnInit {
           this.setSemanaLimpio();
           this.getSemanas(unidadID);
           this.spinner.hide();
-        });
+          this.mostrarNotif('Material creado exitosamente.', false);
+        },
+        err => {
+          this.spinner.hide();
+          this.mostrarNotif('Hubo un problema en la creación.', true);
+        }
+        );
     }
   }
 
@@ -109,8 +142,14 @@ export class ContenidoAsignaturaComponent implements OnInit {
       .subscribe(semana => {
         this.getSemanas(unidadId);
         this.spinner.hide();
+        this.mostrarNotif('Eliminación exitosa.', false);
         console.log(semana);
-      });
+      },
+      err => {
+        this.spinner.hide();
+        this.mostrarNotif('Hubo un problema al eliminar.', true);
+      }
+      );
   }
 
   setSemanaLimpio() {
@@ -161,8 +200,14 @@ export class ContenidoAsignaturaComponent implements OnInit {
           this.unidades = unidades;
 
           this.spinner.hide();
+          this.mostrarNotif('Carga exitosa.', false);
           console.log(unidades);
-        });
+        },
+        err => {
+          this.spinner.hide();
+          this.mostrarNotif('¡Algo pasó!.', true);
+        }
+        );
     }
   }
 
@@ -177,8 +222,12 @@ export class ContenidoAsignaturaComponent implements OnInit {
             };
             this.getUnidades();
             this.spinner.hide();
+            this.mostrarNotif('Unidad creada exitosamente.', false);
           },
-          err => console.log(err)
+          err => {
+            this.spinner.hide();
+            this.mostrarNotif('Hubo un problema en la creación.', true);
+          }
         );
     }
   }
@@ -201,7 +250,13 @@ export class ContenidoAsignaturaComponent implements OnInit {
       .subscribe(res => {
         this.getUnidades();
         this.spinner.hide();
-      });
+        this.mostrarNotif('Eliminación exitosa.', false);
+      },
+      err => {
+        this.spinner.hide();
+        this.mostrarNotif('Hubo un problema al eliminar.', true);
+      }
+      );
   }
 
   contarHorasTotales(): number {
@@ -238,7 +293,13 @@ export class ContenidoAsignaturaComponent implements OnInit {
 
         }
         this.spinner.hide();
-      });
+        this.mostrarNotif('Carga exitosa.', false);
+      },
+      err => {
+        this.spinner.hide();
+        this.mostrarNotif('¡Algo pasó!.', true);
+      }
+      );
   }
 
   createContenido(contenido: Contenido) {
@@ -250,8 +311,12 @@ export class ContenidoAsignaturaComponent implements OnInit {
           console.log(res);
           this.getContenidos();
           this.spinner.hide();
+          this.mostrarNotif('Contenido creado exitosamente.', false);
         },
-        err => console.log(err)
+        err => {
+          this.spinner.hide();
+          this.mostrarNotif('Hubo un problema en la creación.', true);
+        }
       );
   }
 

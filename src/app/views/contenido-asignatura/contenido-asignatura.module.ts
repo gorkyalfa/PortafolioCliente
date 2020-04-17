@@ -6,7 +6,7 @@ import { ContenidoAsignaturaComponent } from './contenido-asignatura.component';
 import { ContenidoAsignaturaRoutingModule } from './contenido-asignatura-routing.module';
 import { ModalModule } from 'ngx-bootstrap';
 import { NgxSpinnerModule } from 'ngx-spinner';
-
+import { AlertModule } from 'ngx-bootstrap/alert';
 
 @NgModule({
   imports: [
@@ -16,7 +16,8 @@ import { NgxSpinnerModule } from 'ngx-spinner';
     ContenidoAsignaturaRoutingModule,
     ButtonsModule.forRoot(),
     ModalModule.forRoot(),
-    NgxSpinnerModule
+    NgxSpinnerModule,
+    AlertModule.forRoot()
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   declarations: [ ContenidoAsignaturaComponent ]
