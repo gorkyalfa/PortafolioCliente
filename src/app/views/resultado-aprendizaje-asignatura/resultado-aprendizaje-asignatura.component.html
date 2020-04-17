@@ -64,7 +64,7 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                        <form (ngSubmit)="crearRaiz()">
+                        <form #formRaiz="ngForm" ngForm (ngSubmit)=" "(ngSubmit)="crearRaiz()">
 
                             <div class="form-group">
                                 <input required type="text" name="name" [(ngModel)]="proceso.nombre" class="form-control"
@@ -95,7 +95,7 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                        <form (ngSubmit)="crearProceso()">
+                        <form #formProceso="ngForm" ngForm (ngSubmit)=" " (ngSubmit)="crearProceso()">
                             <h6 class="modal-title" *ngIf="actualProceso"> Dentro de proceso: {{ actualProceso.nombre }}
                             </h6>
                             <br>

@@ -6,27 +6,31 @@
         {{ alert.msg }}</alert>
     </div>
 </div>
+
+<div *ngIf="formUnidad.invalid && (formUnidad.touched || formUnidad.dirty) ||
+formSemana.invalid && (formSemana.touched || formSemana.dirty)">
+  Revisar datos de formulario unidad o semanas...
+</div>
+
 <h1>Contenido de la Asignatura</h1>
 <div class="row mb-4">
     <div class="col-12">
       
-            <form class="form-horizontal">
+            <form #formUnidad="ngForm" ngForm (ngSubmit)="(!formUnidad.invalid && (formUnidad.touched || formUnidad.dirty)) ? createUnidad(unidad) : null" class="form-horizontal">
                 <div class="form-group row">
                     <label class="col-md-2 col-form-label font-weight-bold">Nombre Unidad</label>
                     <div class="col-md-9">
                         <input required type="text" [(ngModel)]="unidad.nombre" name="nombre" class="form-control" placeholder="">
                     </div>
                 </div>
-            </form>
-            <form>
-            <form class="form-horizontal">
-                <div class="form-group row">
-                    <label class="col-md-2 col-form-label"></label>
-                    <div class="col-md-4">
-                        <button class="btn btn-success" (click)="createUnidad(unidad)">Crear Unidad</button>    
+                <div "class="form-horizontal">
+                    <div class="form-group row">
+                        <label class="col-md-2 col-form-label"></label>
+                        <div class="col-md-4">
+                            <button class="btn btn-success" type="submit" >Crear Unidad</button>    
+                        </div>
                     </div>
                 </div>
-            </form>
             </form>
 
     </div>
@@ -43,7 +47,7 @@
                 </div>
                 <div class="card-body">
     
-                    <div>
+                    <form #formSemana="ngForm" ngForm (ngSubmit)="(!formSemana.invalid && (formSemana.touched || formSemana.dirty)) ? editandoSemana ? actualizarSemana() : crearSemana(unidad.id) :null" >
                     <div class="row">
                         <div class="form-inline">
                             <div class="form-group">
@@ -119,29 +123,28 @@
                     </div>
     
                     <div class="text-center">
-                        <form class="form-horizontal">
+                        <div "class="form-horizontal">
                             <div class="form-group row">
                                 <label class="col-md-2 font-weight-bold col-form-label">Observaciones</label>
                                 <div class="col-md-9">
                                     <input required type="text" name="observacion" [(ngModel)]="semana.observacion" class="form-control" placeholder="">
                                 </div>
                             </div>
-                        </form>
+                        </div>
                     </div>
-                        <form class="form-horizontal">
+                        <div "class="form-horizontal">
                             <div class="form-group row">
                                 <label class="col-md-2 col-form-label"></label>
 
                                 <div class="col-md-3">
-                                    <button type="button" class="btn btn-success" (click)="editandoSemana ? actualizarSemana() : crearSemana(unidad.id)">{{ editandoSemana ? 'Actualizar' : 'Crear' }}</button>
+                                    <button type="submit" class="btn btn-success" >{{ editandoSemana ? 'Actualizar' : 'Crear' }}</button>
                                 </div>
                                 <div class="col-md-4">
                                     <button type="button" class="btn btn-primary" (click)="this.modal.show()" (click)="getSemanas(unidad.id)">Ver Semanas</button>
                                 </div>
                             </div>
-                        </form>
-        
-                </div>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>

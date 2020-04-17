@@ -8,7 +8,7 @@
 </div>
 
 <div *ngIf="formMaterial.invalid && (formMaterial.touched || formMaterial.dirty) ||
-estrategiaForm.invalid && (estrategiaForm.touched || estrategiaForm.dirty)">
+formEstrategias.invalid && (formEstrategias.touched || formEstrategias.dirty)">
   Revisar datos de formulario materiales...
 </div>
 
@@ -37,7 +37,7 @@ estrategiaForm.invalid && (estrategiaForm.touched || estrategiaForm.dirty)">
         </div>
         <div class="form-group row">
           <label class="col-md-3 col-form-label font-weight-bold">Material</label>
-          <textarea minlength="1" required id="textarea-input" name="nombre" rows="3" class="form-control col-md-8"
+          <textarea minlength="1" maxlength="100" required id="textarea-input" name="nombre" rows="3" class="form-control col-md-8"
             [(ngModel)]="material.nombre" placeholder="Contenido"></textarea>
         </div>
         <div class="form-group row">
@@ -104,8 +104,8 @@ estrategiaForm.invalid && (estrategiaForm.touched || estrategiaForm.dirty)">
       <div class="card text-white bg-success"></div>
       <div class="card-body">
 
-        <form ngForm #estrategiaForm="ngForm" 
-        (ngSubmit)="(!estrategiaForm.invalid && (estrategiaForm.touched || estrategiaForm.dirty)) ? (editando ? actualizarEstrategia() : crearEstrategia()) : null">
+        <form  #formEstrategias="ngForm" ngForm ngForm #formEstrategias="ngForm" 
+        (ngSubmit)="(!formEstrategias.invalid && (formEstrategias.touched || formEstrategias.dirty)) ? (editando ? actualizarEstrategia() : crearEstrategia()) : null">
           <div class="form-group row">
             <label class="col-md-3 font-weight-bold" for="name">Estrategia</label>
             <div class="col-md-8">
