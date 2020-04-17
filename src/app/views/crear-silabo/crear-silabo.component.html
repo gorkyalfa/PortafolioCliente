@@ -10,18 +10,12 @@
                   <div class="form-group row">
                     <label class="col-md-3 col-form-label font-weight-bold" for="name">Asignatura</label>
                     <div class="col-md-9">
-                      <select>
+                      <select select class="form-control">
                         <option class ="font-weight-bold">Seleccione Asignatura</option>
-                        <option *ngFor="let silabo of silabos">{{silabo.asignatura.nombre}}</option>
+                        <option *ngFor="let silabo of silabos" [value]="silabo.id" (click)="onSelect(silabo)">{{silabo.asignatura.nombre}}</option>
                       </select>
                     </div>
-                  </div>
-                  <div class="row">
-                    <div class="col-md-3"></div>
-                    <div class="col-md-6">
-                      <button type="button" class="btn btn-success px-4" (click)="Crear()">Crear Vacio</button>
-                    </div>
-                  </div>
+                  </div>                  
                 </form>
               </div>
             </div>
@@ -36,7 +30,7 @@
                   <div class="form-group row">
                     <label class="col-md-3 col-form-label font-weight-bold" for="anteriores">Anteriores</label>
                     <div class="col-md-9">
-                      <select formControlName="allAsignatura">
+                      <select select class="form-control" formControlName="allAsignatura">
                         <option class ="font-weight-bold">Seleccione Asignatura</option>
                         <option *ngFor="let allAsignatura of allAsignaturas">{{allAsignatura.nombre}}</option>
                       </select>
@@ -57,8 +51,12 @@
     </div>
 </div>
 
+<div *ngIf="idSeleccionado">
+  <div><span>id: </span>{{idSeleccionado}}</div>
+</div>
+
 <br>
-<div class="row">
+<div class="row" *ngIf="idSeleccionado">
   <div class="col-sm-6">
     <div class="card border-success">
       <div class="card-header">
