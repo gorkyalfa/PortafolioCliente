@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ResultadoAprendizajePerfilCarreraService } from './resultado-aprendizaje-perfil-carrera.service';
 
 @Component({
   selector: 'app-resultado-aprendizaje-perfil-carrera',
@@ -6,9 +7,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ResultadoAprendizajePerfilCarreraComponent implements OnInit {
 
-  constructor() { }
+  constructor(private service: ResultadoAprendizajePerfilCarreraService) { }
 
   ngOnInit(): void {
+  }
+
+  getResultados() {
+
+  }
+
+  contarIndices() {
+
   }
 
 }

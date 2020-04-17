@@ -10,7 +10,6 @@
             Resultados de Aprendizaje de Asignatura
         </div>
         <div class="card-body">
-
             <div class="col-12">
                 <div class="row">
                     <div class="tree col-8">
@@ -26,9 +25,11 @@
                             <p>Resultados:</p>
                         </strong>
                         <ul class="list-group" *ngIf="resultados">
-                            <li *ngFor="let resultado of resultados" class="list-group-item"> {{resultado.nombre}}
-                                &nbsp;<button (click)="removeResultado(resultado.id)"
-                                    class="badge badge-pill badge-danger">&times;</button>
+                            <li *ngFor="let resultado of resultados" 
+                                class="list-group-item"> {{resultado.nombre}} &nbsp;
+                                <button (click)="removeResultado(resultado.id)"
+                                    class="badge badge-pill badge-danger">&times;
+                                </button>
                             </li>
                         </ul>
                     </div>
@@ -39,7 +40,6 @@
                 <div>
                     <div *ngIf="evidencia">
                         <div class="col-md-12">
-
                             <strong class="">
                                 <p>Evidencia</p>
                             </strong>
@@ -47,12 +47,10 @@
                                 class="form-control" placeholder="contenido">{{evidencia.nombre}}</textarea>
                             <button (click)="actualizarEvidencia(evidencia.id)"
                                 class="btn btn-success px-4">Listo</button>
-
                         </div>
                     </div>
                 </div>
             </div>
-
         </div>
 
         <div bsModal #modal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
@@ -66,7 +64,7 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                        <form (submit)="crearRaiz()">
+                        <form (ngSubmit)="crearRaiz()">
 
                             <div class="form-group">
                                 <input required type="text" name="name" [(ngModel)]="proceso.nombre" class="form-control"
@@ -85,7 +83,6 @@
             </div><!-- /.modal-dialog -->
         </div><!-- /.modal -->
 
-
         <div bsModal #procesoModal="bs-modal" class="modal fade" tabindex="-1" role="dialog"
             aria-labelledby="myModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-primary" role="document">
@@ -98,24 +95,20 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                        <form ngSubmit="crearProceso()">
+                        <form (ngSubmit)="crearProceso()">
                             <h6 class="modal-title" *ngIf="actualProceso"> Dentro de proceso: {{ actualProceso.nombre }}
                             </h6>
                             <br>
-                            <form>
                             <div class="form-group">
                                 <input [ngModel]="esSubProceso > 1 ? resultado.nombre : proceso.nombre"
                                     (ngModelChange)="esSubProceso > 1 ? (resultado.nombre = $event) : (proceso.nombre = $event)"
                                     type="text" name="name" class="form-control"
                                     [placeholder]="esSubProceso > 1 ? 'Nombre del Resultado' : 'Nombre del Sub-Proceso'"
                                     autofocus required>
-
                             </div>
                             <button type="submit" class="btn btn-primary btn-block">
                                 Crear
                             </button>
-                        </form>
-
                         </form>
                     </div>
 
@@ -125,25 +118,28 @@
                 </div><!-- /.modal-content -->
             </div><!-- /.modal-dialog -->
         </div><!-- /.modal -->
-
     </div>
 
     <div class="col-md-2 col-sm-2">
         <div class="mt-2 mb-3 mb-xl-0">
-            <button data-toggle="modal" (click)="modal.show()" type="button" class="btn btn-block btn-primary"><i
-                    class="fa fa-plus-square"></i><span><br>Raíz</span></button>
+            <button data-toggle="modal" (click)="modal.show()" type="button" class="btn btn-block btn-primary">
+                <i class="fa fa-plus-square"></i>
+                <span><br>Raíz</span>
+            </button>
         </div>
         <div class="mt-2 mb-3 mb-xl-0">
             <button [disabled]="!(_servicio.actualProcesoId)" data-toggle="modal" (click)="getProceso()"
-                (click)="procesoModal.show()" type="button" class="btn btn-block btn-success align-items-center"><i
-                    class="fa fa-plus"></i></button>
+                (click)="procesoModal.show()" type="button" class="btn btn-block btn-success align-items-center">
+                <i class="fa fa-plus"></i></button>
         </div>
-
         <div class="mt-2 mb-3 mb-xl-0">
             <button type="button" (click)="eliminarProceso()" [disabled]="!(_servicio.actualProcesoId)"
-                class="btn btn-block btn-danger"><i class="fa fa-close"></i><br><span>Borrar</span></button>
+                class="btn btn-block btn-danger">
+                <i class="fa fa-close"></i>
+                <br>
+                <span>Borrar</span>
+            </button>
         </div>
-
     </div>
 </div>
 

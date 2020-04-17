@@ -7,7 +7,7 @@ const routes: Routes = [
     path: '',
     component: ResultadoAprendizajeAsignaturaComponent,
     data: {
-      title: 'ResultadoAprendizajeAsignatura'
+      title: 'Resultado Aprendizaje Asignatura'
     }
   }
 ];
