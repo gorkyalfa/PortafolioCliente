@@ -1,9 +1,11 @@
 <div class="posicion">
     <div *ngFor="let alert of alertas" class="row">
-      <alert *ngIf="!alert.error" type="md-color" [dismissOnTimeout]="alert.timeout">{{ alert.msg }}</alert>
-      <alert *ngIf="alert.error" type="md-color-error" [dismissOnTimeout]="alert.timeout">{{ alert.msg }}</alert>  
+      <alert class="col align-self-end" *ngIf="!alert.error" type="success" [dismissOnTimeout]="alert.timeout">
+        {{ alert.msg }}</alert>
+      <alert class="col align-self-end" *ngIf="alert.error" type="danger" [dismissOnTimeout]="alert.timeout">
+        {{ alert.msg }}</alert>
     </div>
-  </div>
+</div>
 <h1>Contenido de la Asignatura</h1>
 <div class="row mb-4">
     <div class="col-12">

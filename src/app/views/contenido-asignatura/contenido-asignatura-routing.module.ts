@@ -7,7 +7,7 @@ const routes: Routes = [
     path: '',
     component: ContenidoAsignaturaComponent,
     data: {
-      title: 'ContenidoAsignatura'
+      title: 'Contenido Asignatura'
     }
   }
 ];
