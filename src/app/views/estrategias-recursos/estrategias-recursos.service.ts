@@ -5,13 +5,14 @@ import { Material } from '../../entidades/material';
 import { TipoMaterial } from '../../entidades/tipoMaterial';
 import { Finalidad } from '../../entidades/finalidad';
 import { EstrategiaMetodologica } from '../../entidades/estrategiaMetodologica';
+import { GlobalConstants } from '../../common/global-constants';
 
 @Injectable({
   providedIn: 'root'
 })
 export class EstrategiasRecursosService {
 
-  BASE_URL = 'http://localhost:3000';
+  BASE_URL = GlobalConstants.apiURL;
 
   constructor(private http: HttpClient) { }
 

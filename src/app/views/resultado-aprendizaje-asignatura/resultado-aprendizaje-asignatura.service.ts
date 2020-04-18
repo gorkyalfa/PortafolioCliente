@@ -5,13 +5,14 @@ import { Proceso } from '../../entidades/proceso';
 
 import { ResultadoAprendizaje } from '../../entidades/resultadoAprendizaje';
 import { Evidencia } from '../../entidades/evidencia';
+import { GlobalConstants } from '../../common/global-constants';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ResultadoAprendizajeAsignaturaService {
 
-  BASE_URL = 'http://localhost:3000';
+  BASE_URL = GlobalConstants.apiURL;
 
   actualProcesoId: number;
 
@@ -20,6 +21,10 @@ export class ResultadoAprendizajeAsignaturaService {
   // Solicitudes de entidad Proceso
   getProcesos(): Observable<Proceso[]> {
     return this.http.get<Proceso[]>(`${this.BASE_URL}/procesos/arboles`);
+  }
+
+  getIndicesArbol(): Observable<any[]> {
+    return this.http.get<any[]>(`${this.BASE_URL}/procesos/indices`);
   }
 
   getProceso(id: number): Observable<Proceso> {

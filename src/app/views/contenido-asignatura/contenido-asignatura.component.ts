@@ -37,7 +37,7 @@ export class ContenidoAsignaturaComponent implements OnInit {
   contenidoCrear: Contenido = {
     nombre: 'PRUEBA'
   };
-  actualAsignaturaId: number = 2;
+  actualSilaboId: number = 2;
 
   semanas: Semana[];
   unidades: Unidad[];
@@ -288,7 +288,7 @@ export class ContenidoAsignaturaComponent implements OnInit {
 
   getContenidos() {
     this.spinner.show();
-    this._servicio.getContenidoByAsignatura(this.actualAsignaturaId)
+    this._servicio.getContenidoByAsignatura(this.actualSilaboId)
       .subscribe(
         contenido => {
           console.log('llego contenido');
@@ -313,7 +313,7 @@ export class ContenidoAsignaturaComponent implements OnInit {
   createContenido(contenido: Contenido) {
     this.spinner.show();
     this._servicio.createContenido(
-      { ...contenido, asignaturaId: this.actualAsignaturaId }
+      { ...contenido, silaboId: this.actualSilaboId }
     )
       .subscribe(
         res => {
