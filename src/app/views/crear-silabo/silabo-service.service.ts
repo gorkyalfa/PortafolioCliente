@@ -32,7 +32,7 @@ export class SilaboServiceService {
     return this.http.get<Silabo[]>(`${this.BASE_URL}/silabos`);
   }
 
-  /*getSilaboAsignaturas(): Observable<Silabo[]> {
+  /*sgetSilaboAsignaturas(): Observable<Silabo[]> {
     return this.http.get<Silabo[]>(`${this.BASE_URL}/silabos/asignaturas`);
   }
 

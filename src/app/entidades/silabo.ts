@@ -1,7 +1,9 @@
+import { Asignatura } from './asignatura';
+
 export class Silabo {
     id?: number;
     nombre: string;
-    asignaturaId: number;
+    asignatura: number;
     codigo: string;
     periodoLectivo: string;
     unidadOrganizacionCurricular: string;

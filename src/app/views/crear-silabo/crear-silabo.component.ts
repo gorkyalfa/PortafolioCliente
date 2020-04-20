@@ -66,7 +66,7 @@ export class CrearSilaboComponent implements OnInit {
 
     this.silabo = new Silabo();
     this.silabo.nombre = this.asignatura.nombre;
-    this.silabo.asignaturaId = this.asignatura.id;
+    this.silabo.asignatura = this.asignatura.id;
     this.silabo.codigo = this.asignatura.codigo;
     this.silabo.periodoLectivo = this.asignatura.periodoLectivo;
     this.silabo.unidadOrganizacionCurricular = this.asignatura.unidadOrganizacionCurricular;
@@ -75,6 +75,8 @@ export class CrearSilaboComponent implements OnInit {
     this.silabo.totalHorasDocencia = this.asignatura.totalHorasDocencia;
     this.silabo.totalHorasPracticasAprendizaje = this.asignatura.totalHorasPracticasAprendizaje;
     this.silabo.numeroTotalHoras = this.asignatura.numeroTotalHoras;
+    this.silabo.descripcionAsignatura = '';
+    this.silabo.objetivoAsignatura = '';
     
     this.silaboService.createSilabo(this.silabo)
       .subscribe(
