@@ -24,11 +24,15 @@ export class SilaboServiceService {
     return this.http.get<Asignatura[]>(`${this.BASE_URL}/asignaturas/${id}/correquisitos`);
   }
 
-  /*getSilabos(): Observable<Silabo[]> {
+  createSilabo(silabo: Silabo): Observable<Silabo> {
+    return this.http.post<Silabo>(`${this.BASE_URL}/silabos/`, silabo);
+  }  
+
+  getSilabos(): Observable<Silabo[]> {
     return this.http.get<Silabo[]>(`${this.BASE_URL}/silabos`);
   }
 
-  getSilaboAsignaturas(): Observable<Silabo[]> {
+  /*getSilaboAsignaturas(): Observable<Silabo[]> {
     return this.http.get<Silabo[]>(`${this.BASE_URL}/silabos/asignaturas`);
   }
 
