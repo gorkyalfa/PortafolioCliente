@@ -79,7 +79,6 @@ export class CrearSilaboComponent implements OnInit {
 
 
   crearSilabo(): void {
-    GlobalConstants.silaboActual = 1;
 
     this.silabo = new Silabo();
     this.silabo.nombre = this.asignatura.nombre;

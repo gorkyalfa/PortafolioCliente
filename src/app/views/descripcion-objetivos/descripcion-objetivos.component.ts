@@ -24,8 +24,6 @@ export class DescripcionObjetivosComponent implements OnInit {
 
   ngOnInit() {
     
-    this.getDescripcionSilabo(2);
-    this.getDescripcion(2);
     this.getDescripciones();
     console.log(GlobalConstants.silaboActual);
   }
@@ -72,7 +70,7 @@ export class DescripcionObjetivosComponent implements OnInit {
   }
 
   actualizarDescpripcionSilabo() {
-    this.descripcionObjetivosService.updateDescripcionSilabo(this.silabo, this.silabo.id)
+    this.descripcionObjetivosService.updateDescripcionSilabo(this.silabo, GlobalConstants.silaboActual)
       .subscribe(res => {
         console.log(res);
       });
