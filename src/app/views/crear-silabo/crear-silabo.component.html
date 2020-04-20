@@ -12,7 +12,7 @@
                     <div class="col-md-9">
                       <select select class="form-control">
                         <option class ="font-weight-bold">Seleccione Asignatura</option>
-                        <option *ngFor="let silabo of silabos" [value]="silabo.id" (click)="onSelect(silabo)">{{silabo.asignatura.nombre}}</option>
+                        <option *ngFor="let asignatura of asignaturas" [value]="asignatura.id" (click)="onSelect(asignatura)">{{asignatura.nombre}}</option>
                       </select>
                     </div>
                   </div>                  
@@ -20,7 +20,7 @@
               </div>
             </div>
           </div>
-        </div>
+        </div>        
         <div class="col-md-6 mx-auto">
           <div class="card border-info">
             <div class="card p-4">
@@ -50,13 +50,77 @@
       </div>
     </div>
 </div>
-
 <div *ngIf="idSeleccionado">
   <div><span>id: </span>{{idSeleccionado}}</div>
 </div>
 
+
 <br>
 <div class="row" *ngIf="idSeleccionado">
+  <div class="col-sm-6">
+
+    <div class="form-group row">
+      <label class="col-md-3 col-form-label" for="text-input">Codigo</label>
+      <div class="col-md-9">
+        <input type="text" required id="text-input" [(ngModel)]="asignatura.codigo" name="text-input" class="form-control" readonly>
+      </div>
+    </div>
+
+    <div class="form-group row">
+      <label class="col-md-3 col-form-label" for="text-input">Período lectivo</label>
+      <div class="col-md-9">
+        <input type="text" required id="text-input" [(ngModel)]="asignatura.periodoLectivo" name="text-input" class="form-control" readonly>
+      </div>
+    </div>
+
+    <div class="form-group row">
+      <label class="col-md-3 col-form-label" for="text-input">Unidad de organización curricular</label>
+      <div class="col-md-9">
+        <input type="text" required id="text-input" [(ngModel)]="asignatura.unidadOrganizacionCurricular" name="text-input" class="form-control" readonly>
+      </div>
+    </div>
+
+    <div class="form-group row">
+      <label class="col-md-3 col-form-label" for="text-input">Campo de formación:</label>
+      <div class="col-md-9">
+        <input type="text" required id="text-input" [(ngModel)]="asignatura.campoFormacion" name="text-input" class="form-control" readonly>
+      </div>
+    </div>
+
+    <div class="form-group row">
+      <label class="col-md-3 col-form-label" for="text-input">Horas de docencia:</label>
+      <div class="col-md-9">
+        <input type="text" required id="text-input" [(ngModel)]="asignatura.totalHorasDocencia" name="text-input" class="form-control" readonly>
+      </div>
+    </div>
+
+    <div class="form-group row">
+      <label class="col-md-3 col-form-label" for="text-input">Horas de trabajo autónomo:</label>
+      <div class="col-md-9">
+        <input type="text" required id="text-input" [(ngModel)]="asignatura.totalHorasAutonomas" name="text-input" class="form-control" readonly>
+      </div>
+    </div>
+
+    <div class="form-group row">
+      <label class="col-md-3 col-form-label" for="text-input">Horas de prácticas de aprendizaje:</label>
+      <div class="col-md-9">
+        <input type="text" required id="text-input" [(ngModel)]="asignatura.totalHorasPracticasAprendizaje" name="text-input" class="form-control" readonly>
+      </div>
+    </div>
+
+    <div class="form-group row">
+      <label class="col-md-3 col-form-label" for="text-input">N° total de horas:</label>
+      <div class="col-md-9">
+        <input type="text" required id="text-input" [(ngModel)]="asignatura.numeroTotalHoras" name="text-input" class="form-control" readonly>
+      </div>
+    </div>
+    
+
+    
+    
+    
+  </div>
+  <!--/.col-->
   <div class="col-sm-6">
     <div class="card border-success">
       <div class="card-header">
@@ -69,23 +133,18 @@
               <th>ID</th>
               <th>Nombre</th>
               <th>Codigo</th>
-              <th>Horas</th>
             </tr>
           </thead>    
           <tbody>
-            <tr *ngFor="let prerrequisito of prerrequisitos.prerrequisitos">
-              <td>{{ prerrequisito.id }}</td>
-              <td>{{ prerrequisito.nombre }}</td>
-              <td>{{ prerrequisito.codigo }}</td>
-              <td>{{ prerrequisito.totalHoras }}</td>
+            <tr *ngFor="let correquisito of correquisitos">
+              <td>{{ correquisito.id }}</td>
+              <td>{{ correquisito.nombre }}</td>
+              <td>{{ correquisito.codigo }}</td>
             </tr>
           </tbody>
         </table>           
       </div>
     </div>
-  </div>
-  <!--/.col-->
-  <div class="col-sm-6">
     <div class="card border-success">
       <div class="card-header">
         <strong>Correquisitos de la Asignatura</strong>
@@ -97,15 +156,13 @@
               <th>ID</th>
               <th>Nombre</th>
               <th>Codigo</th>
-              <th>Horas</th>
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let correquisito of correquisitos.correquisitos">
+            <tr *ngFor="let correquisito of correquisitos">
               <td>{{ correquisito.id }}</td>
               <td>{{ correquisito.nombre }}</td>
               <td>{{ correquisito.codigo }}</td>
-              <td>{{ correquisito.totalHoras }}</td>
             </tr>
           </tbody>
         </table>      

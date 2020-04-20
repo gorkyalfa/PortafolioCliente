@@ -12,39 +12,66 @@ export class CrearSilaboComponent implements OnInit {
   idSeleccionado: number;
   descripcion: Silabo;
   silabos: Silabo[] = [];
-  asignaturas: Silabo[] = [];
-  correquisitos: Silabo[] = [];
+  asignaturas: Asignatura[] = [];
+  correquisitos: Asignatura[] = [];
   prerrequisitos: Silabo[] = [];
-  // asignatura: Asignatura;
+  asignatura: Asignatura;
 
   constructor(private silaboService: SilaboServiceService) {}
 
   ngOnInit() {
-    this.getSilaboAsignaturas();
-    this.getSilaboDescripcionObjetivo(this.idSeleccionado);
-    this.getSilaboCorrequisitos(this.idSeleccionado);
-    this.getSilaboPrerrequisitos(this.idSeleccionado);
+    this.getAsignaturas();
+    this.getAsignatura(this.idSeleccionado);
+    //this.getCorrequisitos(this.idSeleccionado);
+    //this.getSilaboDescripcionObjetivo(this.idSeleccionado);    
+    //this.getSilaboPrerrequisitos(this.idSeleccionado);
   }
 
-  getSilaboDescripcionObjetivo(id: number): void {
+  getAsignaturas(): void {
+    this.silaboService.getAsignaturas().subscribe(
+      res => {
+        this.asignaturas = res;
+      },
+      err => console.log(err)
+    );
+  }
+
+  getAsignatura(id: number): void {
+    this.silaboService.getAsignatura(id)
+      .subscribe(asignatura => this.asignatura = asignatura);
+  }
+
+  getCorrequisitos(id: number): void {
+    this.silaboService.getCorrequisitos(id).subscribe(
+      res => {
+        this.correquisitos = res;
+      },
+      err => console.log(err)
+    );
+  }
+
+  onSelect(asignatura: Asignatura): void {
+    this.idSeleccionado = asignatura.id;
+    this.getAsignatura(this.idSeleccionado);
+    this.getCorrequisitos(this.idSeleccionado);
+  }
+
+  /*getSilaboDescripcionObjetivo(id: number): void {
     this.silaboService.getDescripcionObjetibo(id)
       .subscribe(descripcion => this.descripcion = descripcion);
   }
 
-  onSelect(silabo: Silabo): void {
-    this.idSeleccionado = silabo.id;
-    this.getSilaboCorrequisitos(this.idSeleccionado);
-    this.getSilaboPrerrequisitos(this.idSeleccionado);
-  }
+  
 
   crear() {
     /*this.silabo = new Silabo();
     this.silabo.Asignatura = this.asignatura;
     this.silabo.Descripcion = this.asignatura.Descripcion;
     this.silabo.Objetivo = this.asignatura.Objetivo;
-*/
+
     // Mas instrucciones incluir grabar a la base
   }
+ 
 
   getSilaboAsignaturas(): void {
     this.silaboService.getSilaboAsignaturas().subscribe(
@@ -55,15 +82,6 @@ export class CrearSilaboComponent implements OnInit {
     );
   }
 
-  getSilaboCorrequisitos(id: number): void {
-    this.silaboService.getSilaboCorrequisitos(id).subscribe(
-      res => {
-        this.correquisitos = res;
-      },
-      err => console.log(err)
-    );
-  }
-  
   getSilaboPrerrequisitos(id: number): void {
     this.silaboService.getSilaboPrerrequisitos(id).subscribe(
       res => {
@@ -71,5 +89,5 @@ export class CrearSilaboComponent implements OnInit {
       },
       err => console.log(err)
     );
-  }
+  }*/
 }

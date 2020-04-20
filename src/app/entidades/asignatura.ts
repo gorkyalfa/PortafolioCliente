@@ -2,8 +2,18 @@ export class Asignatura {
     id?: number;
     nombre: string;
     codigo: string;
-    descripcion: string;
-    objetivo: string;
-    totalHoras: number;
+    carreraId: number;
+    totalHorasDocencia: number;
+    totalHorasAutonomas: number;
+    totalHorasPracticasAprendizaje: number;
+    numeroTotalHoras: number;
+    periodoAcademicoId: number;
+    modalidadId: number;
+    contenidoId: number;
+    correquisitoId: number;
+    prerequisitoId: number;
+    periodoLectivo: string;
+    unidadOrganizacionCurricular: string;
+    campoFormacion: string;
     mallaId: number;
 }

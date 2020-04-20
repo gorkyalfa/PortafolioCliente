@@ -1,7 +1,5 @@
 import { Injectable } from '@angular/core';
 import { Asignatura } from '../../entidades/asignatura';
-import { ASIGNATURAS } from '../../mocks/mock-asignaturas';
-import { PRERREQUISITOASIGNATURAS } from '../../mocks/mock-prerrequisitosAsignatura';
 import { Observable, of } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { Silabo } from '../../entidades/silabo';
@@ -14,7 +12,19 @@ export class SilaboServiceService {
 
   constructor(private http: HttpClient) {}
 
-  getSilabos(): Observable<Silabo[]> {
+  getAsignaturas(): Observable<Asignatura[]> {
+    return this.http.get<Asignatura[]>(`${this.BASE_URL}/asignaturas`);
+  }
+
+  getAsignatura(id: number): Observable<Asignatura> {
+    return this.http.get<Asignatura>(`${this.BASE_URL}/asignaturas/${id}`)
+  }
+
+  getCorrequisitos(id: number): Observable<Asignatura[]> {
+    return this.http.get<Asignatura[]>(`${this.BASE_URL}/asignaturas/${id}/correquisitos`);
+  }
+
+  /*getSilabos(): Observable<Silabo[]> {
     return this.http.get<Silabo[]>(`${this.BASE_URL}/silabos`);
   }
 
@@ -22,20 +32,21 @@ export class SilaboServiceService {
     return this.http.get<Silabo[]>(`${this.BASE_URL}/silabos/asignaturas`);
   }
 
-  getSilaboCorrequisitos(id: number): Observable<Silabo[]> {
-    return this.http.get<Silabo[]>(`${this.BASE_URL}/silabos/${id}/correquisitos`);
-  }
+  
 
   getSilaboPrerrequisitos(id: number): Observable<Silabo[]> {
     return this.http.get<Silabo[]>(`${this.BASE_URL}/silabos/${id}/prerrequisitos`);
-  }
-
-  getAsignatura(id: number): Observable<Silabo> {
-    const url = `${this.BASE_URL}/${id}`;
-    return this.http.get<Silabo>(url)
-  }
+  }  
 
   getDescripcionObjetibo(id: number): Observable<Silabo> {
     return this.http.get<Silabo>(`${this.BASE_URL}/silabos/${id}/descripciones`);
   }
+
+  createDescripcion(descripcion: Descripcion): Observable<Descripcion> {
+    return this.http.post<Descripcion>(`${this.BASE_URL}/descripciones/`, descripcion);
+  }  
+
+  updateDescripcionSilabo(descripcion: Descripcion, id: number): Observable<Descripcion> {
+    return this.http.put<Descripcion>(`${this.BASE_URL}/descripciones/${id}`, descripcion);
+  }*/
 }
