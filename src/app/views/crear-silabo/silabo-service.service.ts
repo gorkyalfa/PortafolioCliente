@@ -20,8 +20,12 @@ export class SilaboServiceService {
     return this.http.get<Asignatura>(`${this.BASE_URL}/asignaturas/${id}`)
   }
 
-  getCorrequisitos(id: number): Observable<Asignatura[]> {
-    return this.http.get<Asignatura[]>(`${this.BASE_URL}/asignaturas/${id}/correquisitos`);
+  getCorrequisitos(id: number): Observable<Asignatura> {
+    return this.http.get<Asignatura>(`${this.BASE_URL}/asignaturas/${id}/correquisitos`);
+  }
+
+  getPrerequisitos(id: number): Observable<Asignatura> {
+    return this.http.get<Asignatura>(`${this.BASE_URL}/asignaturas/${id}/prerequisitos`);
   }
 
   /*getSilabos(): Observable<Silabo[]> {

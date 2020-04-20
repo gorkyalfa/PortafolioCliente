@@ -16,4 +16,6 @@ export class Asignatura {
     unidadOrganizacionCurricular: string;
     campoFormacion: string;
     mallaId: number;
+    correquisito?: any;
+    prerequisito?: any;
 }

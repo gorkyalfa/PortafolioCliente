@@ -136,10 +136,10 @@
             </tr>
           </thead>    
           <tbody>
-            <tr *ngFor="let correquisito of correquisitos">
-              <td>{{ correquisito.id }}</td>
-              <td>{{ correquisito.nombre }}</td>
-              <td>{{ correquisito.codigo }}</td>
+            <tr *ngIf="prerequisito">
+              <td>{{ prerequisito.id }}</td>
+              <td>{{ prerequisito.nombre }}</td>
+              <td>{{ prerequisito.codigo }}</td>
             </tr>
           </tbody>
         </table>           
@@ -159,7 +159,7 @@
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let correquisito of correquisitos">
+            <tr *ngIf="correquisito" >
               <td>{{ correquisito.id }}</td>
               <td>{{ correquisito.nombre }}</td>
               <td>{{ correquisito.codigo }}</td>

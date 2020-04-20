@@ -13,15 +13,15 @@ export class CrearSilaboComponent implements OnInit {
   descripcion: Silabo;
   silabos: Silabo[] = [];
   asignaturas: Asignatura[] = [];
-  correquisitos: Asignatura[] = [];
-  prerrequisitos: Silabo[] = [];
+  correquisito: Asignatura;
+  prerequisito: Asignatura;
   asignatura: Asignatura;
 
   constructor(private silaboService: SilaboServiceService) {}
 
   ngOnInit() {
     this.getAsignaturas();
-    this.getAsignatura(this.idSeleccionado);
+    // this.getAsignatura(this.idSeleccionado);
     //this.getCorrequisitos(this.idSeleccionado);
     //this.getSilaboDescripcionObjetivo(this.idSeleccionado);    
     //this.getSilaboPrerrequisitos(this.idSeleccionado);
@@ -38,13 +38,28 @@ export class CrearSilaboComponent implements OnInit {
 
   getAsignatura(id: number): void {
     this.silaboService.getAsignatura(id)
-      .subscribe(asignatura => this.asignatura = asignatura);
+      .subscribe(asignatura => {
+        this.asignatura = asignatura;
+        this.getCorrequisitos(id);
+        this.getPrerequisitos(id);
+      });
   }
 
   getCorrequisitos(id: number): void {
     this.silaboService.getCorrequisitos(id).subscribe(
       res => {
-        this.correquisitos = res;
+        console.log(res.correquisito);
+        this.correquisito = res.correquisito;
+      },
+      err => console.log(err)
+    );
+  }
+
+  getPrerequisitos(id: number): void {
+    this.silaboService.getPrerequisitos(id).subscribe(
+      res => {
+        console.log(res.prerequisito);
+        this.prerequisito = res.prerequisito;
       },
       err => console.log(err)
     );
