@@ -5,4 +5,5 @@ export class Finalidad {
     nombre: string;
     estrategiaMetodologicaId?: number;
     estrategiaMetodologica?: EstrategiaMetodologica;
+    silabo?: any;
 }

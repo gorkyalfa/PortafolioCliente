@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { SilaboServiceService } from './silabo-service.service';
 import { Asignatura } from '../../entidades/asignatura';
 import { Silabo } from '../../entidades/silabo';
+import { GlobalConstants } from '../../common/global-constants';
 
 
 @Component({
@@ -14,8 +15,8 @@ export class CrearSilaboComponent implements OnInit {
   descripcion: Silabo;
   silabos: Silabo[] = [];
   asignaturas: Asignatura[] = [];
-  correquisitos: Asignatura[] = [];
-  prerrequisitos: Silabo[] = [];
+  correquisito: Asignatura;
+  prerequisito: Asignatura;
   asignatura: Asignatura;
 
   constructor(private silaboService: SilaboServiceService) {}
@@ -23,10 +24,10 @@ export class CrearSilaboComponent implements OnInit {
   ngOnInit() {
     this.getSilabos();
     this.getAsignaturas();
-    this.getAsignatura(this.idSeleccionado);
-    //this.getCorrequisitos(this.idSeleccionado);
-    //this.getSilaboDescripcionObjetivo(this.idSeleccionado);    
-    //this.getSilaboPrerrequisitos(this.idSeleccionado);
+    // this.getAsignatura(this.idSeleccionado);
+    // this.getCorrequisitos(this.idSeleccionado);
+    // this.getSilaboDescripcionObjetivo(this.idSeleccionado);
+    // this.getSilaboPrerrequisitos(this.idSeleccionado);
   }
 
   getSilabos(): void {
@@ -49,20 +50,36 @@ export class CrearSilaboComponent implements OnInit {
 
   getAsignatura(id: number): void {
     this.silaboService.getAsignatura(id)
-      .subscribe(asignatura => this.asignatura = asignatura);
+      .subscribe(asignatura => {
+        this.asignatura = asignatura;
+        this.getCorrequisitos(id);
+        this.getPrerequisitos(id);
+      });
   }
 
   getCorrequisitos(id: number): void {
     this.silaboService.getCorrequisitos(id).subscribe(
       res => {
-        this.correquisitos = res;
+        console.log(res.correquisito);
+        this.correquisito = res.correquisito;
       },
       err => console.log(err)
     );
   }
-  
+
+  getPrerequisitos(id: number): void {
+    this.silaboService.getPrerequisitos(id).subscribe(
+      res => {
+        console.log(res.prerequisito);
+        this.prerequisito = res.prerequisito;
+      },
+      err => console.log(err)
+    );
+  }
+
 
   crearSilabo(): void {
+    GlobalConstants.silaboActual = 1;
 
     this.silabo = new Silabo();
     this.silabo.nombre = this.asignatura.nombre;
@@ -78,10 +95,12 @@ export class CrearSilaboComponent implements OnInit {
     this.silabo.descripcionAsignatura = '';
     this.silabo.objetivoAsignatura = '';
     
+
     this.silaboService.createSilabo(this.silabo)
       .subscribe(
         res => {
-          window.location.href = 'http://localhost:4200/#/descripcion-objetivos'
+          GlobalConstants.silaboActual = res.id;
+          window.location.href = 'http://localhost:4200/#/descripcion-objetivos';
         },
         err => console.log(this.silabo)
       );
@@ -98,7 +117,7 @@ export class CrearSilaboComponent implements OnInit {
       .subscribe(descripcion => this.descripcion = descripcion);
   }
 
-  
+
 
   crear() {
     /*this.silabo = new Silabo();
@@ -108,7 +127,7 @@ export class CrearSilaboComponent implements OnInit {
 
     // Mas instrucciones incluir grabar a la base
   }
- 
+
 
   getSilaboAsignaturas(): void {
     this.silaboService.getSilaboAsignaturas().subscribe(

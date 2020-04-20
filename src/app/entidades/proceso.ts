@@ -5,4 +5,5 @@ export class Proceso {
     procesosDescendientes?: [];
     resultadosAprendizaje?: [];
     index?: number;
+    silabo?: any;
 }

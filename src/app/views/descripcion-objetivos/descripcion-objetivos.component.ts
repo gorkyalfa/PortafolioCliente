@@ -4,7 +4,7 @@ import { Descripcion } from '../../entidades/descripcion';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { Silabo } from '../../entidades/silabo';
 import { CrearSilaboComponent } from '../crear-silabo/crear-silabo.component';
-import { CrearSilaboModule } from '../crear-silabo/crear-silabo.module';
+import { GlobalConstants } from '../../common/global-constants';
 
 @Component({
   selector: 'app-descripcion-objetivos',
@@ -24,6 +24,10 @@ export class DescripcionObjetivosComponent implements OnInit {
 
   ngOnInit() {
     
+    this.getDescripcionSilabo(2);
+    this.getDescripcion(2);
+    this.getDescripciones();
+    console.log(GlobalConstants.silaboActual);
   }
 
   getDescripcion(id: number): void { 

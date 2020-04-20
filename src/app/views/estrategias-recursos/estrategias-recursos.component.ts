@@ -6,6 +6,7 @@ import { EstrategiaMetodologica } from '../../entidades/estrategiaMetodologica';
 import { Finalidad } from '../../entidades/finalidad';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { AlertConfig } from 'ngx-bootstrap/alert';
+import { GlobalConstants } from '../../common/global-constants';
 
 export function getAlertConfig(): AlertConfig {
   return Object.assign(new AlertConfig(), { type: 'success' });
@@ -85,7 +86,7 @@ export class EstrategiasRecursosComponent implements OnInit {
   // Metodos de materiales
   crearMaterial(): void {
     this.spinner.show();
-    this.estrategiaservicio.createMaterial(this.material)
+    this.estrategiaservicio.createMaterial({...this.material, silabo: GlobalConstants.silaboActual})
       .subscribe(
         res => {
           this.limpiarMaterial();
@@ -198,7 +199,7 @@ export class EstrategiasRecursosComponent implements OnInit {
 
   crearFinalidad(): void {
     this.spinner.show();
-    this.estrategiaservicio.createFinalidad(this.finalidad)
+    this.estrategiaservicio.createFinalidad({...this.finalidad, silabo: GlobalConstants.silaboActual})
       .subscribe(
         res => {
           this.limpiarFinalidad();

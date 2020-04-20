@@ -5,7 +5,7 @@
           <div class="card border-info">
             <div class="card p-4">
               <div class="card-body">
-                <form [formGroup]="asignaturasForm" (ngSubmit)="onSubmit()">
+                <form >
                   <h1>Crear Sílabo</h1>
                   <div class="form-group row">
                     <label class="col-md-3 col-form-label font-weight-bold" for="name">Asignatura</label>
@@ -25,7 +25,7 @@
           <div class="card border-info">
             <div class="card p-4">
               <div class="card-body">
-                <form [formGroup]="allAsignaturasForm" (ngSubmit)="onSubmit()">
+                <form >
                   <h1>Clonar Sílabo</h1>
                   <div class="form-group row">
                     <label class="col-md-3 col-form-label font-weight-bold" for="anteriores">Anteriores</label>
@@ -136,10 +136,10 @@
             </tr>
           </thead>    
           <tbody>
-            <tr *ngFor="let correquisito of correquisitos">
-              <td>{{ correquisito.id }}</td>
-              <td>{{ correquisito.nombre }}</td>
-              <td>{{ correquisito.codigo }}</td>
+            <tr *ngIf="prerequisito">
+              <td>{{ prerequisito.id }}</td>
+              <td>{{ prerequisito.nombre }}</td>
+              <td>{{ prerequisito.codigo }}</td>
             </tr>
           </tbody>
         </table>           
@@ -159,7 +159,7 @@
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let correquisito of correquisitos">
+            <tr *ngIf="correquisito" >
               <td>{{ correquisito.id }}</td>
               <td>{{ correquisito.nombre }}</td>
               <td>{{ correquisito.codigo }}</td>

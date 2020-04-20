@@ -6,6 +6,7 @@ import { Unidad } from '../../entidades/unidad';
 import { ModalDirective } from 'ngx-bootstrap/modal';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { AlertConfig } from 'ngx-bootstrap/alert';
+import { GlobalConstants } from '../../common/global-constants';
 
 
 export function getAlertConfig(): AlertConfig {
@@ -37,7 +38,7 @@ export class ContenidoAsignaturaComponent implements OnInit {
   contenidoCrear: Contenido = {
     nombre: 'PRUEBA'
   };
-  actualSilaboId: number = 2;
+  actualSilaboId: number = GlobalConstants.silaboActual;
 
   semanas: Semana[];
   unidades: Unidad[];
@@ -288,7 +289,7 @@ export class ContenidoAsignaturaComponent implements OnInit {
 
   getContenidos() {
     this.spinner.show();
-    this._servicio.getContenidoByAsignatura(this.actualSilaboId)
+    this._servicio.getContenidoBySilabo(this.actualSilaboId)
       .subscribe(
         contenido => {
           console.log('llego contenido');
@@ -313,7 +314,7 @@ export class ContenidoAsignaturaComponent implements OnInit {
   createContenido(contenido: Contenido) {
     this.spinner.show();
     this._servicio.createContenido(
-      { ...contenido, silaboId: this.actualSilaboId }
+      { ...contenido, silabo: this.actualSilaboId }
     )
       .subscribe(
         res => {

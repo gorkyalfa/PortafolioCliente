@@ -20,7 +20,7 @@ export class ContenidoAsignaturaService {
     return this.http.get<Contenido[]>(`${this.BASE_URL}/contenidos`);
   }
 
-  getContenidoByAsignatura(id: number) {
+  getContenidoBySilabo(id: number) {
     return this.http.get<Contenido[]>(`${this.BASE_URL}/contenidos/${id}/contenido/`);
   }
 
