@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { DescripcionObjetivosService } from './descripcion-objetivos.service';
 import { Descripcion } from '../../entidades/descripcion';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { GlobalConstants } from '../../common/global-constants';
 
 @Component({
   selector: 'app-descripcion-objetivos',
@@ -21,7 +22,7 @@ export class DescripcionObjetivosComponent implements OnInit {
     this.getDescripcionSilabo(2);
     this.getDescripcion(2);
     this.getDescripciones();
-    
+    console.log(GlobalConstants.silaboActual);
   }
 
   getDescripcion(id: number): void { 

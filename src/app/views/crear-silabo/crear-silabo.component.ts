@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { SilaboServiceService } from './silabo-service.service';
 import { Asignatura } from '../../entidades/asignatura';
 import { Silabo } from '../../entidades/silabo';
+import { GlobalConstants } from '../../common/global-constants';
 
 
 @Component({
@@ -90,10 +91,11 @@ export class CrearSilaboComponent implements OnInit {
     this.silabo.totalHorasDocencia = this.asignatura.totalHorasDocencia;
     this.silabo.totalHorasPracticasAprendizaje = this.asignatura.totalHorasPracticasAprendizaje;
     this.silabo.numeroTotalHoras = this.asignatura.numeroTotalHoras;
-    
+
     this.silaboService.createSilabo(this.silabo)
       .subscribe(
         res => {
+          GlobalConstants.silaboActual = res.id;
           window.location.href = 'http://localhost:4200/#/descripcion-objetivos'
         },
         err => console.log(this.silabo)

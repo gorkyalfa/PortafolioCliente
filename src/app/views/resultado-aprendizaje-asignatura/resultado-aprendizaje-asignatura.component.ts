@@ -7,6 +7,7 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import { AlertConfig } from 'ngx-bootstrap/alert';
 import { TreeComponent, TreeModel, TreeNode } from 'angular-tree-component';
 import { ModalDirective } from 'ngx-bootstrap/modal';
+import { GlobalConstants } from '../../common/global-constants';
 
 export function getAlertConfig(): AlertConfig {
   return Object.assign(new AlertConfig(), { type: 'success' });
@@ -108,7 +109,8 @@ export class ResultadoAprendizajeAsignaturaComponent implements OnInit {
 
   crearRaiz() {
     this.spinner.show();
-    this._servicio.createProceso(this.proceso)
+    this._servicio.createProceso({...this.proceso,
+      silabo: GlobalConstants.silaboActual})
       .subscribe(
         res => {
           this.getProcesos();

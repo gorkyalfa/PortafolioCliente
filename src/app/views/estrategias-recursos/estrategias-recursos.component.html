@@ -27,7 +27,7 @@ formEstrategias.invalid && (formEstrategias.touched || formEstrategias.dirty)">
           </label>
           <div>
             <select *ngIf="tiposMaterial" [(ngModel)]="material.tipoMaterial" class="form-control"
-              [value]="mostrarNombreTipoMaterial(material.tipoMaterial)">
+              [value]="mostrarNombreTipoMaterial(material.tipoMaterial)" name="tipoMaterial">
 
               <option *ngFor="let tipoMaterial of tiposMaterial" [value]="tipoMaterial.id"> {{tipoMaterial.nombre}}
               </option>
