@@ -25,9 +25,9 @@ export class CrearSilaboComponent implements OnInit {
     this.getSilabos();
     this.getAsignaturas();
     // this.getAsignatura(this.idSeleccionado);
-    //this.getCorrequisitos(this.idSeleccionado);
-    //this.getSilaboDescripcionObjetivo(this.idSeleccionado);    
-    //this.getSilaboPrerrequisitos(this.idSeleccionado);
+    // this.getCorrequisitos(this.idSeleccionado);
+    // this.getSilaboDescripcionObjetivo(this.idSeleccionado);
+    // this.getSilaboPrerrequisitos(this.idSeleccionado);
   }
 
   getSilabos(): void {
@@ -76,9 +76,10 @@ export class CrearSilaboComponent implements OnInit {
       err => console.log(err)
     );
   }
-  
+
 
   crearSilabo(): void {
+    GlobalConstants.silaboActual = 1;
 
     this.silabo = new Silabo();
     this.silabo.nombre = this.asignatura.nombre;
@@ -96,7 +97,7 @@ export class CrearSilaboComponent implements OnInit {
       .subscribe(
         res => {
           GlobalConstants.silaboActual = res.id;
-          window.location.href = 'http://localhost:4200/#/descripcion-objetivos'
+          window.location.href = 'http://localhost:4200/#/descripcion-objetivos';
         },
         err => console.log(this.silabo)
       );
@@ -113,7 +114,7 @@ export class CrearSilaboComponent implements OnInit {
       .subscribe(descripcion => this.descripcion = descripcion);
   }
 
-  
+
 
   crear() {
     /*this.silabo = new Silabo();
@@ -123,7 +124,7 @@ export class CrearSilaboComponent implements OnInit {
 
     // Mas instrucciones incluir grabar a la base
   }
- 
+
 
   getSilaboAsignaturas(): void {
     this.silaboService.getSilaboAsignaturas().subscribe(

@@ -289,7 +289,7 @@ export class ContenidoAsignaturaComponent implements OnInit {
 
   getContenidos() {
     this.spinner.show();
-    this._servicio.getContenidoByAsignatura(this.actualSilaboId)
+    this._servicio.getContenidoBySilabo(this.actualSilaboId)
       .subscribe(
         contenido => {
           console.log('llego contenido');
@@ -314,7 +314,7 @@ export class ContenidoAsignaturaComponent implements OnInit {
   createContenido(contenido: Contenido) {
     this.spinner.show();
     this._servicio.createContenido(
-      { ...contenido, silaboId: this.actualSilaboId }
+      { ...contenido, silabo: this.actualSilaboId }
     )
       .subscribe(
         res => {

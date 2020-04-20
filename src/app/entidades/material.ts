@@ -5,4 +5,5 @@ export class Material{
     descripcion: string;
     nombre: string;
     tipoMaterial?: number | TipoMaterial;
+    silabo?: any;
 }

@@ -62,6 +62,7 @@ export class ResultadoAprendizajeAsignaturaComponent implements OnInit {
 
   ngOnInit(): void {
     this.getProcesos();
+    console.log(GlobalConstants.silaboActual);
   }
 
   mostrarNotif(mensaje: string, error: boolean): void {
