@@ -4,13 +4,14 @@ import { Observable } from 'rxjs';
 import { Contenido } from '../../entidades/contenido';
 import { Unidad } from '../../entidades/unidad';
 import { Semana } from '../../entidades/semana';
+import { GlobalConstants } from '../../common/global-constants';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ContenidoAsignaturaService {
 
-  BASE_URL = 'http://localhost:3000';
+  BASE_URL = GlobalConstants.apiURL;
 
   constructor(private http: HttpClient) { }
 

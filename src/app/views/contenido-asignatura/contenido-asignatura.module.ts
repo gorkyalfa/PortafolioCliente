@@ -23,6 +23,3 @@ import { AlertModule } from 'ngx-bootstrap/alert';
   declarations: [ ContenidoAsignaturaComponent ]
 })
 export class ContenidoAsignaturaModule { }
-
-
-

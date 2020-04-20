@@ -4,7 +4,7 @@ import { Semana } from '../../entidades/semana';
 import { Contenido } from '../../entidades/contenido';
 import { Unidad } from '../../entidades/unidad';
 import { ModalDirective } from 'ngx-bootstrap/modal';
-import { NgxSpinnerService } from 'ngx-spinner'
+import { NgxSpinnerService } from 'ngx-spinner';
 import { AlertConfig } from 'ngx-bootstrap/alert';
 
 
@@ -31,21 +31,21 @@ export class ContenidoAsignaturaComponent implements OnInit {
     horasTrabajoAutonomo: 0,
     observacion: ''
   };
-  editandoSemana = false;
-
   unidad: Unidad = {
     nombre: ''
   };
-
   contenidoCrear: Contenido = {
     nombre: 'PRUEBA'
   };
+  actualSilaboId: number = 2;
 
-  actualAsignaturaId: number = 2;
   semanas: Semana[];
-  contenido: Contenido;
   unidades: Unidad[];
   alertas: any = [];
+
+  contenido: Contenido;
+  editandoSemana = false;
+
   @ViewChild('modal') public modal: ModalDirective;
 
   constructor(private _servicio: ContenidoAsignaturaService, private spinner: NgxSpinnerService) { }
@@ -54,6 +54,7 @@ export class ContenidoAsignaturaComponent implements OnInit {
     this.getContenidos();
     this.getUnidades();
   }
+
   mostrarNotif(mensaje: string, error: boolean): void {
     this.alertas.push({
       type: 'info',
@@ -67,17 +68,17 @@ export class ContenidoAsignaturaComponent implements OnInit {
   getSemanas(unidadId: number) {
     this.spinner.show();
     this._servicio.getSemanasByUnidad(unidadId)
-      .subscribe(semanas => {
-        this.semanas = semanas;
-        console.log(this.semanas);
-        this.actualizarUnidad(unidadId);
-        this.spinner.hide();
-        this.mostrarNotif('Carga exitosa.', false);
-      },
-      err => {
-        this.spinner.hide();
-        this.mostrarNotif('¡Algo pasó!.', true);
-      }
+      .subscribe(
+        semanas => {
+          this.semanas = semanas;
+          this.actualizarUnidad(unidadId);
+          this.spinner.hide();
+          this.mostrarNotif('Carga exitosa.', false);
+        },
+        err => {
+          this.spinner.hide();
+          this.mostrarNotif('¡Algo pasó!.', true);
+        }
       );
   }
 
@@ -88,7 +89,7 @@ export class ContenidoAsignaturaComponent implements OnInit {
         // tslint:disable-next-line: radix
         if (parseInt((this.semana.semanaNumero as string)) === this.semanas[i].semanaNumero) {
           this.spinner.hide();
-          console.log('repetido1');
+          this.mostrarNotif('Número de semana repetido.', true);
           return;
         }
       }
@@ -96,42 +97,42 @@ export class ContenidoAsignaturaComponent implements OnInit {
       return;
     } else {
       this._servicio.getSemanasByUnidad(unidadID)
-        .subscribe(res => {
-          this.semanas = res;
-          for (let i = 0; i < this.semanas.length; i++) {
-            if (this.semana.semanaNumero === this.semanas[i].semanaNumero) {
-              this.spinner.hide();
-              console.log('repetido2');
-              return;
+        .subscribe(
+          res => {
+            this.semanas = res;
+            for (let i = 0; i < this.semanas.length; i++) {
+              if (this.semana.semanaNumero === this.semanas[i].semanaNumero) {
+                this.spinner.hide();
+                this.mostrarNotif('Número de semana repetido.', true);
+                return;
+              }
             }
+            this.crearSemanaTrasValidar(unidadID);
+            this.mostrarNotif('Carga exitosa.', false);
+            return;
+          },
+          err => {
+            this.spinner.hide();
+            this.mostrarNotif('¡Algo pasó!.', true);
           }
-          this.crearSemanaTrasValidar(unidadID);
-          this.mostrarNotif('semana creada exitosamente.', false);
-          return;
-        },
-        err => {
-          this.spinner.hide();
-          this.mostrarNotif('Hubo un problema en la creación.', true);
-        }
         );
     }
-
   }
 
   crearSemanaTrasValidar(unidadID: number) {
     if (this.unidades) {
-      console.log('estoy aca');
       this._servicio.createSemana({ ...this.semana, unidad: unidadID })
-        .subscribe(semana => {
-          this.setSemanaLimpio();
-          this.getSemanas(unidadID);
-          this.spinner.hide();
-          this.mostrarNotif('Material creado exitosamente.', false);
-        },
-        err => {
-          this.spinner.hide();
-          this.mostrarNotif('Hubo un problema en la creación.', true);
-        }
+        .subscribe(
+          semana => {
+            this.setSemanaLimpio();
+            this.getSemanas(unidadID);
+            this.spinner.hide();
+            this.mostrarNotif('Semana creada exitosamente.', false);
+          },
+          err => {
+            this.spinner.hide();
+            this.mostrarNotif('Hubo un problema en la creación.', true);
+          }
         );
     }
   }
@@ -139,16 +140,16 @@ export class ContenidoAsignaturaComponent implements OnInit {
   eliminarSemana(semanaId: number, unidadId: number) {
     this.spinner.show();
     this._servicio.deleteSemana(semanaId)
-      .subscribe(semana => {
-        this.getSemanas(unidadId);
-        this.spinner.hide();
-        this.mostrarNotif('Eliminación exitosa.', false);
-        console.log(semana);
-      },
-      err => {
-        this.spinner.hide();
-        this.mostrarNotif('Hubo un problema al eliminar.', true);
-      }
+      .subscribe(
+        semana => {
+          this.getSemanas(unidadId);
+          this.spinner.hide();
+          this.mostrarNotif('Eliminación exitosa.', false);
+        },
+        err => {
+          this.spinner.hide();
+          this.mostrarNotif('Hubo un problema al eliminar.', true);
+        }
       );
   }
 
@@ -173,20 +174,29 @@ export class ContenidoAsignaturaComponent implements OnInit {
   actualizarSemana() {
     this.spinner.show();
     this._servicio.updateSemana(this.semana, this.semana.id)
-      .subscribe(res => {
-        this.setSemanaLimpio();
-        this.editandoSemana = false;
-        this.spinner.hide();
-      });
+      .subscribe(
+        res => {
+          this.setSemanaLimpio();
+          this.editandoSemana = false;
+          this.spinner.hide();
+          this.mostrarNotif('Actualizado exitoso.', true);
+        },
+        err => {
+          this.spinner.hide();
+          this.mostrarNotif('Hubo un problema al actualizar.', true);
+        }
+      );
   }
 
   contarTotalHorasIndividual(): any {
     const totales = { horasPracticas: 0, horasAutonomas: 0, horasDocente: 0 };
-    this.semanas.forEach(semana => {
-      totales.horasDocente += semana.horasActividadDocencia;
-      totales.horasAutonomas += semana.horasTrabajoAutonomo;
-      totales.horasPracticas += semana.horasTrabajoPractico;
-    });
+    this.semanas.forEach(
+      semana => {
+        totales.horasDocente += semana.horasActividadDocencia;
+        totales.horasAutonomas += semana.horasTrabajoAutonomo;
+        totales.horasPracticas += semana.horasTrabajoPractico;
+      }
+    );
     return totales;
   }
 
@@ -196,17 +206,16 @@ export class ContenidoAsignaturaComponent implements OnInit {
     this.spinner.show();
     if (this.contenido) {
       this._servicio.getUnidadesByContenido(this.contenido.id)
-        .subscribe(unidades => {
-          this.unidades = unidades;
-
-          this.spinner.hide();
-          this.mostrarNotif('Carga exitosa.', false);
-          console.log(unidades);
-        },
-        err => {
-          this.spinner.hide();
-          this.mostrarNotif('¡Algo pasó!.', true);
-        }
+        .subscribe(
+          unidades => {
+            this.unidades = unidades;
+            this.spinner.hide();
+            this.mostrarNotif('Carga exitosa.', false);
+          },
+          err => {
+            this.spinner.hide();
+            this.mostrarNotif('¡Algo pasó!.', true);
+          }
         );
     }
   }
@@ -239,7 +248,6 @@ export class ContenidoAsignaturaComponent implements OnInit {
       .subscribe(
         res => {
           this.spinner.hide();
-          console.log(res);
         }
       );
   }
@@ -247,25 +255,28 @@ export class ContenidoAsignaturaComponent implements OnInit {
   eliminarUnidad(id: number) {
     this.spinner.show();
     this._servicio.deleteUnidad(id)
-      .subscribe(res => {
-        this.getUnidades();
-        this.spinner.hide();
-        this.mostrarNotif('Eliminación exitosa.', false);
-      },
-      err => {
-        this.spinner.hide();
-        this.mostrarNotif('Hubo un problema al eliminar.', true);
-      }
+      .subscribe(
+        res => {
+          this.getUnidades();
+          this.spinner.hide();
+          this.mostrarNotif('Eliminación exitosa.', false);
+        },
+        err => {
+          this.spinner.hide();
+          this.mostrarNotif('Hubo un problema al eliminar.', true);
+        }
       );
   }
 
   contarHorasTotales(): number {
     let total = 0;
-    this.semanas.forEach(semana => {
-      total += semana.horasActividadDocencia;
-      total += semana.horasTrabajoAutonomo;
-      total += semana.horasTrabajoPractico;
-    });
+    this.semanas.forEach(
+      semana => {
+        total += semana.horasActividadDocencia;
+        total += semana.horasTrabajoAutonomo;
+        total += semana.horasTrabajoPractico;
+      }
+    );
     return total;
   }
 
@@ -277,34 +288,33 @@ export class ContenidoAsignaturaComponent implements OnInit {
 
   getContenidos() {
     this.spinner.show();
-    this._servicio.getContenidoByAsignatura(this.actualAsignaturaId)
-      .subscribe(contenido => {
-        console.log('llego contenido');
-        console.log(contenido);
-        if (contenido.length >= 1) {
-
-          this.contenido = contenido[0];
-          this.getUnidades();
-
+    this._servicio.getContenidoByAsignatura(this.actualSilaboId)
+      .subscribe(
+        contenido => {
+          console.log('llego contenido');
+          console.log(contenido);
+          if (contenido.length >= 1) {
+            this.contenido = contenido[0];
+            this.getUnidades();
+          }
+          if (contenido.length < 1) {
+            this.createContenido(this.contenidoCrear);
+          }
+          this.spinner.hide();
+          this.mostrarNotif('Carga exitosa.', false);
+        },
+        err => {
+          this.spinner.hide();
+          this.mostrarNotif('¡Algo pasó!.', true);
         }
-        if (contenido.length < 1) {
-
-          this.createContenido(this.contenidoCrear);
-
-        }
-        this.spinner.hide();
-        this.mostrarNotif('Carga exitosa.', false);
-      },
-      err => {
-        this.spinner.hide();
-        this.mostrarNotif('¡Algo pasó!.', true);
-      }
       );
   }
 
   createContenido(contenido: Contenido) {
     this.spinner.show();
-    this._servicio.createContenido({ ...contenido, asignaturaId: this.actualAsignaturaId })
+    this._servicio.createContenido(
+      { ...contenido, silaboId: this.actualSilaboId }
+    )
       .subscribe(
         res => {
           console.log('contenido creado');

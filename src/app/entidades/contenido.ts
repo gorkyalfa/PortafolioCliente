@@ -2,6 +2,6 @@
 export class Contenido {
     id?: number;
     nombre: string;
-    asignaturaId?: number;
-    asignatura?: any;
+    silaboId?: number;
+    silabo?: any;
 }
