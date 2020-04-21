@@ -70,8 +70,7 @@
                         Revisar datos de formulario unidad o semanas...
                     </div>
                     <div class="modal-body">
-                        <form #formRaiz="ngForm" ngForm
-                            (ngSubmit)="(!formRaiz.invalid && (formRaiz.touched || formRaiz.dirty)) ?: crearRaiz(): null">
+                        <form #formRaiz="ngForm" ngForm(ngSubmit)="(!formRaiz.invalid && (formRaiz.touched || formRaiz.dirty)) ?: crearRaiz(): null">
 
                             <div class="form-group">
                                 <input required type="text" name="name" [(ngModel)]="proceso.nombre"
@@ -102,7 +101,7 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                        <form #formProceso="ngForm" ngForm (ngSubmit)="crearProceso()">
+                        <form #formProceso="ngForm" ngForm (ngSubmit)="(!formProceso.invalid && (formProceso.touched || formProceso.dirty)) ? crearProceso(): null">
                             <h6 class="modal-title" *ngIf="actualProceso"> Dentro de proceso: {{ actualProceso.nombre }}
                             </h6>
                             <br>
