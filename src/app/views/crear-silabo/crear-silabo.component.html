@@ -10,7 +10,7 @@
                   <div class="form-group row">
                     <label class="col-md-3 col-form-label font-weight-bold" for="name">Asignatura</label>
                     <div class="col-md-9">
-                      <select select class="form-control">
+                      <select class="form-control">
                         <option class ="font-weight-bold">Seleccione Asignatura</option>
                         <option *ngFor="let asignatura of asignaturas" [value]="asignatura.id" (click)="onSelect(asignatura)">{{asignatura.nombre}}</option>
                       </select>
@@ -30,7 +30,7 @@
                   <div class="form-group row">
                     <label class="col-md-3 col-form-label font-weight-bold" for="anteriores">Anteriores</label>
                     <div class="col-md-9">
-                      <select select class="form-control" formControlName="allAsignatura">
+                      <select class="form-control" >
                         <option class ="font-weight-bold">Seleccione Silabo</option>
                         <option *ngFor="let silabo of silabos">{{silabo.nombre}}</option>
                       </select>
@@ -56,73 +56,68 @@
 
 
 <br>
-<div class="row" *ngIf="idSeleccionado">
-  <div class="col-sm-6">
 
-    <div class="form-group row">
-      <label class="col-md-3 col-form-label" for="text-input">Codigo</label>
-      <div class="col-md-9">
-        <input type="text" required id="text-input" [(ngModel)]="asignatura.codigo" name="text-input" class="form-control" readonly>
-      </div>
+<div class="container" *ngIf="asignatura">
+  <div class="form-group row justify-content-center">
+    <label class="col-md-3 col-form-label" for="text-input">Codigo</label>
+    <div class="col-md-4">
+      <input type="text" required id="text-input" [(ngModel)]="asignatura.codigo" name="text-input" class="form-control" readonly>
     </div>
-
-    <div class="form-group row">
-      <label class="col-md-3 col-form-label" for="text-input">Período lectivo</label>
-      <div class="col-md-9">
-        <input type="text" required id="text-input" [(ngModel)]="asignatura.periodoLectivo" name="text-input" class="form-control" readonly>
-      </div>
-    </div>
-
-    <div class="form-group row">
-      <label class="col-md-3 col-form-label" for="text-input">Unidad de organización curricular</label>
-      <div class="col-md-9">
-        <input type="text" required id="text-input" [(ngModel)]="asignatura.unidadOrganizacionCurricular" name="text-input" class="form-control" readonly>
-      </div>
-    </div>
-
-    <div class="form-group row">
-      <label class="col-md-3 col-form-label" for="text-input">Campo de formación:</label>
-      <div class="col-md-9">
-        <input type="text" required id="text-input" [(ngModel)]="asignatura.campoFormacion" name="text-input" class="form-control" readonly>
-      </div>
-    </div>
-
-    <div class="form-group row">
-      <label class="col-md-3 col-form-label" for="text-input">Horas de docencia:</label>
-      <div class="col-md-9">
-        <input type="text" required id="text-input" [(ngModel)]="asignatura.totalHorasDocencia" name="text-input" class="form-control" readonly>
-      </div>
-    </div>
-
-    <div class="form-group row">
-      <label class="col-md-3 col-form-label" for="text-input">Horas de trabajo autónomo:</label>
-      <div class="col-md-9">
-        <input type="text" required id="text-input" [(ngModel)]="asignatura.totalHorasAutonomas" name="text-input" class="form-control" readonly>
-      </div>
-    </div>
-
-    <div class="form-group row">
-      <label class="col-md-3 col-form-label" for="text-input">Horas de prácticas de aprendizaje:</label>
-      <div class="col-md-9">
-        <input type="text" required id="text-input" [(ngModel)]="asignatura.totalHorasPracticasAprendizaje" name="text-input" class="form-control" readonly>
-      </div>
-    </div>
-
-    <div class="form-group row">
-      <label class="col-md-3 col-form-label" for="text-input">N° total de horas:</label>
-      <div class="col-md-9">
-        <input type="text" required id="text-input" [(ngModel)]="asignatura.numeroTotalHoras" name="text-input" class="form-control" readonly>
-      </div>
-    </div>
-    
-
-    
-    
-    
   </div>
+
+  <div class="form-group row justify-content-center">
+    <label class="col-md-3 col-form-label" for="text-input">Período lectivo</label>
+    <div class="col-md-4">
+      <input type="text" required id="text-input" [(ngModel)]="asignatura.periodoLectivo" name="text-input" class="form-control" readonly>
+    </div>
+  </div>
+
+  <div class="form-group row justify-content-center">
+    <label class="col-md-3 col-form-label" for="text-input">Unidad de organización curricular</label>
+    <div class="col-md-4">
+      <input type="text" required id="text-input" [(ngModel)]="asignatura.unidadOrganizacionCurricular" name="text-input" class="form-control" readonly>
+    </div>
+  </div>
+
+  <div class="form-group row justify-content-center">
+    <label class="col-md-3 col-form-label" for="text-input">Campo de formación:</label>
+    <div class="col-md-4">
+      <input type="text" required id="text-input" [(ngModel)]="asignatura.campoFormacion" name="text-input" class="form-control" readonly>
+    </div>
+  </div>
+
+  <div class="form-group row justify-content-center">
+    <label class="col-md-3 col-form-label" for="text-input">Horas de docencia:</label>
+    <div class="col-md-4">
+      <input type="text" required id="text-input" [(ngModel)]="asignatura.totalHorasDocencia" name="text-input" class="form-control" readonly>
+    </div>
+  </div>
+
+  <div class="form-group row justify-content-center">
+    <label class="col-md-3 col-form-label" for="text-input">Horas de trabajo autónomo:</label>
+    <div class="col-md-4">
+      <input type="text" required id="text-input" [(ngModel)]="asignatura.totalHorasAutonomas" name="text-input" class="form-control" readonly>
+    </div>
+  </div>
+
+  <div class="form-group row justify-content-center">
+    <label class="col-md-3 col-form-label" for="text-input">Horas de prácticas de aprendizaje:</label>
+    <div class="col-md-4">
+      <input type="text" required id="text-input" [(ngModel)]="asignatura.totalHorasPracticasAprendizaje" name="text-input" class="form-control" readonly>
+    </div>
+  </div>
+
+  <div class="form-group row justify-content-center">
+    <label class="col-md-3 col-form-label" for="text-input">N° total de horas:</label>
+    <div class="col-md-4">
+      <input type="text" required id="text-input" [(ngModel)]="asignatura.numeroTotalHoras" name="text-input" class="form-control" readonly>
+    </div>
+  </div>
+</div>
+
+<div class="row" *ngIf="idSeleccionado">
   <!--/.col-->
-  <div class="col-sm-6">
-    <div class="card border-success">
+    <div class="card border-success col-sm-5 mr-1" >
       <div class="card-header">
         <strong>Prerrequisitos de la Asignatura</strong>
       </div>
@@ -145,7 +140,7 @@
         </table>           
       </div>
     </div>
-    <div class="card border-success">
+    <div class="card border-success col-sm-6">
       <div class="card-header">
         <strong>Correquisitos de la Asignatura</strong>
       </div>
@@ -168,10 +163,9 @@
         </table>      
       </div>
     </div>
-  </div>
-  <div class="row justify-content-end">
-    <div class="col-md-3 mb-3">
-      <button type="button" (click)="crearSilabo()" class="btn btn-success">Crear</button>
-    </div>
+</div>
+<div class="row justify-content-end">
+  <div class="col-md-3 mb-3">
+    <button type="button" (click)="crearSilabo()" class="btn btn-success">Crear</button>
   </div>
 </div>

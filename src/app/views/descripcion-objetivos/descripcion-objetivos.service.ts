@@ -16,20 +16,20 @@ export class DescripcionObjetivosService {
 
   getDescripcion(id: number): Observable<Descripcion> {
     const url = `${this.BASE_URL}/${id}`;
-    return this.http.get<Descripcion>(url)
+    return this.http.get<Descripcion>(url);
   }
 
   getDescripciones(): Observable<Descripcion[]> {
     return this.http.get<Descripcion[]>(`${this.BASE_URL}/descripciones/`);
   }
 
-  getSilabo(id: number): Observable<Descripcion> {
-    return this.http.get<Descripcion>(`${this.BASE_URL}/descripciones/${id}/silabo`);
+  getSilabo(id: number): Observable<Silabo> {
+    return this.http.get<Silabo>(`${this.BASE_URL}/silabos/${id}/`);
   }
 
   createDescripcion(descripcion: Descripcion): Observable<Descripcion> {
     return this.http.post<Descripcion>(`${this.BASE_URL}/descripciones/`, descripcion);
-  }  
+  }
 
   updateDescripcionSilabo(silabo: Silabo, id: number): Observable<Silabo> {
     return this.http.put<Silabo>(`${this.BASE_URL}/silabos/${id}`, silabo);

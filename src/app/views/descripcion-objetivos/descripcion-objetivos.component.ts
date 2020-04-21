@@ -23,19 +23,19 @@ export class DescripcionObjetivosComponent implements OnInit {
   constructor(private descripcionObjetivosService: DescripcionObjetivosService, private spinner: NgxSpinnerService) { }
 
   ngOnInit() {
-    
-    this.getDescripciones();
+    this.getDescripcionSilabo(GlobalConstants.silaboActual);
+    // this.getDescripciones();
     console.log(GlobalConstants.silaboActual);
   }
 
-  getDescripcion(id: number): void { 
+  getDescripcion(id: number): void {
     this.descripcionObjetivosService.getDescripcion(id)
       .subscribe(descripcion => this.descripcion = descripcion);
   }
 
   getDescripcionSilabo(id: number): void {
     this.descripcionObjetivosService.getSilabo(id)
-      .subscribe(descripcionSilabo => this.descripcionSilabo = descripcionSilabo);
+      .subscribe(descripcionSilabo => this.silabo = descripcionSilabo);
   }
 
   getDescripciones(): void {
@@ -65,11 +65,11 @@ export class DescripcionObjetivosComponent implements OnInit {
     this.descripcion = {
       descripcion: '',
       objetivo: ''
-  
     };
   }
 
   actualizarDescpripcionSilabo() {
+    console.log(this.silabo);
     this.descripcionObjetivosService.updateDescripcionSilabo(this.silabo, GlobalConstants.silaboActual)
       .subscribe(res => {
         console.log(res);
@@ -83,15 +83,9 @@ export class DescripcionObjetivosComponent implements OnInit {
       timeout: 5000
     });
   }
- 
-
-  textAreaAdjust(o) {
-    o.style.height = "1px";
-    o.style.height = (25 + o.scrollHeight) + "px";
-  }
 
   mostrarConsoleLog() {
-    console.log('prueba')
+    console.log('prueba');
   }
 }
 

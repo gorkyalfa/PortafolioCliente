@@ -299,7 +299,7 @@ export class ContenidoAsignaturaComponent implements OnInit {
             this.getUnidades();
           }
           if (contenido.length < 1) {
-            this.createContenido({...this.contenidoCrear, silabo: this.actualSilaboId});
+            this.createContenido({...this.contenidoCrear, silaboId: this.actualSilaboId});
           }
           this.spinner.hide();
           this.mostrarNotif('Carga exitosa.', false);
@@ -314,7 +314,7 @@ export class ContenidoAsignaturaComponent implements OnInit {
   createContenido(contenido: Contenido) {
     this.spinner.show();
     this._servicio.createContenido(
-      { ...contenido, silabo: this.actualSilaboId }
+      { ...contenido, silaboId: this.actualSilaboId }
     )
       .subscribe(
         res => {

@@ -93,11 +93,11 @@ export class CrearSilaboComponent implements OnInit {
     this.silabo.numeroTotalHoras = this.asignatura.numeroTotalHoras;
     this.silabo.descripcionAsignatura = '';
     this.silabo.objetivoAsignatura = '';
-    
 
     this.silaboService.createSilabo(this.silabo)
       .subscribe(
         res => {
+          console.log(res);
           GlobalConstants.silaboActual = res.id;
           window.location.href = 'http://localhost:4200/#/descripcion-objetivos';
         },
