@@ -1,3 +1,31 @@
+<div class="row justify-content-center">
+    <nav aria-label="...">
+      <ul class="pagination">
+        <li class="page-item">
+          <a class="page-link" routerLink="/descripcion-objetivos" tabindex="-1">Atrás</a>
+        </li>
+        <li class="page-item">
+          <a class="page-link" routerLink="/crear-silabo">Crear Sílabo</a>
+        </li>
+        <li class="page-item">
+          <a routerLink="/descripcion-objetivos" class="page-link">Objetivos</a>
+        </li>
+        <li class="page-item active">
+          <a routerLink="/resultado-aprendizaje-asignatura" class="page-link">Resultados</a>
+        </li>
+        <li class="page-item">
+          <a routerLink="/contenido-asignatura" class="page-link">Contenido</a>
+        </li>
+        <li class="page-item">
+          <a routerLink="/estrategias-recursos" class="page-link">Estrategias y Recursos</a>
+        </li>
+        <li class="page-item">
+          <a routerLink="/contenido-asignatura" class="page-link">Siguiente</a>
+        </li>
+      </ul>
+    </nav>
+  </div>
+
 <div class="posicion">
     <div *ngFor="let alert of alertas" class="row">
         <alert class="col align-self-end" *ngIf="!alert.error" type="success" [dismissOnTimeout]="alert.timeout">
@@ -26,14 +54,14 @@
                         <strong>
                             <p>Resultados:</p>
                         </strong>
-                        <ul class="list-group" *ngIf="resultados">
-                            <li *ngFor="let resultado of resultados" class="list-group-item"> {{resultado.nombre}}
+                        <div class="list-group" *ngIf="resultados">
+                            <button (click)="getEvidencia(resultado.evidenciaId)" *ngFor="let resultado of resultados" class="list-group-item list-group-item-action"> {{resultado.nombre}}
                                 &nbsp;
                                 <button (click)="removeResultado(resultado.id)"
                                     class="badge badge-pill badge-danger">&times;
                                 </button>
-                            </li>
-                        </ul>
+                            </button>
+                        </div>
                     </div>
                 </div>
 

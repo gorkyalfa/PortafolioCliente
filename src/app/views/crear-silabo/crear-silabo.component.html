@@ -1,10 +1,38 @@
-<div class="app-body">
+      <div class="row justify-content-center">
+        <nav aria-label="...">
+          <ul class="pagination">
+            <li class="page-item disabled">
+              <a class="page-link" tabindex="-1">Atrás</a>
+            </li>
+            <li class="page-item active">
+              <a class="page-link" routerLink="/crear-silabo">Crear Sílabo</a>
+            </li>
+            <li class="page-item">
+              <a routerLink="/descripcion-objetivos" class="page-link">Objetivos</a>
+            </li>
+            <li class="page-item">
+              <a routerLink="/resultado-aprendizaje-asignatura" class="page-link">Resultados</a>
+            </li>
+            <li class="page-item">
+              <a routerLink="/contenido-asignatura" class="page-link">Contenido</a>
+            </li>
+            <li class="page-item">
+              <a routerLink="/estrategias-recursos" class="page-link">Estrategias y Recursos</a>
+            </li>
+            <li class="page-item">
+              <a routerLink="/descripcion-objetivos" class="page-link">Siguiente</a>
+            </li>
+          </ul>
+        </nav>
+      </div>
+          
+  <div class="app-body">
     <div class="container">
       <div class="row">
         <div class="col-md-6 mx-auto">
           <div class="card border-info">
             <div class="card p-4">
-              <div class="card-body">
+              <div [collapse]="isCollapsed" class="card-body">
                 <form >
                   <h1>Crear Sílabo</h1>
                   <div class="form-group row">
@@ -18,13 +46,16 @@
                   </div>                  
                 </form>
               </div>
+              <div class="card-footer">
+                <button (click)="isCollapsed = !isCollapsed" type="button" class="btn btn-success px-4">{{ isCollapsed ? 'Mostrar' : 'Ocultar' }}</button>
+              </div>
             </div>
           </div>
         </div>        
         <div class="col-md-6 mx-auto">
           <div class="card border-info">
             <div class="card p-4">
-              <div class="card-body">
+              <div [collapse]="isCollapsed" class="card-body">
                 <form >
                   <h1>Clonar Sílabo</h1>
                   <div class="form-group row">
@@ -49,15 +80,11 @@
         </div>
       </div>
     </div>
-</div>
-<div *ngIf="idSeleccionado">
-  <div><span>id: </span>{{idSeleccionado}}</div>
-</div>
+  </div>
 
+  <br>
 
-<br>
-
-<div class="container" *ngIf="asignatura">
+  <div class="container" *ngIf="asignatura">
   <div class="form-group row justify-content-center">
     <label class="col-md-3 col-form-label" for="text-input">Codigo</label>
     <div class="col-md-4">
@@ -113,9 +140,9 @@
       <input type="text" required id="text-input" [(ngModel)]="asignatura.numeroTotalHoras" name="text-input" class="form-control" readonly>
     </div>
   </div>
-</div>
+  </div>
 
-<div class="row" *ngIf="idSeleccionado">
+  <div class="row" *ngIf="idSeleccionado">
   <!--/.col-->
     <div class="card border-success col-sm-5 mr-1" >
       <div class="card-header">
@@ -163,9 +190,12 @@
         </table>      
       </div>
     </div>
-</div>
-<div class="row justify-content-end">
+  </div>
+  <div class="row justify-content-end">
   <div class="col-md-3 mb-3">
     <button type="button" (click)="crearSilabo()" class="btn btn-success">Crear</button>
   </div>
-</div>
+  </div>
+
+
+
