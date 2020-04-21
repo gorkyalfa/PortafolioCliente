@@ -16,7 +16,7 @@
 <div class="mb-4">
   <div class="card">
     <div class="card text-white bg-success"></div>
-    <form #formMaterial="ngForm" ngForm (ngSubmit)="(!formMaterial.invalid && (formMaterial.touched || formMaterial.dirty)) ? (editandoMaterial ? actualizarMaterial() : crearMaterial()) : null">
+    <form #formMaterial="ngForm" ngForm (ngSubmit)="(!formMaterial.invalid && (formMaterial.touched || formMaterial.dirty)) ? (editandoMaterial ? actualizarMaterial() && formMaterial.invalid = null : crearMaterial() && formMaterial.invalid = null) : null">
       <div class="card-header">
         <strong>Recursos Didacticos</strong>
       </div>
@@ -106,7 +106,7 @@
       <div class="card-body">
 
         <form  #formEstrategias="ngForm" ngForm ngForm #formEstrategias="ngForm" 
-        (ngSubmit)="(!formEstrategias.invalid && (formEstrategias.touched || formEstrategias.dirty)) ? (editando ? actualizarEstrategia() : crearEstrategia()) : null">
+        (ngSubmit)="(!formEstrategias.invalid && (formEstrategias.touched || formEstrategias.dirty)) ? (editando ? actualizarEstrategia() && formEstrategias.invalid = false : crearEstrategia() && formEstrategias.invalid = false) : null">
           <div class="form-group row">
             <label class="col-md-3 font-weight-bold" for="name">Estrategia</label>
             <div class="col-md-8">

@@ -7,16 +7,18 @@
     </div>
 </div>
 
-<div *ngIf="formUnidad.invalid && (formUnidad.touched || formUnidad.dirty) ||
-unidades && formSemana.invalid && (formSemana.touched || formSemana.dirty)">
-  Revisar datos de formulario unidad o semanas...
-</div>
+<alert class="row align-self-end" *ngIf="formUnidad.invalid && (formUnidad.touched || formUnidad.dirty)" type="danger" >
+    Revisar campos de formulario unidad...
+</alert>
+<alert class="row align-self-end" *ngIf="formSemana.invalid && (formSemana.touched || formSemana.dirty)" type="danger" >
+Revisar campos de formulario semana...
+</alert>
 
 <h1>Contenido de la Asignatura</h1>
 <div class="row mb-4">
     <div class="col-12">
       
-            <form #formUnidad="ngForm" ngForm (ngSubmit)="(!formUnidad.invalid && (formUnidad.touched || formUnidad.dirty)) ? createUnidad(unidad) : null" class="form-horizontal">
+            <form #formUnidad="ngForm" ngForm (ngSubmit)="(!formUnidad.invalid && (formUnidad.touched || formUnidad.dirty)) ? createUnidad(unidad) && formUnidad.invalid = false : null" class="form-horizontal">
                 <div class="form-group row">
                     <label class="col-md-2 col-form-label font-weight-bold">Nombre Unidad</label>
                     <div class="col-md-9">
@@ -47,7 +49,7 @@ unidades && formSemana.invalid && (formSemana.touched || formSemana.dirty)">
                 </div>
                 <div class="card-body">
     
-                    <form #formSemana="ngForm" ngForm (ngSubmit)="(!formSemana.invalid && (formSemana.touched || formSemana.dirty)) ? editandoSemana ? actualizarSemana() : crearSemana(unidad.id) :null" >
+                    <form #formSemana="ngForm" ngForm (ngSubmit)="(!formSemana.invalid && (formSemana.touched || formSemana.dirty)) ? editandoSemana ? actualizarSemana() && formSemana.invalid = null : crearSemana(unidad.id) && formSemana.invalid = null : null" >
                     <div class="row">
                         <div class="form-inline">
                             <div class="form-group">
