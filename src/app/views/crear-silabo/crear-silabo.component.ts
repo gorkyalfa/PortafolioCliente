@@ -25,9 +25,9 @@ export class CrearSilaboComponent implements OnInit {
     this.getSilabos();
     this.getAsignaturas();
     // this.getAsignatura(this.idSeleccionado);
-    //this.getCorrequisitos(this.idSeleccionado);
-    //this.getSilaboDescripcionObjetivo(this.idSeleccionado);    
-    //this.getSilaboPrerrequisitos(this.idSeleccionado);
+    // this.getCorrequisitos(this.idSeleccionado);
+    // this.getSilaboDescripcionObjetivo(this.idSeleccionado);
+    // this.getSilaboPrerrequisitos(this.idSeleccionado);
   }
 
   getSilabos(): void {
@@ -76,13 +76,13 @@ export class CrearSilaboComponent implements OnInit {
       err => console.log(err)
     );
   }
-  
+
 
   crearSilabo(): void {
 
     this.silabo = new Silabo();
     this.silabo.nombre = this.asignatura.nombre;
-    this.silabo.asignaturaId = this.asignatura.id;
+    this.silabo.asignatura = this.asignatura.id;
     this.silabo.codigo = this.asignatura.codigo;
     this.silabo.periodoLectivo = this.asignatura.periodoLectivo;
     this.silabo.unidadOrganizacionCurricular = this.asignatura.unidadOrganizacionCurricular;
@@ -91,12 +91,15 @@ export class CrearSilaboComponent implements OnInit {
     this.silabo.totalHorasDocencia = this.asignatura.totalHorasDocencia;
     this.silabo.totalHorasPracticasAprendizaje = this.asignatura.totalHorasPracticasAprendizaje;
     this.silabo.numeroTotalHoras = this.asignatura.numeroTotalHoras;
+    this.silabo.descripcionAsignatura = '';
+    this.silabo.objetivoAsignatura = '';
+    
 
     this.silaboService.createSilabo(this.silabo)
       .subscribe(
         res => {
           GlobalConstants.silaboActual = res.id;
-          window.location.href = 'http://localhost:4200/#/descripcion-objetivos'
+          window.location.href = 'http://localhost:4200/#/descripcion-objetivos';
         },
         err => console.log(this.silabo)
       );
@@ -113,7 +116,7 @@ export class CrearSilaboComponent implements OnInit {
       .subscribe(descripcion => this.descripcion = descripcion);
   }
 
-  
+
 
   crear() {
     /*this.silabo = new Silabo();
@@ -123,7 +126,7 @@ export class CrearSilaboComponent implements OnInit {
 
     // Mas instrucciones incluir grabar a la base
   }
- 
+
 
   getSilaboAsignaturas(): void {
     this.silaboService.getSilaboAsignaturas().subscribe(

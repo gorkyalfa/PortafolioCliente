@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { Descripcion } from '../../entidades/descripcion';
+import { Silabo } from '../../entidades/silabo';
 
 
 @Injectable({
@@ -30,9 +31,8 @@ export class DescripcionObjetivosService {
     return this.http.post<Descripcion>(`${this.BASE_URL}/descripciones/`, descripcion);
   }  
 
-  updateDescripcionSilabo(descripcion: Descripcion, id: number): Observable<Descripcion> {
-    return this.http.put<Descripcion>(`${this.BASE_URL}/descripciones/${id}`, descripcion);
+  updateDescripcionSilabo(silabo: Silabo, id: number): Observable<Silabo> {
+    return this.http.put<Silabo>(`${this.BASE_URL}/silabos/${id}`, silabo);
   }
-
 
 }

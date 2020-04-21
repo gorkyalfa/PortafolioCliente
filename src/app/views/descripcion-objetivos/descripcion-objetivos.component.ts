@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { DescripcionObjetivosService } from './descripcion-objetivos.service';
 import { Descripcion } from '../../entidades/descripcion';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { Silabo } from '../../entidades/silabo';
+import { CrearSilaboComponent } from '../crear-silabo/crear-silabo.component';
 import { GlobalConstants } from '../../common/global-constants';
 
 @Component({
@@ -10,6 +12,8 @@ import { GlobalConstants } from '../../common/global-constants';
 })
 export class DescripcionObjetivosComponent implements OnInit {
 
+  silabo: Silabo;
+  crearSilaboComponente: CrearSilaboComponent;
   descripcion: Descripcion;
   descripcionSilabo: Descripcion;
   descripciones: Descripcion[];
@@ -19,8 +23,7 @@ export class DescripcionObjetivosComponent implements OnInit {
   constructor(private descripcionObjetivosService: DescripcionObjetivosService, private spinner: NgxSpinnerService) { }
 
   ngOnInit() {
-    this.getDescripcionSilabo(2);
-    this.getDescripcion(2);
+    
     this.getDescripciones();
     console.log(GlobalConstants.silaboActual);
   }
@@ -62,11 +65,12 @@ export class DescripcionObjetivosComponent implements OnInit {
     this.descripcion = {
       descripcion: '',
       objetivo: ''
+  
     };
   }
 
   actualizarDescpripcionSilabo() {
-    this.descripcionObjetivosService.updateDescripcionSilabo(this.descripcionSilabo, this.descripcionSilabo.id)
+    this.descripcionObjetivosService.updateDescripcionSilabo(this.silabo, GlobalConstants.silaboActual)
       .subscribe(res => {
         console.log(res);
       });
