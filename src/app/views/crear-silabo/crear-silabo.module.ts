@@ -4,9 +4,10 @@ import { ButtonsModule } from 'ngx-bootstrap/buttons';
 import { CrearSilaboComponent } from './crear-silabo.component';
 import { CrearSilaboRoutingModule } from './crear-silabo-routing.module';
 import { CommonModule } from '@angular/common';
-import { DataTablesModule } from "angular-datatables";
+import { DataTablesModule } from 'angular-datatables';
 
-
+import { TabsModule } from 'ngx-bootstrap/tabs';
+import { CollapseModule } from 'ngx-bootstrap/collapse';
 
 @NgModule({
   imports: [
@@ -15,7 +16,9 @@ import { DataTablesModule } from "angular-datatables";
     FormsModule,
     CrearSilaboRoutingModule,
     DataTablesModule,
-    ButtonsModule.forRoot()
+    ButtonsModule.forRoot(),
+    TabsModule,
+    CollapseModule
   ],
   declarations: [ CrearSilaboComponent ]
 })

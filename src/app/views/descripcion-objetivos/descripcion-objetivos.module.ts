@@ -15,6 +15,6 @@ import { NgxSpinnerModule } from 'ngx-spinner';
     DescripcionObjetivosRoutingModule,
     ButtonsModule.forRoot()
   ],
-  declarations: [DescripcionObjetivosComponent]
+  declarations: [DescripcionObjetivosComponent],
 })
 export class DescripcionObjetivosModule { }

@@ -134,7 +134,7 @@ export class ResultadoAprendizajeAsignaturaComponent implements OnInit {
           this.spinner.show();
           this.esSubProceso = dato;
           if (this.esSubProceso > 1) {
-            this.createResultado();
+            this.crearEvidencia();
           } else {
             this._servicio.createProceso(
               { ...this.proceso, procesoAncestro: this.actualProceso }
@@ -195,7 +195,7 @@ export class ResultadoAprendizajeAsignaturaComponent implements OnInit {
       .subscribe(
         resultados => {
           this.resultados = resultados;
-          this.getEvidencia();
+          this.getEvidencia(resultados[0].evidenciaId);
           this.spinner.hide();
           this.mostrarNotif('Carga exitosa.', false);
         },
@@ -206,47 +206,31 @@ export class ResultadoAprendizajeAsignaturaComponent implements OnInit {
       );
   }
 
-  createResultado() {
-    this.spinner.show();
-    if (this.resultados && this.resultados[0]) {
-      this._servicio.createResultado({
-        ...this.resultado,
-        evidenciaId: this.resultados[0].evidenciaId,
-        proceso: this._servicio.actualProcesoId
-      })
-        .subscribe(
-          res => {
-            // Camino con resultado existente
-            this.alCrearOCancelar();
-            this.getResultados();
-            this.mostrarNotif('Resultado creado exitosamente.', false);
-          },
-          err => {
-            this.spinner.hide();
-            this.mostrarNotif('Hubo un problema en la creación.', true);
-          }
-        );
-    } else {
-      this._servicio.createEvidencia({ nombre: '' })
+  crearResultado(evidenciaId: number) {
+    this._servicio.createResultado({
+      ...this.resultado,
+      evidenciaId: evidenciaId,
+      proceso: this._servicio.actualProcesoId
+    })
+      .subscribe(
+        res => {
+          // Camino con resultado inexistente
+          this.alCrearOCancelar();
+          this.getResultados();
+          this.mostrarNotif('Resultado creado exitosamente.', false);
+        },
+        err => {
+          this.spinner.hide();
+          this.mostrarNotif('Hubo un problema en la creación.', true);
+        }
+      );
+  }
+
+  crearEvidencia() {
+    this._servicio.createEvidencia({ nombre: '' })
         .subscribe(
           evidencia => {
-            this._servicio.createResultado({
-              ...this.resultado,
-              evidenciaId: evidencia.id,
-              proceso: this._servicio.actualProcesoId
-            })
-              .subscribe(
-                res => {
-                  // Camino con resultado inexistente
-                  this.alCrearOCancelar();
-                  this.getResultados();
-                  this.mostrarNotif('Resultado creado exitosamente.', false);
-                },
-                err => {
-                  this.spinner.hide();
-                  this.mostrarNotif('Hubo un problema en la creación.', true);
-                }
-              );
+            this.crearResultado(evidencia.id);
             this.evidencia = evidencia;
             this.spinner.hide();
             this.mostrarNotif('Evidencia creada exitosamente.', false);
@@ -256,17 +240,69 @@ export class ResultadoAprendizajeAsignaturaComponent implements OnInit {
             this.mostrarNotif('Hubo un problema en la creación.', true);
           }
         );
-    }
   }
 
-  removeResultado(idResultado: number) {
+  // createResultado() {
+  //   this.spinner.show();
+  //   if (this.resultados && this.resultados[0]) {
+  //     this._servicio.createResultado({
+  //       ...this.resultado,
+  //       evidenciaId: this.resultados[0].evidenciaId,
+  //       proceso: this._servicio.actualProcesoId
+  //     })
+  //       .subscribe(
+  //         res => {
+  //           // Camino con resultado existente
+  //           this.alCrearOCancelar();
+  //           this.getResultados();
+  //           this.mostrarNotif('Resultado creado exitosamente.', false);
+  //         },
+  //         err => {
+  //           this.spinner.hide();
+  //           this.mostrarNotif('Hubo un problema en la creación.', true);
+  //         }
+  //       );
+  //   } else {
+  //     this._servicio.createEvidencia({ nombre: '' })
+  //       .subscribe(
+  //         evidencia => {
+  //           this._servicio.createResultado({
+  //             ...this.resultado,
+  //             evidenciaId: evidencia.id,
+  //             proceso: this._servicio.actualProcesoId
+  //           })
+  //             .subscribe(
+  //               res => {
+  //                 // Camino con resultado inexistente
+  //                 this.alCrearOCancelar();
+  //                 this.getResultados();
+  //                 this.mostrarNotif('Resultado creado exitosamente.', false);
+  //               },
+  //               err => {
+  //                 this.spinner.hide();
+  //                 this.mostrarNotif('Hubo un problema en la creación.', true);
+  //               }
+  //             );
+  //           this.evidencia = evidencia;
+  //           this.spinner.hide();
+  //           this.mostrarNotif('Evidencia creada exitosamente.', false);
+  //         },
+  //         err => {
+  //           this.spinner.hide();
+  //           this.mostrarNotif('Hubo un problema en la creación.', true);
+  //         }
+  //       );
+  //   }
+  // }
+
+  removeResultado(idResultado: number, idEvidencia: number) {
     this.spinner.show();
     this._servicio.removeResultado(idResultado)
       .subscribe(
         res => {
-          if (this.resultados.length === 1) {
-            this.eliminarEvidencia(this.evidencia.id);
-          }
+          // if (this.resultados.length === 1) {
+          this.eliminarEvidencia(idEvidencia);
+          // }
           this.getResultados();
           this.spinner.hide();
           this.mostrarNotif('Eliminación exitosa.', false);
@@ -279,10 +315,10 @@ export class ResultadoAprendizajeAsignaturaComponent implements OnInit {
   }
 
   // Metodos de evidencia
-  getEvidencia() {
+  getEvidencia(id: number) {
     this.spinner.show();
     if (this.resultados.length >= 1) {
-      this._servicio.getEvidencia(this.resultados[0].evidenciaId)
+      this._servicio.getEvidencia(id)
         .subscribe(res => {
           this.evidencia = res;
           this.spinner.hide();
@@ -301,7 +337,7 @@ export class ResultadoAprendizajeAsignaturaComponent implements OnInit {
     this._servicio.updateEvidencia(id, this.evidencia)
       .subscribe(
         res => {
-          this.getEvidencia();
+          this.getEvidencia(id);
           this.spinner.hide();
         }
       );

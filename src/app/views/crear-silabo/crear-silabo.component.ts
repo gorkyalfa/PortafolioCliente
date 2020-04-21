@@ -3,6 +3,7 @@ import { SilaboServiceService } from './silabo-service.service';
 import { Asignatura } from '../../entidades/asignatura';
 import { Silabo } from '../../entidades/silabo';
 import { GlobalConstants } from '../../common/global-constants';
+import { Location } from '@angular/common';
 
 
 @Component({
@@ -19,7 +20,12 @@ export class CrearSilaboComponent implements OnInit {
   prerequisito: Asignatura;
   asignatura: Asignatura;
 
-  constructor(private silaboService: SilaboServiceService) {}
+  isCollapsed: boolean = false;
+
+  constructor(
+    private silaboService: SilaboServiceService,
+    private location: Location
+  ) {}
 
   ngOnInit() {
     this.getSilabos();
@@ -33,6 +39,7 @@ export class CrearSilaboComponent implements OnInit {
   getSilabos(): void {
     this.silaboService.getSilabos().subscribe(
       res => {
+        console.log(res);
         this.silabos = res;
       },
       err => console.log(err)
@@ -99,7 +106,7 @@ export class CrearSilaboComponent implements OnInit {
         res => {
           console.log(res);
           GlobalConstants.silaboActual = res.id;
-          window.location.href = 'http://localhost:4200/#/descripcion-objetivos';
+          this.location.replaceState('/descripcion-objetivos');
         },
         err => console.log(this.silabo)
       );
