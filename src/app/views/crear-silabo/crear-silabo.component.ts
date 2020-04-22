@@ -21,6 +21,8 @@ export class CrearSilaboComponent implements OnInit {
   asignatura: Asignatura;
 
   isCollapsed: boolean = false;
+  isCollapsed2: boolean = true;
+  isCollapsed3: boolean = true;
 
   constructor(
     private silaboService: SilaboServiceService,
@@ -67,8 +69,10 @@ export class CrearSilaboComponent implements OnInit {
   getCorrequisitos(id: number): void {
     this.silaboService.getCorrequisitos(id).subscribe(
       res => {
-        console.log(res.correquisito);
-        this.correquisito = res.correquisito;
+        if (res) {
+          console.log(res.correquisito);
+          this.correquisito = res.correquisito;
+        }
       },
       err => console.log(err)
     );
@@ -77,13 +81,14 @@ export class CrearSilaboComponent implements OnInit {
   getPrerequisitos(id: number): void {
     this.silaboService.getPrerequisitos(id).subscribe(
       res => {
-        console.log(res.prerequisito);
-        this.prerequisito = res.prerequisito;
+        if (res) {
+          console.log(res.prerequisito);
+          this.prerequisito = res.prerequisito;      
+        }
       },
       err => console.log(err)
     );
   }
-
 
   crearSilabo(): void {
 
@@ -108,7 +113,7 @@ export class CrearSilaboComponent implements OnInit {
           GlobalConstants.silaboActual = res.id;
           this.location.replaceState('/descripcion-objetivos');
         },
-        err => console.log(this.silabo)
+        err => console.log(err)
       );
   }
 
