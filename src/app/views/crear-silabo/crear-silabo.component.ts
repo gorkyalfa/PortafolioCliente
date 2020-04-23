@@ -124,6 +124,7 @@ export class CrearSilaboComponent implements OnInit {
       .subscribe(
         res => {
           console.log(res);
+          this.idSilaboActual = res.id;
           GlobalConstants.silaboActual = res.id;
           this.location.replaceState('/#descripcion-objetivos');
         },
