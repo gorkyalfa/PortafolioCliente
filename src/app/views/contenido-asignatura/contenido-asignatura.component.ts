@@ -306,7 +306,7 @@ export class ContenidoAsignaturaComponent implements OnInit {
         },
         err => {
           this.spinner.hide();
-          this.mostrarNotif('¡Algo pasó!.', true);
+          this.mostrarNotif('¡Algo pasó! Quizá no posee un sílabo en proceso.', true);
         }
       );
   }

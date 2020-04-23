@@ -3,12 +3,12 @@ import { Asignatura } from './asignatura';
 export class Silabo {
     id?: number;
     nombre: string;
-    asignatura: number;
+    asignaturaId: number;
     codigo: string;
-    periodoLectivo: string;
+    periodoLectivo: any;
     unidadOrganizacionCurricular: string;
     campoFormacion: string;
-    totalHorasDocencia: number; 
+    totalHorasDocencia: number;
     totalHorasAutonomas: number;
     totalHorasPracticasAprendizaje: number;
     numeroTotalHoras: number;

@@ -2,5 +2,6 @@
 export class EstrategiaMetodologica {
     id?: number;
     nombre: string;
-    descripcion?: string;
+    finalidad?: string;
+    silabo: any;
 }

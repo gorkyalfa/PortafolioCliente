@@ -17,8 +17,8 @@ export class EstrategiasRecursosService {
   constructor(private http: HttpClient) { }
 
   // Metodos de materiales
-  getMateriales(): Observable<Material[]> {
-    return this.http.get<Material[]>(`${this.BASE_URL}/materiales/tipos/`);
+  getMateriales(idSilabo: number): Observable<Material[]> {
+    return this.http.get<Material[]>(`${this.BASE_URL}/materiales/${idSilabo}/tipos/`);
   }
 
   createMaterial(material: Material): Observable<Material> {
@@ -43,37 +43,37 @@ export class EstrategiasRecursosService {
   }
 
   // Metodos de finalidad
-  getFinalidades(): Observable<Finalidad[]> {
-    return this.http.get<Finalidad[]>(`${this.BASE_URL}/finalidades/estrategia/`);
-  }
+  // getFinalidades(): Observable<Finalidad[]> {
+  //   return this.http.get<Finalidad[]>(`${this.BASE_URL}/finalidades/estrategia/`);
+  // }
 
-  createFinalidad(finalidad: Finalidad): Observable<Finalidad> {
-    return this.http.post<Finalidad>(`${this.BASE_URL}/finalidades/`, finalidad);
-  }
+  // createFinalidad(finalidad: Finalidad): Observable<Finalidad> {
+  //   return this.http.post<Finalidad>(`${this.BASE_URL}/finalidades/`, finalidad);
+  // }
 
-  deleteFinalidad(id: number): Observable<Finalidad> {
-    return this.http.delete<Finalidad>(`${this.BASE_URL}/finalidades/${id}`);
-  }
+  // deleteFinalidad(id: number): Observable<Finalidad> {
+  //   return this.http.delete<Finalidad>(`${this.BASE_URL}/finalidades/${id}`);
+  // }
 
-  deleteFinalidadesAndEstrategiaMetodologica(finalidades: Finalidad[]): Observable<any> {
-    return this.http.request('delete', `${this.BASE_URL}/finalidades/removeMany`, {body: finalidades});
-  }
+  // deleteFinalidadesAndEstrategiaMetodologica(finalidades: Finalidad[]): Observable<any> {
+  //   return this.http.request('delete', `${this.BASE_URL}/finalidades/removeMany`, {body: finalidades});
+  // }
 
-  updateFinalidad(finalidad: Finalidad, id: number): Observable<Finalidad> {
-    return this.http.put<Finalidad>(`${this.BASE_URL}/finalidades/${id}`, finalidad);
-  }
+  // updateFinalidad(finalidad: Finalidad, id: number): Observable<Finalidad> {
+  //   return this.http.put<Finalidad>(`${this.BASE_URL}/finalidades/${id}`, finalidad);
+  // }
 
   // Metodos de estrategias metodologicas
-  getEstrategiasMetodologicas(): Observable<EstrategiaMetodologica[]> {
-    return this.http.get<EstrategiaMetodologica[]>(`${this.BASE_URL}/estrategias-metodologicas/`);
+  getEstrategiasMetodologicas(idSilabo: number): Observable<EstrategiaMetodologica[]> {
+    return this.http.get<EstrategiaMetodologica[]>(`${this.BASE_URL}/estrategias-metodologicas/${idSilabo}/silabo`);
   }
 
   createEstrategiaMetodologica(estrategiaMetodologica: EstrategiaMetodologica): Observable<EstrategiaMetodologica> {
     return this.http.post<EstrategiaMetodologica>(`${this.BASE_URL}/estrategias-metodologicas/`, estrategiaMetodologica);
   }
 
-  deleteEstrategiaMetodologica(id: number): Observable<EstrategiaMetodologica> {
-    return this.http.delete<EstrategiaMetodologica>(`${this.BASE_URL}/estrategias-metodologicas/${id}`);
+  deleteEstrategiasMetodologicas(estrategias: EstrategiaMetodologica[]): Observable<any> {
+    return this.http.request('delete', `${this.BASE_URL}/estrategias-metodologicas/removeMany`, {body: estrategias});
   }
 
   updateEstrategiaMetodologica(estrategiaMetodologica: EstrategiaMetodologica, id: number): Observable<EstrategiaMetodologica> {

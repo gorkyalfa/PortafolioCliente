@@ -7,19 +7,19 @@
             <li class="page-item active">
               <a class="page-link" routerLink="/crear-silabo">Crear Sílabo</a>
             </li>
-            <li class="page-item">
+            <li [ngClass]="idSilaboActual ? 'page-item' : 'page-item disabled' ">
               <a routerLink="/descripcion-objetivos" class="page-link">Objetivos</a>
             </li>
-            <li class="page-item">
+            <li [ngClass]="idSilaboActual ? 'page-item' : 'page-item disabled' ">
               <a routerLink="/resultado-aprendizaje-asignatura" class="page-link">Resultados</a>
             </li>
-            <li class="page-item">
+            <li [ngClass]="idSilaboActual ? 'page-item' : 'page-item disabled' ">
               <a routerLink="/contenido-asignatura" class="page-link">Contenido</a>
             </li>
-            <li class="page-item">
+            <li [ngClass]="idSilaboActual ? 'page-item' : 'page-item disabled' ">
               <a routerLink="/estrategias-recursos" class="page-link">Estrategias y Recursos</a>
             </li>
-            <li class="page-item">
+            <li [ngClass]="idSilaboActual ? 'page-item' : 'page-item disabled' ">
               <a routerLink="/descripcion-objetivos" class="page-link">Siguiente</a>
             </li>
           </ul>
@@ -36,7 +36,7 @@
                 <button class="btn btn-info mx-2" (click)="isCollapsed = !isCollapsed" type="button" >
                   {{ isCollapsed ? 'Mostrar' : 'Ocultar' }}
                 </button>
-                Crear / Clonar Sílabo
+                Crear / Seleccionar Sílabo
               </h5>
             </div>
             
@@ -63,7 +63,7 @@
                     </div>  
                   </div>
                   
-  
+<!--   
                   <div class="col-md-6 mx-auto">
                     <div class="card border-info">
                         <div class="card-body">
@@ -88,8 +88,36 @@
                         </div>
                     </div>
                   </div>
-  
-                </div>
+   -->
+
+
+   <div class="col-md-6 mx-auto">
+    <div class="card border-info">
+        <div class="card-body">
+          <form >
+            <h1>Seleccionar Sílabo Existente</h1>
+            <div class="form-group row">
+              <label class="col-md-3 col-form-label font-weight-bold" for="anteriores">Anteriores</label>
+              <div class="col-md-9">
+                <select class="form-control" >
+                  <option class ="font-weight-bold">Seleccione Silabo</option>
+                  <option *ngFor="let silabo of silabos" name="silabo" [value]="silabo" (click)="seleccionarSilabo(silabo)" >{{silabo.nombre}}</option>
+                </select>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-3"></div>
+              <div class="col-6">
+                <button type="button" (click)="setActualSilabo()" class="btn btn-success px-4">Usar Sílabo</button>
+              </div>
+            </div>
+          </form>
+        </div>
+    </div>
+  </div>
+
+
+        </div>
                 
               </div>
 
@@ -172,6 +200,80 @@
     </div>
 
 
+    <div *ngIf="silabo" class="card">
+      <div class="card-header">
+        <h5>
+          <button class="btn btn-info mx-2" (click)="isCollapsed4 = !isCollapsed4" type="button" >
+            {{ isCollapsed4 ? 'Mostrar' : 'Ocultar' }}
+          </button>
+          Información Sílabo  
+        </h5>
+      </div>
+      <div class="card-body" [collapse]="isCollapsed4">
+
+        <div class="container" *ngIf="silabo">
+          <div class="form-group row justify-content-center">
+            <label class="col-md-3 col-form-label" for="text-input">Codigo</label>
+            <div class="col-md-4">
+              <input type="text" required id="text-input" [(ngModel)]="silabo.codigo" name="text-input" class="form-control" readonly>
+            </div>
+          </div>
+        
+          <div class="form-group row justify-content-center">
+            <label class="col-md-3 col-form-label" for="text-input">Período lectivo</label>
+            <div class="col-md-4">
+              <input type="text" required id="text-input" name="text-input" class="form-control" readonly>
+            </div>
+          </div>
+        
+          <div class="form-group row justify-content-center">
+            <label class="col-md-3 col-form-label" for="text-input">Unidad de organización curricular</label>
+            <div class="col-md-4">
+              <input type="text" required id="text-input" [(ngModel)]="silabo.unidadOrganizacionCurricular" name="text-input" class="form-control" readonly>
+            </div>
+          </div>
+        
+          <div class="form-group row justify-content-center">
+            <label class="col-md-3 col-form-label" for="text-input">Campo de formación:</label>
+            <div class="col-md-4">
+              <input type="text" required id="text-input" [(ngModel)]="silabo.campoFormacion" name="text-input" class="form-control" readonly>
+            </div>
+          </div>
+        
+          <div class="form-group row justify-content-center">
+            <label class="col-md-3 col-form-label" for="text-input">Horas de docencia:</label>
+            <div class="col-md-4">
+              <input type="text" required id="text-input" [(ngModel)]="silabo.totalHorasDocencia" name="text-input" class="form-control" readonly>
+            </div>
+          </div>
+        
+          <div class="form-group row justify-content-center">
+            <label class="col-md-3 col-form-label" for="text-input">Horas de trabajo autónomo:</label>
+            <div class="col-md-4">
+              <input type="text" required id="text-input" [(ngModel)]="silabo.totalHorasAutonomas" name="text-input" class="form-control" readonly>
+            </div>
+          </div>
+        
+          <div class="form-group row justify-content-center">
+            <label class="col-md-3 col-form-label" for="text-input">Horas de prácticas de aprendizaje:</label>
+            <div class="col-md-4">
+              <input type="text" required id="text-input" [(ngModel)]="silabo.totalHorasPracticasAprendizaje" name="text-input" class="form-control" readonly>
+            </div>
+          </div>
+        
+          <div class="form-group row justify-content-center">
+            <label class="col-md-3 col-form-label" for="text-input">N° total de horas:</label>
+            <div class="col-md-4">
+              <input type="text" required id="text-input" [(ngModel)]="silabo.numeroTotalHoras" name="text-input" class="form-control" readonly>
+            </div>
+          </div>
+          </div>
+
+      </div>
+    </div>
+
+
+
     <div class="card">
       <div class="card-header">
         <h5>
@@ -198,11 +300,11 @@
                       <th>Codigo</th>
                     </tr>
                   </thead>    
-                  <tbody>
-                    <tr *ngIf="prerequisito">
-                      <td>{{ prerequisito.id }}</td>
-                      <td>{{ prerequisito.nombre }}</td>
-                      <td>{{ prerequisito.codigo }}</td>
+                  <tbody *ngIf="prerequisito" >
+                    <tr *ngFor="let pre of prerequisito">
+                      <td>{{ pre.id }}</td>
+                      <td>{{ pre.nombre }}</td>
+                      <td>{{ pre.codigo }}</td>
                     </tr>
                   </tbody>
                 </table>           
@@ -221,11 +323,11 @@
                       <th>Codigo</th>
                     </tr>
                   </thead>
-                  <tbody>
-                    <tr *ngIf="correquisito" >
-                      <td>{{ correquisito.id }}</td>
-                      <td>{{ correquisito.nombre }}</td>
-                      <td>{{ correquisito.codigo }}</td>
+                  <tbody *ngIf="correquisito">
+                    <tr *ngFor="let cor of correquisito" >
+                      <td>{{ cor.id }}</td>
+                      <td>{{ cor.nombre }}</td>
+                      <td>{{ cor.codigo }}</td>
                     </tr>
                   </tbody>
                 </table>      

@@ -134,7 +134,7 @@
       <div class="card-body">
 
         <form  #formEstrategias="ngForm" ngForm ngForm #formEstrategias="ngForm" 
-        (ngSubmit)="(!formEstrategias.invalid && (formEstrategias.touched || formEstrategias.dirty)) ? (editando ? actualizarEstrategia() && formEstrategias.invalid = false : crearEstrategia() && formEstrategias.invalid = false) : null">
+        (ngSubmit)="(!formEstrategias.invalid && (formEstrategias.touched || formEstrategias.dirty)) ? (editando ? actualizarEstrategia() : crearEstrategia() ) : null">
           <div class="form-group row">
             <label class="col-md-3 font-weight-bold" for="name">Estrategia</label>
             <div class="col-md-8">
@@ -143,19 +143,11 @@
             </div>
 
           </div>
-          <div class="form-group row">
-            <label class="col-md-3 font-weight-bold" for="name">Descripción</label>
-            <div class="col-md-8">
-              <textarea required [(ngModel)]="estrategiaMetodologica.descripcion" id="textarea-input" name="descripcion"
-                rows="3" class="form-control" placeholder="Contenido"></textarea>
-            </div>
-
-          </div>
-
+          
           <div class="form-group row">
             <label class="col-md-3 font-weight-bold" for="name">Finalidad</label>
             <div class="col-md-8">
-              <textarea minlength="1" required [(ngModel)]="finalidad.nombre" id="textarea-input" name="finalidadnombre" rows="3"
+              <textarea minlength="1" required [(ngModel)]="estrategiaMetodologica.finalidad" id="textarea-input" name="finalidad" rows="3"
                 class="form-control" placeholder="Contenido"></textarea>
             </div>
           </div>
@@ -174,7 +166,6 @@
           <thead>
             <tr>
               <th>Estrategia Metodológica</th>
-              <th>Descripción</th>
               <th>Finalidad</th>
               <th>Eliminar</th>
               <th>Editar</th>
@@ -182,19 +173,18 @@
           </thead>
           <tbody>
 
-            <tr *ngFor="let finalidad of finalidades">
-              <td>{{finalidad.estrategiaMetodologica.nombre}}</td>
-              <td>{{finalidad.estrategiaMetodologica.descripcion}}</td>
-              <td>{{finalidad.nombre}}</td>
+            <tr *ngFor="let estrategia of estrategias">
+              <td>{{estrategia.nombre}}</td>
+              <td>{{estrategia.finalidad}}</td>
               <td>
                 <div class="form-check">
                   <input class="form-check-input" type="checkbox" name="radios" id="radio1"
-                    (change)="ingresarFinalidadParaEliminar(finalidad, $event.target.checked)" value="">
+                    (change)="ingresarEstrategiaParaEliminar(estrategia, $event.target.checked)" value="">
                 </div>
               </td>
               <td>
                 <button class="btn btn-primary"
-                  (click)="editando = true; setEstrategiayFinalidad(finalidad.estrategiaMetodologica, finalidad)"><span><i
+                  (click)="editando = true; setEstrategiayFinalidad(estrategia)"><span><i
                       class="icons icon-pencil"></i></span></button>
               </td>
             </tr>
@@ -204,7 +194,7 @@
           <label class="col-md-9 col-form-label"></label>
 
           <div class="col-md-3 mb-3">
-            <button type="button" (click)="eliminarFinalidades()" class="btn btn-danger">Borrar</button>
+            <button type="button" (click)="eliminarEstrategias()" class="btn btn-danger">Borrar</button>
           </div>
         </div>
         <ngx-spinner></ngx-spinner>

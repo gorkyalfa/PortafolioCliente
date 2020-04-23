@@ -23,6 +23,9 @@ export class CrearSilaboComponent implements OnInit {
   isCollapsed: boolean = false;
   isCollapsed2: boolean = true;
   isCollapsed3: boolean = true;
+  isCollapsed4: boolean = true;
+
+  idSilaboActual: number = GlobalConstants.silaboActual;
 
   constructor(
     private silaboService: SilaboServiceService,
@@ -60,31 +63,42 @@ export class CrearSilaboComponent implements OnInit {
   getAsignatura(id: number): void {
     this.silaboService.getAsignatura(id)
       .subscribe(asignatura => {
+        console.log(asignatura);
         this.asignatura = asignatura;
-        this.getCorrequisitos(id);
-        this.getPrerequisitos(id);
+        this.getCorrequisitos(asignatura);
+        this.getPrerequisitos(asignatura);
       });
   }
 
-  getCorrequisitos(id: number): void {
-    this.silaboService.getCorrequisitos(id).subscribe(
+  seleccionarSilabo(silabo: Silabo): void {
+    this.silabo = silabo;
+  }
+
+  setActualSilabo(): void {
+    console.log(this.silabo);
+    if (this.silabo) {
+      this.idSilaboActual = this.silabo.id;
+      GlobalConstants.silaboActual = this.silabo.id;
+      // this.getAsignatura(this.silabo.asignaturaId);
+      this.idSeleccionado =  this.silabo.asignaturaId;
+    }
+  }
+
+  getCorrequisitos(asignatura: Asignatura): void {
+    this.silaboService.getCorrequisitos(asignatura).subscribe(
       res => {
-        if (res) {
-          console.log(res.correquisito);
-          this.correquisito = res.correquisito;
-        }
+          console.log(res);
+          this.correquisito = res;
       },
       err => console.log(err)
     );
   }
 
-  getPrerequisitos(id: number): void {
-    this.silaboService.getPrerequisitos(id).subscribe(
+  getPrerequisitos(asignatura: Asignatura): void {
+    this.silaboService.getPrerequisitos(asignatura).subscribe(
       res => {
-        if (res) {
-          console.log(res.prerequisito);
-          this.prerequisito = res.prerequisito;      
-        }
+          console.log(res);
+          this.prerequisito = res;
       },
       err => console.log(err)
     );
@@ -94,9 +108,9 @@ export class CrearSilaboComponent implements OnInit {
 
     this.silabo = new Silabo();
     this.silabo.nombre = this.asignatura.nombre;
-    this.silabo.asignatura = this.asignatura.id;
+    this.silabo.asignaturaId = this.asignatura.id;
     this.silabo.codigo = this.asignatura.codigo;
-    this.silabo.periodoLectivo = this.asignatura.periodoLectivo;
+    // this.silabo.periodoLectivo = this.asignatura.periodoLectivo;
     this.silabo.unidadOrganizacionCurricular = this.asignatura.unidadOrganizacionCurricular;
     this.silabo.campoFormacion = this.asignatura.campoFormacion;
     this.silabo.totalHorasAutonomas = this.asignatura.totalHorasAutonomas;
@@ -111,7 +125,7 @@ export class CrearSilaboComponent implements OnInit {
         res => {
           console.log(res);
           GlobalConstants.silaboActual = res.id;
-          this.location.replaceState('/descripcion-objetivos');
+          this.location.replaceState('/#descripcion-objetivos');
         },
         err => console.log(err)
       );
@@ -120,7 +134,7 @@ export class CrearSilaboComponent implements OnInit {
   onSelect(asignatura: Asignatura): void {
     this.idSeleccionado = asignatura.id;
     this.getAsignatura(this.idSeleccionado);
-    this.getCorrequisitos(this.idSeleccionado);
+    // this.getCorrequisitos(this.idSeleccionado);
   }
 
   /*getSilaboDescripcionObjetivo(id: number): void {

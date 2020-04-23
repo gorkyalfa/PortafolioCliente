@@ -19,12 +19,12 @@ export class ResultadoAprendizajeAsignaturaService {
   constructor(private http: HttpClient) { }
 
   // Solicitudes de entidad Proceso
-  getProcesos(): Observable<Proceso[]> {
-    return this.http.get<Proceso[]>(`${this.BASE_URL}/procesos/arboles`);
+  getProcesos(idSilabo: number): Observable<Proceso[]> {
+    return this.http.get<Proceso[]>(`${this.BASE_URL}/procesos/${idSilabo}/arboles`);
   }
 
-  getIndicesArbol(): Observable<any[]> {
-    return this.http.get<any[]>(`${this.BASE_URL}/procesos/indices`);
+  getIndicesArbol(idSilabo: number): Observable<any[]> {
+    return this.http.get<any[]>(`${this.BASE_URL}/procesos/${idSilabo}/indices`);
   }
 
   getProceso(id: number): Observable<Proceso> {

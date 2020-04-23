@@ -77,7 +77,7 @@ export class ResultadoAprendizajeAsignaturaComponent implements OnInit {
   // Metodos de proceso
   getProcesos() {
     this.spinner.show();
-    this._servicio.getProcesos()
+    this._servicio.getProcesos(GlobalConstants.silaboActual)
       .subscribe(
         (data) => {
           this.datos = data;
@@ -87,7 +87,7 @@ export class ResultadoAprendizajeAsignaturaComponent implements OnInit {
         },
         err => {
           this.spinner.hide();
-          this.mostrarNotif('¡Algo pasó!.', true);
+          this.mostrarNotif('¡Algo pasó! Quizá no posee un sílabo en proceso.', true);
         }
       );
   }
@@ -111,7 +111,7 @@ export class ResultadoAprendizajeAsignaturaComponent implements OnInit {
   crearRaiz() {
     this.spinner.show();
     this._servicio.createProceso({...this.proceso,
-      silabo: GlobalConstants.silaboActual})
+      silaboId: GlobalConstants.silaboActual})
       .subscribe(
         res => {
           this.getProcesos();
@@ -195,7 +195,9 @@ export class ResultadoAprendizajeAsignaturaComponent implements OnInit {
       .subscribe(
         resultados => {
           this.resultados = resultados;
-          this.getEvidencia(resultados[0].evidenciaId);
+          if (resultados.length > 0) {
+            this.getEvidencia(resultados[0].evidenciaId);
+          }
           this.spinner.hide();
           this.mostrarNotif('Carga exitosa.', false);
         },

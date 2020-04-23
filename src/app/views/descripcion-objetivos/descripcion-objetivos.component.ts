@@ -5,6 +5,7 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import { Silabo } from '../../entidades/silabo';
 import { CrearSilaboComponent } from '../crear-silabo/crear-silabo.component';
 import { GlobalConstants } from '../../common/global-constants';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-descripcion-objetivos',
@@ -20,12 +21,20 @@ export class DescripcionObjetivosComponent implements OnInit {
   editandoDescripcion = false;
   alertas: any = [];
 
-  constructor(private descripcionObjetivosService: DescripcionObjetivosService, private spinner: NgxSpinnerService) { }
+  constructor(private descripcionObjetivosService: DescripcionObjetivosService, private spinner: NgxSpinnerService,
+     private location: Location) { }
 
   ngOnInit() {
+    this.verificar();
     this.getDescripcionSilabo(GlobalConstants.silaboActual);
     // this.getDescripciones();
+  }
+
+  verificar() {
     console.log(GlobalConstants.silaboActual);
+    if (!GlobalConstants.silaboActual) {
+      this.location.back();
+    }
   }
 
   getDescripcion(id: number): void {

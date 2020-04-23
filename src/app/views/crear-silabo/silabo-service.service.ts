@@ -17,34 +17,33 @@ export class SilaboServiceService {
   }
 
   getAsignatura(id: number): Observable<Asignatura> {
-    return this.http.get<Asignatura>(`${this.BASE_URL}/asignaturas/${id}`)
+    return this.http.get<Asignatura>(`${this.BASE_URL}/asignaturas/${id}`);
   }
 
-  getCorrequisitos(id: number): Observable<Asignatura> {
-    return this.http.get<Asignatura>(`${this.BASE_URL}/asignaturas/${id}/correquisitos`);
+  getCorrequisitos(asignatura: Asignatura): Observable<Asignatura> {
+    return this.http.get<Asignatura>(`${this.BASE_URL}/requisitos/co/${asignatura.id}/asignatura/`);
   }
 
-  getPrerequisitos(id: number): Observable<Asignatura> {
-    return this.http.get<Asignatura>(`${this.BASE_URL}/asignaturas/${id}/prerequisitos`);
+  getPrerequisitos(asignatura: Asignatura): Observable<Asignatura> {
+    return this.http.get<Asignatura>(`${this.BASE_URL}/requisitos/pre/${asignatura.id}/asignatura/`);
   }
 
   createSilabo(silabo: Silabo): Observable<Silabo> {
     return this.http.post<Silabo>(`${this.BASE_URL}/silabos/`, silabo);
-  }  
+  }
 
   getSilabos(): Observable<Silabo[]> {
-    return this.http.get<Silabo[]>(`${this.BASE_URL}/silabos`);
+    return this.http.get<Silabo[]>(`${this.BASE_URL}/silabos/plectivo`);
   }
 
   /*sgetSilaboAsignaturas(): Observable<Silabo[]> {
     return this.http.get<Silabo[]>(`${this.BASE_URL}/silabos/asignaturas`);
   }
 
-  
 
   getSilaboPrerrequisitos(id: number): Observable<Silabo[]> {
     return this.http.get<Silabo[]>(`${this.BASE_URL}/silabos/${id}/prerrequisitos`);
-  }  
+  }
 
   getDescripcionObjetibo(id: number): Observable<Silabo> {
     return this.http.get<Silabo>(`${this.BASE_URL}/silabos/${id}/descripciones`);
@@ -52,7 +51,7 @@ export class SilaboServiceService {
 
   createDescripcion(descripcion: Descripcion): Observable<Descripcion> {
     return this.http.post<Descripcion>(`${this.BASE_URL}/descripciones/`, descripcion);
-  }  
+  }
 
   updateDescripcionSilabo(descripcion: Descripcion, id: number): Observable<Descripcion> {
     return this.http.put<Descripcion>(`${this.BASE_URL}/descripciones/${id}`, descripcion);
