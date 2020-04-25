@@ -24,6 +24,7 @@ export class CrearSilaboComponent implements OnInit {
   isCollapsed2: boolean = true;
   isCollapsed3: boolean = true;
   isCollapsed4: boolean = true;
+  viendoSilabo: boolean = false;
 
   idSilaboActual: number = GlobalConstants.silaboActual;
 
@@ -58,6 +59,15 @@ export class CrearSilaboComponent implements OnInit {
       },
       err => console.log(err)
     );
+  }
+
+  actualizarSilabo(id: number): void {
+    this.silaboService.updateSilabo(this.silabo, id)
+      .subscribe(
+        res => {
+          console.log('actualizado');
+        }
+      );
   }
 
   getAsignatura(id: number): void {
@@ -110,13 +120,15 @@ export class CrearSilaboComponent implements OnInit {
     this.silabo.nombre = this.asignatura.nombre;
     this.silabo.asignaturaId = this.asignatura.id;
     this.silabo.codigo = this.asignatura.codigo;
-    // this.silabo.periodoLectivo = this.asignatura.periodoLectivo;
+    this.silabo.periodoLectivo = this.asignatura.periodoLectivo;
     this.silabo.unidadOrganizacionCurricular = this.asignatura.unidadOrganizacionCurricular;
     this.silabo.campoFormacion = this.asignatura.campoFormacion;
     this.silabo.totalHorasAutonomas = this.asignatura.totalHorasAutonomas;
     this.silabo.totalHorasDocencia = this.asignatura.totalHorasDocencia;
     this.silabo.totalHorasPracticasAprendizaje = this.asignatura.totalHorasPracticasAprendizaje;
     this.silabo.numeroTotalHoras = this.asignatura.numeroTotalHoras;
+    this.silabo.carrera = this.asignatura.carrera.id;
+    this.silabo.periodoAcademico = this.asignatura.periodoAcademico.id;
     this.silabo.descripcionAsignatura = '';
     this.silabo.objetivoAsignatura = '';
 

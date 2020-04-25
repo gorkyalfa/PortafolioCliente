@@ -56,7 +56,7 @@ export class EstrategiasRecursosComponent implements OnInit {
     this.alertas.push({
       type: 'info',
       msg: `${mensaje}`,
-      timeout: 5000,
+      timeout: 1500,
       error: error
     });
   }
@@ -77,6 +77,14 @@ export class EstrategiasRecursosComponent implements OnInit {
         this.mostrarNotif('¡Algo pasó!.', true);
       }
     );
+  }
+
+  verNombreTipoMaterial(id: number): any {
+    const tipo = this.tiposMaterial.find(tipoMaterial => tipoMaterial.id === id);
+    if (!tipo) {
+      return false;
+    }
+    return tipo;
   }
 
   mostrarNombreTipoMaterial(tipoMaterial: TipoMaterial | number): string {

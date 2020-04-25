@@ -26,6 +26,9 @@
     </nav>
   </div>
 
+  
+<div class="outerCont">
+    <div class="floatRight">
 <div class="posicion">
     <div *ngFor="let alert of alertas" class="row">
       <alert class="col align-self-end" *ngIf="!alert.error" type="success" [dismissOnTimeout]="alert.timeout">
@@ -41,6 +44,8 @@
 <alert class="row align-self-end" *ngIf="formSemana.invalid && (formSemana.touched || formSemana.dirty)" type="danger" >
 Revisar campos de formulario semana...
 </alert> -->
+</div>
+</div>
 
 <h1>Contenido de la Asignatura</h1>
 <div class="row mb-4">
@@ -284,12 +289,4 @@ Revisar campos de formulario semana...
 </div>
 </div>
 
-    <div class="row justify-content-end">
-        <div class="mx-2 mb-xl-6">
-          <button type="button" class="btn btn-success px-3">Atras</button>
-        </div>
-        <div class="mx-2 mb-xl-6">
-          <button type="button" class="btn btn-success px-3">Siguiente</button>
-        </div>
-    </div>
     <ngx-spinner></ngx-spinner>

@@ -26,7 +26,7 @@
         </nav>
       </div>
           
-  <div class="">
+  <div *ngIf="!viendoSilabo" >
     <div class="container">
       <div class="row">
         <div class="col-md-12 mx-auto">
@@ -57,7 +57,16 @@
                                 <option *ngFor="let asignatura of asignaturas" [value]="asignatura.id" (click)="onSelect(asignatura)">{{asignatura.nombre}}</option>
                               </select>
                             </div>
-                          </div>                  
+                          </div>  
+                          <div class="row">
+
+                            <div class="col-md-3">
+                            </div>
+
+                            <div class="col-md-6">
+                              <button type="button" (click)="crearSilabo()" class="btn btn-success">Crear</button>
+                            </div>
+                          </div>                
                         </form>
                       </div>  
                     </div>  
@@ -107,9 +116,14 @@
             </div>
             <div class="row">
               <div class="col-md-3"></div>
-              <div class="col-6">
+              <div class="col-4">
                 <button type="button" (click)="setActualSilabo()" class="btn btn-success px-4">Usar Sílabo</button>
               </div>
+              
+              <div class="col-4 ml-2">
+                <button type="button" (click)="setActualSilabo(); viendoSilabo = true;" class="btn btn-success px-4">Ver Sílabo</button>
+              </div>
+
             </div>
           </form>
         </div>
@@ -153,6 +167,34 @@
             </div>
           </div>
         
+          <div class="form-group row justify-content-center">
+            <label class="col-md-3 col-form-label" for="text-input">Período Académico</label>
+            <div class="col-md-4">
+              <input type="text" required id="text-input" [(ngModel)]="asignatura.periodoAcademico.nombre" name="text-input" class="form-control" readonly>
+            </div>
+          </div>
+
+          <div class="form-group row justify-content-center">
+            <label class="col-md-3 col-form-label" for="text-input">Carrera</label>
+            <div class="col-md-4">
+              <input type="text" required id="text-input" [(ngModel)]="asignatura.carrera.nombre" name="text-input" class="form-control" readonly>
+            </div>
+          </div>
+
+          <div class="form-group row justify-content-center">
+            <label class="col-md-3 col-form-label" for="text-input">Modalidad</label>
+            <div class="col-md-4">
+              <input type="text" required id="text-input" [(ngModel)]="asignatura.modalidad.nombre" name="text-input" class="form-control" readonly>
+            </div>
+          </div>
+
+          <div class="form-group row justify-content-center">
+            <label class="col-md-3 col-form-label" for="text-input">Malla</label>
+            <div class="col-md-4">
+              <input type="text" required id="text-input" [(ngModel)]="asignatura.malla.nombre" name="text-input" class="form-control" readonly>
+            </div>
+          </div>
+
           <div class="form-group row justify-content-center">
             <label class="col-md-3 col-form-label" for="text-input">Unidad de organización curricular</label>
             <div class="col-md-4">
@@ -222,7 +264,7 @@
           <div class="form-group row justify-content-center">
             <label class="col-md-3 col-form-label" for="text-input">Período lectivo</label>
             <div class="col-md-4">
-              <input type="text" required id="text-input" name="text-input" class="form-control" readonly>
+              <input type="text" required id="text-input" [(ngModel)]="silabo.periodoLectivo" name="text-input" class="form-control" >
             </div>
           </div>
         
@@ -239,7 +281,21 @@
               <input type="text" required id="text-input" [(ngModel)]="silabo.campoFormacion" name="text-input" class="form-control" readonly>
             </div>
           </div>
+
+          <div class="form-group row justify-content-center">
+            <label class="col-md-3 col-form-label" for="text-input">Carrera</label>
+            <div class="col-md-4">
+              <input type="text" required id="text-input" [(ngModel)]="silabo.carrera.nombre" name="text-input" class="form-control" readonly>
+            </div>
+          </div>
         
+          <div class="form-group row justify-content-center">
+            <label class="col-md-3 col-form-label" for="text-input">Período Académico</label>
+            <div class="col-md-4">
+              <input type="text" required id="text-input" [(ngModel)]="silabo.periodoAcademico.nombre" name="text-input" class="form-control" readonly>
+            </div>
+          </div>
+
           <div class="form-group row justify-content-center">
             <label class="col-md-3 col-form-label" for="text-input">Horas de docencia:</label>
             <div class="col-md-4">
@@ -269,6 +325,20 @@
           </div>
           </div>
 
+          <div class="form-group row justify-content-center">
+            <label class="col-md-3 col-form-label" for="text-input">Observaciones</label>
+            <div class="col-md-4">
+              <input type="text" required id="text-input" [(ngModel)]="silabo.observacion" name="text-input" class="form-control" >
+            </div>
+          </div>
+
+          
+          <div class="form-group row justify-content-center">
+            <label class="col-md-3 col-form-label" for="text-input"></label>
+            <div class="col-md-4">
+              <input type="button" (click)="actualizarSilabo(silabo.id )" name="text-input" class="btn btn-success" value="Actualizar" >
+            </div>
+          </div>
       </div>
     </div>
 
@@ -292,7 +362,7 @@
                 <strong>Prerrequisitos de la Asignatura</strong>
               </div>
               <div class="card-body">
-                <table class="table table-sm" class="row-border hover">
+                <table class="table table-sm" >
                   <thead>
                     <tr>
                       <th>ID</th>
@@ -315,7 +385,7 @@
                 <strong>Correquisitos de la Asignatura</strong>
               </div>
               <div class="card-body">
-                <table table class="table table-sm" class="row-border hover">
+                <table table class="table table-sm" >
                   <thead>
                     <tr>
                       <th>ID</th>
@@ -340,12 +410,4 @@
   </div>
 </div>
 
-
-  <div class="row justify-content-end">
-  <div class="col-md-2 mb-3">
-    <button type="button" (click)="crearSilabo()" class="btn btn-success">Crear</button>
-  </div>
-  </div>
-
-
-
+<app-ver-silabo *ngIf="viendoSilabo"></app-ver-silabo>

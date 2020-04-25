@@ -62,6 +62,10 @@ export class ResultadoAprendizajeAsignaturaService {
     return this.http.delete<ResultadoAprendizaje>(`${this.BASE_URL}/resultados-aprendizaje/${id}`);
   }
 
+  updateResultado(id: number, resultado: ResultadoAprendizaje): Observable<ResultadoAprendizaje> {
+    return this.http.patch<ResultadoAprendizaje>(`${this.BASE_URL}/resultados-aprendizaje/${id}`, resultado);
+  }
+
   // Solicitudes de entidad Evidencias.
   // en la siguiente es consulta con relacion desde resultados.
   getEvidencias(id: number): Observable<any> {

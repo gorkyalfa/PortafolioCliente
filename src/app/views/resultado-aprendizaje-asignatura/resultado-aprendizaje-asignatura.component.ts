@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { ResultadoAprendizajeAsignaturaService } from './resultado-aprendizaje-asignatura.service';
 import { Proceso } from '../../entidades/proceso';
-import { ResultadoAprendizaje } from '../../entidades/resultadoAprendizaje';
+import { ResultadoAprendizaje, TipoContribucion } from '../../entidades/resultadoAprendizaje';
 import { Evidencia } from '../../entidades/evidencia';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { AlertConfig } from 'ngx-bootstrap/alert';
@@ -25,8 +25,13 @@ export class ResultadoAprendizajeAsignaturaComponent implements OnInit {
     nombre: ''
   };
   resultado: ResultadoAprendizaje = {
-    nombre: ''
+    nombre: '',
+    // contribucion: TipoContribucion.Baja
   };
+
+  resultadoActual: ResultadoAprendizaje;
+
+  contribuciones = [TipoContribucion.Baja, TipoContribucion.Media, TipoContribucion.Alta];
 
   alertas: any = [];
   datos: Proceso[];
@@ -62,6 +67,7 @@ export class ResultadoAprendizajeAsignaturaComponent implements OnInit {
 
   ngOnInit(): void {
     this.getProcesos();
+    console.log(this.contribuciones);
     console.log(GlobalConstants.silaboActual);
   }
 
@@ -69,7 +75,7 @@ export class ResultadoAprendizajeAsignaturaComponent implements OnInit {
     this.alertas.push({
       type: 'info',
       msg: `${mensaje}`,
-      timeout: 5000,
+      timeout: 1500,
       error: error
     });
   }
@@ -224,6 +230,17 @@ export class ResultadoAprendizajeAsignaturaComponent implements OnInit {
         err => {
           this.spinner.hide();
           this.mostrarNotif('Hubo un problema en la creación.', true);
+        }
+      );
+  }
+
+  actualizarResultado(id: number): void {
+    this.spinner.show();
+    this._servicio.updateResultado(id, this.resultadoActual)
+      .subscribe(
+        res => {
+          this.getResultados();
+          this.spinner.hide();
         }
       );
   }

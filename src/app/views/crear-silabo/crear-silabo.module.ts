@@ -8,6 +8,7 @@ import { DataTablesModule } from 'angular-datatables';
 
 import { TabsModule } from 'ngx-bootstrap/tabs';
 import { CollapseModule } from 'ngx-bootstrap/collapse';
+import { VerSilaboComponent } from './ver-silabo/ver-silabo.component';
 
 @NgModule({
   imports: [
@@ -20,7 +21,7 @@ import { CollapseModule } from 'ngx-bootstrap/collapse';
     TabsModule,
     CollapseModule
   ],
-  declarations: [ CrearSilaboComponent ]
+  declarations: [ CrearSilaboComponent, VerSilaboComponent ]
 })
 export class CrearSilaboModule { }
 

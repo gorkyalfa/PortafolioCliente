@@ -14,10 +14,11 @@ export class Silabo {
     numeroTotalHoras: number;
     descripcionAsignatura: string;
     objetivoAsignatura: string;
-    carreraId: number;
-    periodoAcademicoId: number;
-    modalidadId: number;
-    mallaId: number;
+    carrera: any;
+    periodoAcademico: any;
+    modalidad: any;
+    malla: any;
     contenidoId: number;
     docenteId: number;
+    observacion: string;
 }

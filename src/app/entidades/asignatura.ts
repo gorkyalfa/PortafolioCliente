@@ -2,20 +2,20 @@ export class Asignatura {
     id?: number;
     nombre: string;
     codigo: string;
-    carreraId: number;
+    carrera: any;
     totalHorasDocencia: number;
     totalHorasAutonomas: number;
     totalHorasPracticasAprendizaje: number;
     numeroTotalHoras: number;
-    periodoAcademicoId: number;
-    modalidadId: number;
+    periodoAcademico: any;
+    modalidad: any;
     contenidoId: number;
     correquisitoId: number;
     prerequisitoId: number;
     periodoLectivo: string;
     unidadOrganizacionCurricular: string;
     campoFormacion: string;
-    mallaId: number;
+    malla: any;
     correquisito?: any;
     prerequisito?: any;
 }

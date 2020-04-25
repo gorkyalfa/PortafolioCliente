@@ -13,11 +13,11 @@ export class SilaboServiceService {
   constructor(private http: HttpClient) {}
 
   getAsignaturas(): Observable<Asignatura[]> {
-    return this.http.get<Asignatura[]>(`${this.BASE_URL}/asignaturas`);
+    return this.http.get<Asignatura[]>(`${this.BASE_URL}/asignaturas/`);
   }
 
   getAsignatura(id: number): Observable<Asignatura> {
-    return this.http.get<Asignatura>(`${this.BASE_URL}/asignaturas/${id}`);
+    return this.http.get<Asignatura>(`${this.BASE_URL}/asignaturas/${id}/completo`);
   }
 
   getCorrequisitos(asignatura: Asignatura): Observable<Asignatura> {
@@ -28,12 +28,16 @@ export class SilaboServiceService {
     return this.http.get<Asignatura>(`${this.BASE_URL}/requisitos/pre/${asignatura.id}/asignatura/`);
   }
 
+  updateSilabo(silabo: Silabo, id: number): Observable<Silabo> {
+    return this.http.put<Silabo>(`${this.BASE_URL}/silabos/${id}`, silabo);
+  }
+
   createSilabo(silabo: Silabo): Observable<Silabo> {
     return this.http.post<Silabo>(`${this.BASE_URL}/silabos/`, silabo);
   }
 
   getSilabos(): Observable<Silabo[]> {
-    return this.http.get<Silabo[]>(`${this.BASE_URL}/silabos/plectivo`);
+    return this.http.get<Silabo[]>(`${this.BASE_URL}/silabos/completo`);
   }
 
   /*sgetSilaboAsignaturas(): Observable<Silabo[]> {

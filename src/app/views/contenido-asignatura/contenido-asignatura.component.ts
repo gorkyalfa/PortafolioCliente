@@ -60,7 +60,7 @@ export class ContenidoAsignaturaComponent implements OnInit {
     this.alertas.push({
       type: 'info',
       msg: `${mensaje}`,
-      timeout: 5000,
+      timeout: 1500,
       error: error
     });
   }

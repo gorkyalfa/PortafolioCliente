@@ -26,6 +26,9 @@
     </nav>
   </div>
 
+  
+<div class="outerCont">
+    <div class="floatRight">
 <div class="posicion">
     <div *ngFor="let alert of alertas" class="row">
         <alert class="col align-self-end" *ngIf="!alert.error" type="success" [dismissOnTimeout]="alert.timeout">
@@ -34,8 +37,10 @@
             {{ alert.msg }}</alert>
     </div>
 </div>
+</div>
+</div>
 <div class="row">
-    <div class="card col-md-10 col-sm-10">
+    <div class="card col-md-12 col-sm-12">
         <div class="card-header">
             Resultados de Aprendizaje de Asignatura
         </div>
@@ -50,17 +55,24 @@
                             </ng-template>
                         </tree-root>
                     </div>
-                    <div *ngIf="esSubProceso > 1" class="col-4">
+                    <div *ngIf="esSubProceso > 1" class="col-md-4" >
                         <strong>
                             <p>Resultados:</p>
                         </strong>
                         <div class="list-group" *ngIf="resultados">
-                            <button (click)="getEvidencia(resultado.evidenciaId)" *ngFor="let resultado of resultados" class="list-group-item list-group-item-action"> {{resultado.nombre}}
-                                &nbsp;
-                                <button (click)="removeResultado(resultado.id)"
-                                    class="badge badge-pill badge-danger">&times;
+                            <div *ngFor="let resultado of resultados">
+                                <button (click)="getEvidencia(resultado.evidenciaId)" class="list-group-item list-group-item-action" > {{resultado.nombre}}    
+                                    &nbsp;
+                                    <button (click)="removeResultado(resultado.id)"
+                                        class="badge badge-pill badge-danger">&times;
+                                    </button>
                                 </button>
-                            </button>
+                                <select [(ngModel)]="resultado.contribucion" class="form-control mb-2">
+                                    <option class ="font-weight-bold">Seleccione Contribucion</option>
+                                    <option *ngFor="let contribucion of contribuciones" [value]="contribucion" (click)=" resultadoActual = resultado; actualizarResultado(resultado.id);">{{contribucion}}</option>
+                                </select>
+                            </div>
+                            
                         </div>
                     </div>
                 </div>
@@ -76,7 +88,7 @@
                             <textarea [(ngModel)]="evidencia.nombre" id="textarea-input" name="textarea-input" rows="4"
                                 class="form-control" placeholder="contenido">{{evidencia.nombre}}</textarea>
                             <button (click)="actualizarEvidencia(evidencia.id)"
-                                class="btn btn-success px-4">Listo</button>
+                                class="btn btn-success px-4 mt-1">Listo</button>
                         </div>
                     </div>
                 </div>

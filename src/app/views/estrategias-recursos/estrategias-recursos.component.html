@@ -26,20 +26,25 @@
   </nav>
 </div>
 
-<div class="posicion">
-  <div *ngFor="let alert of alertas" class="row">
-    <alert class="col align-self-end" *ngIf="!alert.error" type="success" [dismissOnTimeout]="alert.timeout">
-      {{ alert.msg }}</alert>
-    <alert class="col align-self-end" *ngIf="alert.error" type="danger" [dismissOnTimeout]="alert.timeout">
-      {{ alert.msg }}</alert>
+<div class="outerCont">
+  <div class="floatRight">
+    <div class="posicion">
+      <div *ngFor="let alert of alertas" class="row">
+          <alert *ngIf="!alert.error" type="success" [dismissOnTimeout]="alert.timeout">
+            {{ alert.msg }}</alert>
+          <alert *ngIf="alert.error" type="danger" [dismissOnTimeout]="alert.timeout">
+            {{ alert.msg }}</alert>
+      </div>
+      <!-- <alert class="row align-self-end" *ngIf="formMaterial.invalid && (formMaterial.touched || formMaterial.dirty)" type="danger" >
+        Revisar campos de formulario materiales...
+      </alert>
+      <alert class="row align-self-end" *ngIf="formEstrategias.invalid && (formEstrategias.touched || formEstrategias.dirty)" type="danger" >
+        Revisar campos de formulario estrategias y finalidades...
+      </alert> -->
+    </div>
   </div>
-  <!-- <alert class="row align-self-end" *ngIf="formMaterial.invalid && (formMaterial.touched || formMaterial.dirty)" type="danger" >
-    Revisar campos de formulario materiales...
-  </alert>
-  <alert class="row align-self-end" *ngIf="formEstrategias.invalid && (formEstrategias.touched || formEstrategias.dirty)" type="danger" >
-    Revisar campos de formulario estrategias y finalidades...
-  </alert> -->
 </div>
+
 
 <div class="mb-4">
   <div class="card">
@@ -55,10 +60,10 @@
             Tipo de Material
           </label>
           <div>
-            <select *ngIf="tiposMaterial" [(ngModel)]="material.tipoMaterial" class="form-control"
-              [value]="mostrarNombreTipoMaterial(material.tipoMaterial)" name="tipoMaterial">
-
-              <option *ngFor="let tipoMaterial of tiposMaterial" [value]="tipoMaterial.id"> {{tipoMaterial.nombre}}
+            <select [(ngModel)]="verNombreTipoMaterial() ? verNombreTipoMaterial() : material.tipoMaterial" *ngIf="tiposMaterial" class="form-control"
+               name="tipoMaterial">
+               <option class ="font-weight-bold">Seleccione Tipo de Material</option>
+              <option (click)="material.tipoMaterial = tipoMaterial.id" *ngFor="let tipoMaterial of tiposMaterial" [value]="tipoMaterial.id"> {{ tipoMaterial.nombre }}
               </option>
 
             </select>
@@ -66,7 +71,7 @@
         </div>
         <div class="form-group row">
           <label class="col-md-3 col-form-label font-weight-bold">Material</label>
-          <textarea minlength="1" maxlength="100" required id="textarea-input" name="nombre" rows="3" class="form-control col-md-8"
+          <textarea minlength="1" required id="textarea-input" name="nombre" rows="3" class="form-control col-md-8"
             [(ngModel)]="material.nombre" placeholder="Contenido"></textarea>
         </div>
         <div class="form-group row">
