@@ -4,6 +4,7 @@ import { Asignatura } from '../../entidades/asignatura';
 import { Silabo } from '../../entidades/silabo';
 import { GlobalConstants } from '../../common/global-constants';
 import { Location } from '@angular/common';
+import { GlobalConstantsService } from '../../global-constants.service';
 
 
 @Component({
@@ -25,7 +26,7 @@ export class CrearSilaboComponent implements OnInit {
   isCollapsed3: boolean = true;
   isCollapsed4: boolean = true;
 
-  idSilaboActual: number = GlobalConstants.silaboActual;
+  idSilaboActual: number = GlobalConstantsService.silaboActual;
 
   constructor(
     public silaboService: SilaboServiceService,
@@ -82,8 +83,10 @@ export class CrearSilaboComponent implements OnInit {
       });
   }
 
-  seleccionarSilabo(silabo: Silabo): void {
-    this.silabo = silabo;
+  seleccionarSilabo(silabo: any): void {
+
+    console.log(JSON.parse(silabo));
+    this.silabo = JSON.parse(silabo);
     this.silaboService.silaboActual = this.silabo;
   }
 
@@ -91,7 +94,7 @@ export class CrearSilaboComponent implements OnInit {
     console.log(this.silabo);
     if (this.silabo) {
       this.idSilaboActual = this.silabo.id;
-      GlobalConstants.silaboActual = this.silabo.id;
+      GlobalConstantsService.silaboActual = this.silabo.id;
       // this.getAsignatura(this.silabo.asignaturaId);
       this.idSeleccionado =  this.silabo.asignaturaId;
     }
@@ -150,7 +153,7 @@ export class CrearSilaboComponent implements OnInit {
           });
           console.log(res);
           this.idSilaboActual = res.id;
-          GlobalConstants.silaboActual = res.id;
+          GlobalConstantsService.silaboActual = res.id;
           this.getSilabos(res);
         },
         err => console.log(err)
@@ -166,8 +169,10 @@ export class CrearSilaboComponent implements OnInit {
       );
   }
 
-  onSelect(asignatura: Asignatura): void {
-    this.idSeleccionado = asignatura.id;
+  onSelect(asignatura: any): void {
+    //
+    const asignaturaParsed = JSON.parse(asignatura);
+    this.idSeleccionado = asignaturaParsed.id;
     this.getAsignatura(this.idSeleccionado);
     // this.getCorrequisitos(this.idSeleccionado);
   }

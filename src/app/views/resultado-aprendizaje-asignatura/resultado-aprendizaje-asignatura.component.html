@@ -67,9 +67,9 @@
                                         class="badge badge-pill badge-danger">&times;
                                     </button>
                                 </button>
-                                <select [(ngModel)]="resultado.contribucion" class="form-control mb-2">
+                                <select (change)=" resultadoActual = resultado; actualizarResultado(resultado.id);" [(ngModel)]="resultado.contribucion" class="form-control mb-2">
                                     <option class ="font-weight-bold">Seleccione Contribucion</option>
-                                    <option *ngFor="let contribucion of contribuciones" [value]="contribucion" (click)=" resultadoActual = resultado; actualizarResultado(resultado.id);">{{contribucion}}</option>
+                                    <option *ngFor="let contribucion of contribuciones" [value]="contribucion" >{{contribucion}}</option>
                                 </select>
                             </div>
                             

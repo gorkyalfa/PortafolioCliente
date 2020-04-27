@@ -17,6 +17,7 @@ import { Contenido } from '../../../entidades/contenido';
 import { Material } from '../../../entidades/material';
 import { TipoMaterial } from '../../../entidades/tipoMaterial';
 import { EstrategiaMetodologica } from '../../../entidades/estrategiaMetodologica';
+import { GlobalConstantsService } from '../../../global-constants.service';
 
 @Component({
   selector: 'app-ver-silabo',
@@ -37,7 +38,7 @@ export class VerSilaboComponent implements OnInit {
   esSubProceso: any = null;
   evidencia: Evidencia;
   resultadoActual: ResultadoAprendizaje;
-  actualSilaboId: number = GlobalConstants.silaboActual;
+  actualSilaboId: number = GlobalConstantsService.silaboActual;
   materiales: Material[];
   tiposMaterial: TipoMaterial[];
   estrategias: EstrategiaMetodologica[];
@@ -76,7 +77,7 @@ export class VerSilaboComponent implements OnInit {
   // RESULTADOS APRENDIZAJE
   getProcesos() {
     this.spinner.show();
-    this.resultadosService.getProcesos(GlobalConstants.silaboActual)
+    this.resultadosService.getProcesos(GlobalConstantsService.silaboActual)
       .subscribe(
         (data) => {
           this.datos = data;
@@ -264,7 +265,7 @@ export class VerSilaboComponent implements OnInit {
 
   getMateriales(): void {
     this.spinner.show();
-    this.recursosService.getMateriales(GlobalConstants.silaboActual)
+    this.recursosService.getMateriales(GlobalConstantsService.silaboActual)
       .subscribe(
         materiales => {
           this.materiales = materiales;
@@ -278,7 +279,7 @@ export class VerSilaboComponent implements OnInit {
 
   getEstrategias(): void {
     this.spinner.show();
-    this.recursosService.getEstrategiasMetodologicas(GlobalConstants.silaboActual)
+    this.recursosService.getEstrategiasMetodologicas(GlobalConstantsService.silaboActual)
       .subscribe(
         estrategias => {
           this.estrategias = estrategias;

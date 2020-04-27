@@ -8,6 +8,7 @@ import { AlertConfig } from 'ngx-bootstrap/alert';
 import { TreeComponent, TreeModel, TreeNode } from 'angular-tree-component';
 import { ModalDirective } from 'ngx-bootstrap/modal';
 import { GlobalConstants } from '../../common/global-constants';
+import { GlobalConstantsService } from '../../global-constants.service';
 
 export function getAlertConfig(): AlertConfig {
   return Object.assign(new AlertConfig(), { type: 'success' });
@@ -68,7 +69,7 @@ export class ResultadoAprendizajeAsignaturaComponent implements OnInit {
   ngOnInit(): void {
     this.getProcesos();
     console.log(this.contribuciones);
-    console.log(GlobalConstants.silaboActual);
+    console.log(GlobalConstantsService.silaboActual);
   }
 
   mostrarNotif(mensaje: string, error: boolean): void {
@@ -83,7 +84,7 @@ export class ResultadoAprendizajeAsignaturaComponent implements OnInit {
   // Metodos de proceso
   getProcesos() {
     this.spinner.show();
-    this._servicio.getProcesos(GlobalConstants.silaboActual)
+    this._servicio.getProcesos(GlobalConstantsService.silaboActual)
       .subscribe(
         (data) => {
           this.datos = data;
@@ -117,7 +118,7 @@ export class ResultadoAprendizajeAsignaturaComponent implements OnInit {
   crearRaiz() {
     this.spinner.show();
     this._servicio.createProceso({...this.proceso,
-      silaboId: GlobalConstants.silaboActual})
+      silaboId: GlobalConstantsService.silaboActual})
       .subscribe(
         res => {
           this.getProcesos();

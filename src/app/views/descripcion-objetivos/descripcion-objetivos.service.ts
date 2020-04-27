@@ -3,6 +3,7 @@ import { Observable, of } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { Descripcion } from '../../entidades/descripcion';
 import { Silabo } from '../../entidades/silabo';
+import { GlobalConstants } from '../../common/global-constants';
 
 
 @Injectable({
@@ -12,7 +13,7 @@ export class DescripcionObjetivosService {
 
   constructor(private http: HttpClient) { }
 
-  BASE_URL: string = 'http://localhost:3000';
+  BASE_URL: string = GlobalConstants.apiURL;
 
   getDescripcion(id: number): Observable<Descripcion> {
     const url = `${this.BASE_URL}/${id}`;

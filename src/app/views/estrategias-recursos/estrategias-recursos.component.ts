@@ -7,6 +7,7 @@ import { Finalidad } from '../../entidades/finalidad';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { AlertConfig } from 'ngx-bootstrap/alert';
 import { GlobalConstants } from '../../common/global-constants';
+import { GlobalConstantsService } from '../../global-constants.service';
 
 export function getAlertConfig(): AlertConfig {
   return Object.assign(new AlertConfig(), { type: 'success' });
@@ -23,13 +24,13 @@ export class EstrategiasRecursosComponent implements OnInit {
   material: Material = {
     nombre: '',
     descripcion: '',
-    silabo: GlobalConstants.silaboActual
+    silabo: GlobalConstantsService.silaboActual
   };
 
   estrategiaMetodologica: EstrategiaMetodologica = {
     nombre: '',
     finalidad: '',
-    silabo: GlobalConstants.silaboActual
+    silabo: GlobalConstantsService.silaboActual
   };
 
   materiales: Material[];
@@ -95,7 +96,7 @@ export class EstrategiasRecursosComponent implements OnInit {
   // Metodos de materiales
   crearMaterial(): void {
     this.spinner.show();
-    this.estrategiaservicio.createMaterial({...this.material, silabo: GlobalConstants.silaboActual})
+    this.estrategiaservicio.createMaterial({...this.material, silabo: GlobalConstantsService.silaboActual})
       .subscribe(
         res => {
           this.limpiarMaterial();
@@ -124,7 +125,7 @@ export class EstrategiasRecursosComponent implements OnInit {
 
   getMateriales(): void {
     this.spinner.show();
-    this.estrategiaservicio.getMateriales(GlobalConstants.silaboActual)
+    this.estrategiaservicio.getMateriales(GlobalConstantsService.silaboActual)
       .subscribe(
         materiales => {
           this.materiales = materiales;
@@ -208,7 +209,7 @@ export class EstrategiasRecursosComponent implements OnInit {
 
   // crearFinalidad(): void {
   //   this.spinner.show();
-  //   this.estrategiaservicio.createFinalidad({...this.finalidad, silabo: GlobalConstants.silaboActual})
+  //   this.estrategiaservicio.createFinalidad({...this.finalidad, silabo: GlobalConstantsService.silaboActual})
   //     .subscribe(
   //       res => {
   //         this.limpiarFinalidad();
@@ -301,7 +302,7 @@ export class EstrategiasRecursosComponent implements OnInit {
 
   getEstrategias(): void {
     this.spinner.show();
-    this.estrategiaservicio.getEstrategiasMetodologicas(GlobalConstants.silaboActual)
+    this.estrategiaservicio.getEstrategiasMetodologicas(GlobalConstantsService.silaboActual)
       .subscribe(
         estrategias => {
           this.estrategias = estrategias;
@@ -321,6 +322,7 @@ export class EstrategiasRecursosComponent implements OnInit {
       .subscribe(
         res => {
           this.spinner.hide();
+          this.limpiarEstrategia();
           this.mostrarNotif('Estrategia actualizada exitosamente.', false);
         },
         err => {
@@ -340,7 +342,7 @@ export class EstrategiasRecursosComponent implements OnInit {
     this.estrategiaMetodologica = {
       nombre: '',
       finalidad: '',
-      silabo: GlobalConstants.silaboActual
+      silabo: GlobalConstantsService.silaboActual
     };
   }
 

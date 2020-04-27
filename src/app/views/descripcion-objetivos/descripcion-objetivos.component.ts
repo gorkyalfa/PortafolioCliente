@@ -6,6 +6,7 @@ import { Silabo } from '../../entidades/silabo';
 import { CrearSilaboComponent } from '../crear-silabo/crear-silabo.component';
 import { GlobalConstants } from '../../common/global-constants';
 import { Location } from '@angular/common';
+import { GlobalConstantsService } from '../../global-constants.service';
 
 @Component({
   selector: 'app-descripcion-objetivos',
@@ -26,13 +27,13 @@ export class DescripcionObjetivosComponent implements OnInit {
 
   ngOnInit() {
     this.verificar();
-    this.getDescripcionSilabo(GlobalConstants.silaboActual);
+    this.getDescripcionSilabo(GlobalConstantsService.silaboActual);
     // this.getDescripciones();
   }
 
   verificar() {
-    console.log(GlobalConstants.silaboActual);
-    if (!GlobalConstants.silaboActual) {
+    console.log(GlobalConstantsService.silaboActual);
+    if (!GlobalConstantsService.silaboActual) {
       this.location.back();
     }
   }
@@ -79,7 +80,7 @@ export class DescripcionObjetivosComponent implements OnInit {
 
   actualizarDescpripcionSilabo() {
     console.log(this.silabo);
-    this.descripcionObjetivosService.updateDescripcionSilabo(this.silabo, GlobalConstants.silaboActual)
+    this.descripcionObjetivosService.updateDescripcionSilabo(this.silabo, GlobalConstantsService.silaboActual)
       .subscribe(res => {
         console.log(res);
       });

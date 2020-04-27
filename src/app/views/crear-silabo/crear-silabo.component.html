@@ -52,9 +52,9 @@
                           <div class="form-group row">
                             <label class="col-md-3 col-form-label font-weight-bold" for="name">Asignatura</label>
                             <div class="col-md-9">
-                              <select class="form-control">
-                                <option class ="font-weight-bold">Seleccione Asignatura</option>
-                                <option *ngFor="let asignatura of asignaturas" [value]="asignatura.id" (click)="onSelect(asignatura)">{{asignatura.nombre}}</option>
+                              <select #asignaturaCompleto (change)="onSelect(asignaturaCompleto.value)" class="form-control">
+                                <option [value]="null" disabled class ="font-weight-bold">Seleccione Asignatura</option>
+                                <option *ngFor="let asignatura of asignaturas" [value]="asignatura | json" >{{asignatura.nombre}}</option>
                               </select>
                             </div>
                           </div>  
@@ -108,9 +108,9 @@
             <div class="form-group row">
               <label class="col-md-3 col-form-label font-weight-bold" for="anteriores">Anteriores</label>
               <div class="col-md-9">
-                <select class="form-control" >
-                  <option class ="font-weight-bold">Seleccione Silabo</option>
-                  <option *ngFor="let silabo of silabos" name="silabo" [value]="silabo" (click)="seleccionarSilabo(silabo)" >{{silabo.nombre}}</option>
+                <select #silaboCompleto (change)="seleccionarSilabo(silaboCompleto.value)" class="form-control" >
+                  <option class="font-weight-bold" value="null" disabled>Seleccione Silabo</option>
+                  <option *ngFor="let silabo of silabos" [value]="silabo | json"  >{{silabo.nombre}}</option>
                 </select>
               </div>
             </div>
@@ -257,70 +257,70 @@
           <div class="form-group row justify-content-center">
             <label class="col-md-3 col-form-label" for="text-input">Codigo</label>
             <div class="col-md-4">
-              <input type="text" required id="text-input" [(ngModel)]="silabo.codigo" name="text-input" class="form-control" readonly>
+              <input type="text" [(ngModel)]="silabo.codigo" name="codigo" class="form-control" readonly>
             </div>
           </div>
         
           <div class="form-group row justify-content-center">
             <label class="col-md-3 col-form-label" for="text-input">Período lectivo</label>
             <div class="col-md-4">
-              <input type="text" required id="text-input" [(ngModel)]="silabo.periodoLectivo" name="text-input" class="form-control" >
+              <input type="text" [(ngModel)]="silabo.periodoLectivo" name="peridolect" class="form-control" >
             </div>
           </div>
         
           <div class="form-group row justify-content-center">
             <label class="col-md-3 col-form-label" for="text-input">Unidad de organización curricular</label>
             <div class="col-md-4">
-              <input type="text" required id="text-input" [(ngModel)]="silabo.unidadOrganizacionCurricular" name="text-input" class="form-control" readonly>
+              <input type="text" [(ngModel)]="silabo.unidadOrganizacionCurricular" name="organizacional" class="form-control" readonly>
             </div>
           </div>
         
           <div class="form-group row justify-content-center">
             <label class="col-md-3 col-form-label" for="text-input">Campo de formación:</label>
             <div class="col-md-4">
-              <input type="text" required id="text-input" [(ngModel)]="silabo.campoFormacion" name="text-input" class="form-control" readonly>
+              <input type="text" [(ngModel)]="silabo.campoFormacion" name="text-input" class="form-control" readonly>
             </div>
           </div>
 
           <div class="form-group row justify-content-center">
             <label class="col-md-3 col-form-label" for="text-input">Carrera</label>
             <div class="col-md-4">
-              <input type="text" required id="text-input" [(ngModel)]="silabo.carrera.nombre" name="text-input" class="form-control" readonly>
+              <input type="text" [(ngModel)]="silabo.carrera.nombre" name="carrera" class="form-control" readonly>
             </div>
           </div>
         
           <div class="form-group row justify-content-center">
             <label class="col-md-3 col-form-label" for="text-input">Período Académico</label>
             <div class="col-md-4">
-              <input type="text" required id="text-input" [(ngModel)]="silabo.periodoAcademico.nombre" name="text-input" class="form-control" readonly>
+              <input type="text" [(ngModel)]="silabo.periodoAcademico.nombre" name="academico" class="form-control" readonly>
             </div>
           </div>
 
           <div class="form-group row justify-content-center">
             <label class="col-md-3 col-form-label" for="text-input">Horas de docencia:</label>
             <div class="col-md-4">
-              <input type="text" required id="text-input" [(ngModel)]="silabo.totalHorasDocencia" name="text-input" class="form-control" readonly>
+              <input type="text" [(ngModel)]="silabo.totalHorasDocencia" name="horadoc" class="form-control" readonly>
             </div>
           </div>
         
           <div class="form-group row justify-content-center">
             <label class="col-md-3 col-form-label" for="text-input">Horas de trabajo autónomo:</label>
             <div class="col-md-4">
-              <input type="text" required id="text-input" [(ngModel)]="silabo.totalHorasAutonomas" name="text-input" class="form-control" readonly>
+              <input type="text" [(ngModel)]="silabo.totalHorasAutonomas" name="horasAuto" class="form-control" readonly>
             </div>
           </div>
         
           <div class="form-group row justify-content-center">
             <label class="col-md-3 col-form-label" for="text-input">Horas de prácticas de aprendizaje:</label>
             <div class="col-md-4">
-              <input type="text" required id="text-input" [(ngModel)]="silabo.totalHorasPracticasAprendizaje" name="text-input" class="form-control" readonly>
+              <input type="text" [(ngModel)]="silabo.totalHorasPracticasAprendizaje" name="practicapr" class="form-control" readonly>
             </div>
           </div>
         
           <div class="form-group row justify-content-center">
             <label class="col-md-3 col-form-label" for="text-input">N° total de horas:</label>
             <div class="col-md-4">
-              <input type="text" required id="text-input" [(ngModel)]="silabo.numeroTotalHoras" name="text-input" class="form-control" readonly>
+              <input type="text" [(ngModel)]="silabo.numeroTotalHoras" name="totalhoras" class="form-control" readonly>
             </div>
           </div>
           </div>
@@ -328,7 +328,7 @@
           <div class="form-group row justify-content-center">
             <label class="col-md-3 col-form-label" for="text-input">Observaciones</label>
             <div class="col-md-4">
-              <input type="text" required id="text-input" [(ngModel)]="silabo.observacion" name="text-input" class="form-control" >
+              <input type="text" [(ngModel)]="silabo.observacion" name="observacion" class="form-control" >
             </div>
           </div>
 

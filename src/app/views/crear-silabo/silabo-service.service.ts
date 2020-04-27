@@ -3,12 +3,13 @@ import { Asignatura } from '../../entidades/asignatura';
 import { Observable, of } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { Silabo } from '../../entidades/silabo';
+import { GlobalConstants } from '../../common/global-constants';
 
 @Injectable({
   providedIn: 'root'
 })
 export class SilaboServiceService {
-  BASE_URL: string = 'http://localhost:3000';
+  BASE_URL: string = GlobalConstants.apiURL;
   viendoSilabo: boolean = false;
   silaboActual: Silabo;
 

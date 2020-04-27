@@ -62,7 +62,7 @@
           <div>
             <select [(ngModel)]="verNombreTipoMaterial() ? verNombreTipoMaterial() : material.tipoMaterial" *ngIf="tiposMaterial" class="form-control"
                name="tipoMaterial">
-               <option class ="font-weight-bold">Seleccione Tipo de Material</option>
+               <option [value]="null" disabled class ="font-weight-bold">Seleccione Tipo de Material</option>
               <option (click)="material.tipoMaterial = tipoMaterial.id" *ngFor="let tipoMaterial of tiposMaterial" [value]="tipoMaterial.id"> {{ tipoMaterial.nombre }}
               </option>
 
