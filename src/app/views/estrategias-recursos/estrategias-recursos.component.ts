@@ -323,6 +323,7 @@ export class EstrategiasRecursosComponent implements OnInit {
         res => {
           this.spinner.hide();
           this.limpiarEstrategia();
+          this.editando = false;
           this.mostrarNotif('Estrategia actualizada exitosamente.', false);
         },
         err => {
