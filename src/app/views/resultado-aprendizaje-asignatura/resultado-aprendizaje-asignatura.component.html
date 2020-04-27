@@ -29,15 +29,15 @@
   
 <div class="outerCont">
     <div class="floatRight">
-<div class="posicion">
-    <div *ngFor="let alert of alertas" class="row">
-        <alert class="col align-self-end" *ngIf="!alert.error" type="success" [dismissOnTimeout]="alert.timeout">
-            {{ alert.msg }}</alert>
-        <alert class="col align-self-end" *ngIf="alert.error" type="danger" [dismissOnTimeout]="alert.timeout">
-            {{ alert.msg }}</alert>
+    <div class="posicion">
+        <div *ngFor="let alert of alertas" class="row">
+            <alert class="col align-self-end" *ngIf="!alert.error" type="success" [dismissOnTimeout]="alert.timeout">
+                {{ alert.msg }}</alert>
+            <alert class="col align-self-end" *ngIf="alert.error" type="danger" [dismissOnTimeout]="alert.timeout">
+                {{ alert.msg }}</alert>
+        </div>
     </div>
-</div>
-</div>
+    </div>
 </div>
 <div class="row">
     <div class="card col-md-12 col-sm-12">
@@ -63,7 +63,7 @@
                             <div *ngFor="let resultado of resultados">
                                 <button (click)="getEvidencia(resultado.evidenciaId)" class="list-group-item list-group-item-action" > {{resultado.nombre}}    
                                     &nbsp;
-                                    <button (click)="removeResultado(resultado.id)"
+                                    <button (click)="removeResultado(resultado.id, resultado.evidenciaId)"
                                         class="badge badge-pill badge-danger">&times;
                                     </button>
                                 </button>

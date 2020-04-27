@@ -50,6 +50,7 @@ export class EstrategiasRecursosComponent implements OnInit {
   ngOnInit(): void {
     this.getTiposMaterial();
     this.getMateriales();
+    this.getEstrategias();
   }
 
   mostrarNotif(mensaje: string, error: boolean): void {

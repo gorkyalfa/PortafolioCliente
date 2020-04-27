@@ -2,7 +2,7 @@ import { Semana } from './semana';
 
 export class Unidad {
     id?: number;
-    semana?: Semana[];
+    semanas?: Semana[];
     nombre?: string;
     horasTotales?: number;
     contenidoId?: number;

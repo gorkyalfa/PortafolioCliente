@@ -9,6 +9,8 @@ import { Silabo } from '../../entidades/silabo';
 })
 export class SilaboServiceService {
   BASE_URL: string = 'http://localhost:3000';
+  viendoSilabo: boolean = false;
+  silaboActual: Silabo;
 
   constructor(private http: HttpClient) {}
 
@@ -20,12 +22,20 @@ export class SilaboServiceService {
     return this.http.get<Asignatura>(`${this.BASE_URL}/asignaturas/${id}/completo`);
   }
 
-  getCorrequisitos(asignatura: Asignatura): Observable<Asignatura> {
-    return this.http.get<Asignatura>(`${this.BASE_URL}/requisitos/co/${asignatura.id}/asignatura/`);
+  getCorrequisitos(asignatura: Asignatura): Observable<Asignatura[]> {
+    return this.http.get<Asignatura[]>(`${this.BASE_URL}/requisitos/co/${asignatura.id}/asignatura/`);
   }
 
-  getPrerequisitos(asignatura: Asignatura): Observable<Asignatura> {
-    return this.http.get<Asignatura>(`${this.BASE_URL}/requisitos/pre/${asignatura.id}/asignatura/`);
+  getPrerequisitos(asignatura: Asignatura): Observable<Asignatura[]> {
+    return this.http.get<Asignatura[]>(`${this.BASE_URL}/requisitos/pre/${asignatura.id}/asignatura/`);
+  }
+
+  getCorrequisitosSilabo(id: number): Observable<Asignatura[]> {
+    return this.http.get<Asignatura[]>(`${this.BASE_URL}/requisitos/co/${id}/silabo/`);
+  }
+
+  getPrerequisitosSilabo(id: number): Observable<Asignatura[]> {
+    return this.http.get<Asignatura[]>(`${this.BASE_URL}/requisitos/pre/${id}/silabo/`);
   }
 
   updateSilabo(silabo: Silabo, id: number): Observable<Silabo> {
@@ -38,6 +48,10 @@ export class SilaboServiceService {
 
   getSilabos(): Observable<Silabo[]> {
     return this.http.get<Silabo[]>(`${this.BASE_URL}/silabos/completo`);
+  }
+
+  crearRequisito(requisito: any): Observable<any> {
+    return this.http.post<any>(`${this.BASE_URL}/requisitos/`, requisito);
   }
 
   /*sgetSilaboAsignaturas(): Observable<Silabo[]> {

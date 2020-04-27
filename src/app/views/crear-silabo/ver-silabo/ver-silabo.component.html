@@ -1,1 +1,428 @@
-<p>ver-silabo works!</p>
+<div class="row">
+    <div class="align-self-center col-md-2 my-3">
+        <button (click)="this.silaboService.viendoSilabo = false" class="btn btn-info">
+            Volver
+        </button>
+    </div>
+</div>
+
+<!-- TODA LA INFORMACION DEL SILABO NADA EDITABLE -->
+
+
+<div *ngIf="silabo" class="card">
+    <div class="card-header">
+      <h5>
+        <button class="btn btn-info mx-2" (click)="isCollapsed = !isCollapsed" type="button" >
+          {{ isCollapsed ? 'Mostrar' : 'Ocultar' }}
+        </button>
+        Información Sílabo
+      </h5>
+    </div>
+    <div class="card-body" [collapse]="isCollapsed">
+
+      <div class="container" *ngIf="silabo">
+        <div class="form-group row justify-content-center">
+          <label class="col-md-3 col-form-label" for="text-input">Codigo</label>
+          <div class="col-md-4">
+            <input type="text" required id="text-input" [(ngModel)]="silabo.codigo" name="text-input" class="form-control" readonly>
+          </div>
+        </div>
+      
+        <div class="form-group row justify-content-center">
+          <label class="col-md-3 col-form-label" for="text-input">Período lectivo</label>
+          <div class="col-md-4">
+            <input type="text" required id="text-input" [(ngModel)]="silabo.periodoLectivo" name="text-input" class="form-control" readonly>
+          </div>
+        </div>
+      
+        <div class="form-group row justify-content-center">
+          <label class="col-md-3 col-form-label" for="text-input">Unidad de organización curricular</label>
+          <div class="col-md-4">
+            <input type="text" required id="text-input" [(ngModel)]="silabo.unidadOrganizacionCurricular" name="text-input" class="form-control" readonly>
+          </div>
+        </div>
+      
+        <div class="form-group row justify-content-center">
+          <label class="col-md-3 col-form-label" for="text-input">Campo de formación:</label>
+          <div class="col-md-4">
+            <input type="text" required id="text-input" [(ngModel)]="silabo.campoFormacion" name="text-input" class="form-control" readonly>
+          </div>
+        </div>
+
+        <div class="form-group row justify-content-center">
+          <label class="col-md-3 col-form-label" for="text-input">Carrera</label>
+          <div class="col-md-4">
+            <input type="text" required id="text-input" [(ngModel)]="silabo.carrera.nombre" name="text-input" class="form-control" readonly>
+          </div>
+        </div>
+      
+        <div class="form-group row justify-content-center">
+          <label class="col-md-3 col-form-label" for="text-input">Período Académico</label>
+          <div class="col-md-4">
+            <input type="text" required id="text-input" [(ngModel)]="silabo.periodoAcademico.nombre" name="text-input" class="form-control" readonly>
+          </div>
+        </div>
+
+        <div class="form-group row justify-content-center">
+          <label class="col-md-3 col-form-label" for="text-input">Horas de docencia:</label>
+          <div class="col-md-4">
+            <input type="text" required id="text-input" [(ngModel)]="silabo.totalHorasDocencia" name="text-input" class="form-control" readonly>
+          </div>
+        </div>
+      
+        <div class="form-group row justify-content-center">
+          <label class="col-md-3 col-form-label" for="text-input">Horas de trabajo autónomo:</label>
+          <div class="col-md-4">
+            <input type="text" required id="text-input" [(ngModel)]="silabo.totalHorasAutonomas" name="text-input" class="form-control" readonly>
+          </div>
+        </div>
+      
+        <div class="form-group row justify-content-center">
+          <label class="col-md-3 col-form-label" for="text-input">Horas de prácticas de aprendizaje:</label>
+          <div class="col-md-4">
+            <input type="text" required id="text-input" [(ngModel)]="silabo.totalHorasPracticasAprendizaje" name="text-input" class="form-control" readonly>
+          </div>
+        </div>
+      
+        <div class="form-group row justify-content-center">
+          <label class="col-md-3 col-form-label" for="text-input">N° total de horas:</label>
+          <div class="col-md-4">
+            <input type="text" required id="text-input" [(ngModel)]="silabo.numeroTotalHoras" name="text-input" class="form-control" readonly>
+          </div>
+        </div>
+        </div>
+
+        <div class="form-group row justify-content-center">
+          <label class="col-md-3 col-form-label" for="text-input">Observaciones</label>
+          <div class="col-md-4">
+            <input type="text" required *ngIf="silabo.observacion" id="text-input" [(ngModel)]="silabo.observacion" name="text-input" class="form-control" readonly>
+          </div>
+        </div>
+
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header">
+      <h5>
+        <button class="btn btn-info mx-2" (click)="isCollapsed7 = !isCollapsed7" type="button" >
+          {{ isCollapsed7 ? 'Mostrar' : 'Ocultar' }}
+        </button>
+        Prerequisitos / Correquisitos
+      </h5>
+    </div>
+    <div class="card-body" [collapse]="isCollapsed7">
+
+      <div class="row" >
+        <!--/.col-->
+          <div class="card border-success col-md-5 mx-3" >
+            <div class="card-header">
+              <strong>Prerrequisitos de la Asignatura</strong>
+            </div>
+            <div class="card-body">
+              <table class="table table-sm" >
+                <thead>
+                  <tr>
+                    <th>ID</th>
+                    <th>Nombre</th>
+                    <th>Codigo</th>
+                  </tr>
+                </thead>    
+                <tbody *ngIf="silabo.prerrequisitos" >
+                  <tr *ngFor="let pre of silabo.prerrequisitos">
+                    <td>{{ pre.id }}</td>
+                    <td>{{ pre.nombre }}</td>
+                    <td>{{ pre.codigo }}</td>
+                  </tr>
+                </tbody>
+              </table>           
+            </div>
+          </div>
+          <div class="card border-success col-md-6 ">
+            <div class="card-header">
+              <strong>Correquisitos de la Asignatura</strong>
+            </div>
+            <div class="card-body">
+              <table table class="table table-sm" >
+                <thead>
+                  <tr>
+                    <th>ID</th>
+                    <th>Nombre</th>
+                    <th>Codigo</th>
+                  </tr>
+                </thead>
+                <tbody *ngIf="silabo.correquisitos">
+                  <tr *ngFor="let cor of silabo.correquisitos" >
+                    <td>{{ cor.id }}</td>
+                    <td>{{ cor.nombre }}</td>
+                    <td>{{ cor.codigo }}</td>
+                  </tr>
+                </tbody>
+              </table>      
+            </div>
+          </div>
+        </div>
+      
+    </div>
+  </div>
+
+  <div *ngIf="silabo" class="card">
+    <div class="card-header">
+      <h5>
+        <button class="btn btn-info mx-2" (click)="isCollapsed2 = !isCollapsed2" type="button" >
+          {{ isCollapsed2 ? 'Mostrar' : 'Ocultar' }}
+        </button>
+        Descripción
+      </h5>
+    </div>
+    <div class="card-body" [collapse]="isCollapsed2">
+      <div class="form-group row">
+        <div class="col-md-9">
+          <textarea readonly *ngIf="silabo" id="textarea-input" [(ngModel)]="silabo.descripcionAsignatura" name="descripcionAsignatura" rows="5" class="form-control" placeholder="Contenido..">
+          </textarea>
+  
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="silabo" class="card">
+    <div class="card-header">
+      <h5>
+        <button class="btn btn-info mx-2" (click)="isCollapsed3 = !isCollapsed3" type="button" >
+          {{ isCollapsed3 ? 'Mostrar' : 'Ocultar' }}
+        </button>
+        Objetivos
+      </h5>
+    </div>
+    <div class="card-body" [collapse]="isCollapsed3">
+      <div class="form-group row">
+        <div class="col-md-9">
+          <textarea *ngIf="silabo" readonly id="textarea-input" [(ngModel)]="silabo.objetivoAsignatura" name="objetivoAsignatura" rows="3" class="form-control">          
+          </textarea>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <div *ngIf="silabo" class="card">
+    <div class="card-header">
+      <h5>
+        <button class="btn btn-info mx-2" (click)="isCollapsed4 = !isCollapsed4" type="button" >
+          {{ isCollapsed4 ? 'Mostrar' : 'Ocultar' }}
+        </button>
+        Resultados de Aprendizaje de la Asignatura
+      </h5>
+    </div>
+    <div class="card-body" [collapse]="isCollapsed4">
+    <div class="col-12">
+        <div class="row">
+            <div class="tree col-8">
+                <tree-root #arbol (activate)="seleccionarNodo($event)"
+                    [nodes]="datos" [options]="options">
+                    <ng-template #treeNodeTemplate let-node let-index="index">
+                        <span>{{ node.data.nombre }}</span>
+                    </ng-template>
+                </tree-root>
+            </div>
+            <div *ngIf="esSubProceso > 1" class="col-md-4" >
+                <strong>
+                    <p>Resultados:</p>
+                </strong>
+                <div class="list-group" *ngIf="resultados">
+                    <div *ngFor="let resultado of resultados">
+                        <button (click)="getEvidencia(resultado.evidenciaId)" class="list-group-item list-group-item-action" > {{resultado.nombre}}    
+                        </button>
+                        <select readonly [(ngModel)]="resultado.contribucion" class="form-control mb-2">
+                            <option [value]="resultado.contribucion" >{{resultado.contribucion}}</option>
+                        </select>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+
+        <div>
+            <div *ngIf="evidencia">
+                <div class="col-md-12">
+                    <strong class="">
+                        <p>Evidencia</p>
+                    </strong>
+                    <textarea readonly [(ngModel)]="evidencia.nombre" id="textarea-input" name="textarea-input" rows="4"
+                        class="form-control" placeholder="contenido">{{evidencia.nombre}}</textarea>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+</div>
+
+<div *ngIf="silabo" class="card">
+  <div class="card-header">
+    <h5>
+      <button class="btn btn-info mx-2" (click)="isCollapsed5 = !isCollapsed5" type="button" >
+        {{ isCollapsed5 ? 'Mostrar' : 'Ocultar' }}
+      </button>
+        Contenidos de la Asignatura
+    </h5>
+  </div>
+  <div class="card-body" [collapse]="isCollapsed5">
+
+    <div *ngIf="unidades">
+      <div class="row" *ngFor="let unidad of unidades">
+          <div class="col-12">
+              <div class="card">
+                  <div class="card-header">
+                      <strong>Unidad {{ obtenerIndiceUnidad(unidad) }}</strong> {{unidad.nombre}}
+                      
+                  </div>
+                  <div class="card-body">
+                    <table *ngIf="unidad.semanas" class="table table-striped table-responsive">
+                      <tr>    
+                          <th>
+                              # Semana
+                          </th>
+                          <th>
+                              Contenido
+                          </th>
+                          <th>
+                              Actividad Docencia
+                          </th>
+                          <th>
+                              Horas
+                          </th>
+                          <th>
+                              Trabajo Practico
+                          </th>
+                          <th>
+                              Horas
+                          </th>
+                          <th>
+                              Trabajo Autonomo
+                          </th>
+                          <th>
+                              Horas
+                          </th>
+                          <th>
+                              Observaciones
+                          </th>
+                      </tr>
+                      <tr *ngFor="let semana of unidad.semanas">
+                          <td>
+                              {{ semana.semanaNumero }}
+                          </td>
+                          <td>
+                              {{ semana.contenido }}
+                          </td>
+                          <td>
+                              {{ semana.actividadDocencia }}
+                          </td>
+                          <td>
+                              {{ semana.horasActividadDocencia }}
+                          </td>
+                          <td>
+                              {{ semana.trabajoPractico }}
+                          </td>
+                          <td>
+                              {{ semana.horasTrabajoPractico }}
+                          </td>
+                          <td>
+                              {{ semana.trabajoAutonomo }}
+                          </td>
+                          <td>
+                              {{ semana.horasTrabajoAutonomo }}
+                          </td>
+                          <td>
+                              {{ semana.observacion }}
+                             
+                          </td>
+                         
+                      </tr>
+                      <tr *ngIf="semanas">
+                          <td><strong>Total</strong></td>
+                          <td></td>
+                          <td></td>
+                          <td>{{ this.contarTotalHorasIndividual().horasDocente }}</td>
+                          <td></td>
+                          <td>{{ this.contarTotalHorasIndividual().horasPracticas }}</td>
+                          <td></td>
+                          <td>{{ this.contarTotalHorasIndividual().horasAutonomas }}</td>
+                          <td>{{ this.contarHorasTotales() }}</td>
+                      </tr>
+                  </table>
+                  </div>
+              </div>
+          </div>
+      </div>
+    </div>
+
+
+  </div>
+</div>
+
+
+<div *ngIf="silabo" class="card">
+  <div class="card-header">
+    <h5>
+      <button class="btn btn-info mx-2" (click)="isCollapsed6 = !isCollapsed6" type="button" >
+        {{ isCollapsed6 ? 'Mostrar' : 'Ocultar' }}
+      </button>
+        Estrategias y Recursos
+    </h5>
+  </div>
+  <div class="card-body" [collapse]="isCollapsed6">
+
+    <div class="card border-secondary">
+      <div class="card-header">Recursos Didacticos</div>
+      <div class="card-body">
+        <table class="table table-sm">
+          <thead>
+            <tr>
+              <th>Tipo de Material</th>
+              <th>Material</th>
+              <th>Descripcion</th>
+            </tr>
+          </thead>
+          <tbody *ngIf="materiales">
+            <tr *ngFor="let material of materiales">
+              <td *ngIf="material.tipoMaterial">{{mostrarNombreTipoMaterial(material.tipoMaterial)}}</td>
+              <td>{{material.nombre}}</td>
+              <td>{{material.descripcion}}</td>
+              
+            </tr>
+    
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+
+    <div class="card border-secondary">
+      <div class="card-header">Estrategias Metodologicas</div>
+      <div class="card-body">
+        <table class="table table-sm">
+          <thead>
+            <tr>
+              <th>Estrategia Metodológica</th>
+              <th>Finalidad</th>
+            </tr>
+          </thead>
+          <tbody>
+
+            <tr *ngFor="let estrategia of estrategias">
+              <td>{{estrategia.nombre}}</td>
+              <td>{{estrategia.finalidad}}</td>
+              
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+
+  </div>
+</div>
+<ngx-spinner></ngx-spinner>
+<!-- REUTILIZAR VISTAS PERO SIN CAPACIDAD DE EDICION Y CREACION DE DATOS -->

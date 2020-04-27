@@ -26,7 +26,7 @@
         </nav>
       </div>
           
-  <div *ngIf="!viendoSilabo" >
+  <div *ngIf="!this.silaboService.viendoSilabo" >
     <div class="container">
       <div class="row">
         <div class="col-md-12 mx-auto">
@@ -121,7 +121,7 @@
               </div>
               
               <div class="col-4 ml-2">
-                <button type="button" (click)="setActualSilabo(); viendoSilabo = true;" class="btn btn-success px-4">Ver Sílabo</button>
+                <button type="button" (click)="setActualSilabo(); this.silaboService.viendoSilabo = true;" class="btn btn-success px-4">Ver Sílabo</button>
               </div>
 
             </div>
@@ -410,4 +410,4 @@
   </div>
 </div>
 
-<app-ver-silabo *ngIf="viendoSilabo"></app-ver-silabo>
+<app-ver-silabo *ngIf="this.silaboService.viendoSilabo"></app-ver-silabo>

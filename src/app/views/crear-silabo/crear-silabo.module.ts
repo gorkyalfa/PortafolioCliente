@@ -9,6 +9,8 @@ import { DataTablesModule } from 'angular-datatables';
 import { TabsModule } from 'ngx-bootstrap/tabs';
 import { CollapseModule } from 'ngx-bootstrap/collapse';
 import { VerSilaboComponent } from './ver-silabo/ver-silabo.component';
+import { NgxSpinnerModule } from 'ngx-spinner';
+import { TreeModule } from 'angular-tree-component';
 
 @NgModule({
   imports: [
@@ -19,7 +21,9 @@ import { VerSilaboComponent } from './ver-silabo/ver-silabo.component';
     DataTablesModule,
     ButtonsModule.forRoot(),
     TabsModule,
-    CollapseModule
+    CollapseModule,
+    TreeModule.forRoot(),
+    NgxSpinnerModule,
   ],
   declarations: [ CrearSilaboComponent, VerSilaboComponent ]
 })

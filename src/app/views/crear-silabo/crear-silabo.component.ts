@@ -16,25 +16,24 @@ export class CrearSilaboComponent implements OnInit {
   descripcion: Silabo;
   silabos: Silabo[] = [];
   asignaturas: Asignatura[] = [];
-  correquisito: Asignatura;
-  prerequisito: Asignatura;
+  correquisito: any[];
+  prerequisito: any[];
   asignatura: Asignatura;
 
   isCollapsed: boolean = false;
   isCollapsed2: boolean = true;
   isCollapsed3: boolean = true;
   isCollapsed4: boolean = true;
-  viendoSilabo: boolean = false;
 
   idSilaboActual: number = GlobalConstants.silaboActual;
 
   constructor(
-    private silaboService: SilaboServiceService,
+    public silaboService: SilaboServiceService,
     private location: Location
   ) {}
 
   ngOnInit() {
-    this.getSilabos();
+    this.getSilabos(false);
     this.getAsignaturas();
     // this.getAsignatura(this.idSeleccionado);
     // this.getCorrequisitos(this.idSeleccionado);
@@ -42,11 +41,14 @@ export class CrearSilaboComponent implements OnInit {
     // this.getSilaboPrerrequisitos(this.idSeleccionado);
   }
 
-  getSilabos(): void {
+  getSilabos(creando: boolean | any): void {
     this.silaboService.getSilabos().subscribe(
       res => {
         console.log(res);
         this.silabos = res;
+        if (creando) {
+          this.silabo = this.silabos.find(silabo => silabo.id === creando.id);
+        }
       },
       err => console.log(err)
     );
@@ -82,6 +84,7 @@ export class CrearSilaboComponent implements OnInit {
 
   seleccionarSilabo(silabo: Silabo): void {
     this.silabo = silabo;
+    this.silaboService.silaboActual = this.silabo;
   }
 
   setActualSilabo(): void {
@@ -135,12 +138,31 @@ export class CrearSilaboComponent implements OnInit {
     this.silaboService.createSilabo(this.silabo)
       .subscribe(
         res => {
+          this.prerequisito.forEach( requisito => {
+            const { id, ...requi } = requisito;
+            requi.silaboPrerrequisito = res.id;
+            this.crearRequisito(requi);
+          });
+          this.correquisito.forEach( requisito => {
+            const { id, ...requi } = requisito;
+            requi.silaboCorrequisito = res.id;
+            this.crearRequisito(requi);
+          });
           console.log(res);
           this.idSilaboActual = res.id;
           GlobalConstants.silaboActual = res.id;
-          this.location.replaceState('/#descripcion-objetivos');
+          this.getSilabos(res);
         },
         err => console.log(err)
+      );
+  }
+
+  crearRequisito(requisito: any): void {
+    this.silaboService.crearRequisito(requisito)
+      .subscribe(
+        res => {
+          console.log(res);
+        }
       );
   }
 

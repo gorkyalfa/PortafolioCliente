@@ -21,4 +21,6 @@ export class Silabo {
     contenidoId: number;
     docenteId: number;
     observacion: string;
+    prerrequisitos: any;
+    correquisitos: any;
 }
